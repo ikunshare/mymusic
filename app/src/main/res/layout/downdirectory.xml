@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30.0dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48.0dip"
+                android:gravity="center_vertical"
+                android:text="下载目录设置"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/downdirectoryRelativeLayout3"
+                android:layout_width="35.0dip"
+                android:layout_height="35.0dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:background="@drawable/selector_btn_default">
+
+                <ImageView
+                    android:id="@id/settingtwoImageView1"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/left"
+                    android:text="Text" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="13.0dip"
+                android:background="#fff6f6f6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:gravity="center_vertical"
+                    android:text="文件设置"
+                    android:textSize="9.0sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/downdirectoryRelativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:id="@+id/downdirectoryCheckBox1"
+                    android:layout_width="18.0dip"
+                    android:layout_height="16.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/check"
+                    android:gravity="center"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toLeftOf="@id/downdirectoryCheckBox1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="15.0dip">
+
+                    <TextView
+                        android:id="@+id/downdirectoryTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="内部存储"
+                        android:textColor="#ff000000"
+                        android:textSize="12.0sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4.0dip"
+                        android:gravity="center"
+                        android:text="/内部存储/MusicDownloader/Music/"
+                        android:textColor="#ffb1b1b1"
+                        android:textSize="10.0sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/downdirectoryView1"
+                android:layout_width="fill_parent"
+                android:layout_height="0.20000005dip"
+                android:background="#ffededed" />
+
+            <RelativeLayout
+                android:id="@+id/downdirectoryRelativeLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:id="@+id/downdirectoryCheckBox2"
+                    android:layout_width="18.0dip"
+                    android:layout_height="16.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/check"
+                    android:gravity="center"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toLeftOf="@id/downdirectoryCheckBox2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="15.0dip">
+
+                    <TextView
+                        android:id="@+id/downdirectoryTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="外置SD卡"
+                        android:textColor="#ff000000"
+                        android:textSize="12.0sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4.0dip"
+                        android:gravity="center"
+                        android:text="/外置SD卡/Android/data/com.mylrc.mymusic/files/"
+                        android:textColor="#ffb1b1b1"
+                        android:textSize="10.0sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/settingtwoRelativeLayout9"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginTop="5.0dip">
+
+                <TextView
+                    android:id="@+id/downdirectoryTextView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="15.0dip"
+                    android:text="设置到其他目录"
+                    android:textColor="#ff0096ff"
+                    android:textSize="12.0sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/downdirectoryTextView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:textColor="#ffb1b1b1"
+                android:textSize="10.0sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginTop="15.0dip"
+                android:layout_marginRight="15.0dip"
+                android:gravity="center_vertical"
+                android:text="提示：因系统限制，保存在外置SD卡时，只能保存在固定目录，系统不允许在外置SD卡上自定义目录。保存在外置SD上，卸载软件时，音乐文件也会被系统一起删除，因此卸载软件时，请注意做好音乐备份"
+                android:textColor="#ffb1b1b1"
+                android:textSize="12.0sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

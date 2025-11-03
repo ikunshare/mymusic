@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="100000.0dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/myserTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="切换引擎"
+            android:textColor="#ff000000"
+            android:textSize="13.0sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/yqLinearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:background="@drawable/button"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="30.0dip">
+
+            <TextView
+                android:id="@+id/yqTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="引擎一"
+                android:textColor="#ff000000"
+                android:textSize="11.0sp" />
+
+            <TextView
+                android:id="@+id/yqTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2.0dip"
+                android:gravity="center_vertical"
+                android:text="左Q音 右网易"
+                android:textSize="9.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/yqLinearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:background="@drawable/button"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="30.0dip">
+
+            <TextView
+                android:id="@+id/yqTextView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="引擎二"
+                android:textColor="#ff000000"
+                android:textSize="11.0sp" />
+
+            <TextView
+                android:id="@+id/yqTextView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2.0dip"
+                android:gravity="center_vertical"
+                android:text="左咪咕 右酷狗"
+                android:textSize="9.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/yqLinearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:background="@drawable/button"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="30.0dip">
+
+            <TextView
+                android:id="@+id/yqTextView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="引擎三"
+                android:textColor="#ff000000"
+                android:textSize="11.0sp" />
+
+            <TextView
+                android:id="@+id/yqTextView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2.0dip"
+                android:gravity="center_vertical"
+                android:text="左酷我"
+                android:textSize="9.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

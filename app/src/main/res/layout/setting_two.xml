@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30.0dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48.0dip"
+                android:gravity="center_vertical"
+                android:text="选项设置"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout1"
+                android:layout_width="35.0dip"
+                android:layout_height="35.0dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:background="@drawable/selector_btn_default">
+
+                <ImageView
+                    android:id="@+id/settingtwoImageView1"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/left"
+                    android:text="Text" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15.0dip"
+                android:background="#fff6f6f6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:gravity="center_vertical"
+                    android:text="文件设置"
+                    android:textSize="9.0sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:button="@null"
+                    android:src="@drawable/right" />
+
+                <TextView
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:paddingLeft="25.0dip"
+                  android:gravity="left|center"
+                  android:text="下载保存路径"
+                  android:textColor="#ff000000"
+                  android:textSize="12.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout3"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:button="@null"
+                    android:src="@drawable/right" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="文件命名方式"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout8"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:button="@null"
+                    android:src="@drawable/right" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="歌词文件编码"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15.0dip"
+                android:background="#fff6f6f6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:gravity="center_vertical"
+                    android:text="标签设置"
+                    android:textSize="9.0sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="下载额外LRC歌词"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+
+                <CheckBox
+                    android:id="@+id/settingtwoCheckBox1"
+                    android:layout_width="45.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/checkbox"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout5"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="写入标签信息"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+
+                <CheckBox
+                    android:id="@+id/settingtwoCheckBox2"
+                    android:layout_width="45.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/checkbox"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout10"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <ImageView
+                    android:layout_width="12.0dip"
+                    android:layout_height="12.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:button="@null"
+                    android:src="@drawable/right" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="查看说明"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="15.0dip"
+                android:background="#fff6f6f6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:gravity="center_vertical"
+                    android:text="个性设置"
+                    android:textSize="9.0sp"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout6"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="搜索自动补全"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+
+                <CheckBox
+                    android:id="@+id/settingtwoCheckBox3"
+                    android:layout_width="45.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/checkbox"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout7"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="桌面歌词"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+
+                <CheckBox
+                    android:id="@+id/settingtwoCheckBox4"
+                    android:layout_width="45.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/checkbox"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/settingtwoRelativeLayout9"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/selector_btn_primary">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="left|center"
+                    android:paddingLeft="25.0dip"
+                    android:text="和其它应用同时播放"
+                    android:textColor="#ff000000"
+                    android:textSize="12.0sp" />
+
+                <CheckBox
+                    android:id="@+id/settingtwoCheckBox5"
+                    android:layout_width="45.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20.0dip"
+                    android:background="@drawable/checkbox"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

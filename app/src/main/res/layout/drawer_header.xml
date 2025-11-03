@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="165.0dip"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.mylrc.mymusic.tool.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="70.0dip"
+        android:layout_height="70.0dip"
+        android:layout_centerInParent="true"
+        android:padding="1.0dip"
+        android:src="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/iv_avatar">
+
+        <com.mylrc.mymusic.tool.MarqueeTextView
+            android:id="@+id/drawerheaderTextView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginEnd="15.0dip"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="青春的莽撞少年 难言的那一份想念 只盼一天 歌响耳边 我们重回不老的夏天"
+            android:textColor="#ffffffff"
+            android:textSize="15.0sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_alignParentBottom="true"
+            android:background="?android:dividerVertical" />
+    </RelativeLayout>
+</RelativeLayout>

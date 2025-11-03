@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hisLinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip">
+
+        <ImageView
+            android:id="@+id/playerListImageView"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/all" />
+
+        <TextView
+            android:id="@+id/playerListTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/playerListImageView"
+            android:gravity="center_vertical"
+            android:text="@string/play_mode_order"
+            android:textColor="#ff000000"
+            android:textSize="13.0sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.30000007dip"
+        android:background="?android:dividerVertical" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/playerListListView1"
+            android:layout_width="fill_parent"
+            android:layout_height="490.0dip"
+            android:divider="@null"
+            android:dividerHeight="0.39999998dip" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30.0dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:text="闪退日志"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@id/settingtwoRelativeLayout1"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:background="@drawable/selector_btn_default"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@id/settingtwoImageView1"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/left"
+                    android:text="Text" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="?android:dividerVertical" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffffff">
+
+        <ImageView
+            android:id="@+id/errorImageView1"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20.0dip"
+            android:background="@drawable/cry_face" />
+
+        <TextView
+            android:id="@+id/errorTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/errorImageView1"
+            android:layout_marginLeft="25.0dip"
+            android:layout_marginTop="15.0dip"
+            android:layout_marginRight="25.0dip"
+            android:text="由于发生了严重错误，APP已停止运行，请尝试重新启动，或者点击 复制日志或直接截图 ，发送日志信息给我们，以便帮助我们分析问题"
+            android:textColor="#ff000000"
+            android:textSize="12.0sp" />
+
+        <Button
+            android:id="@+id/errorButton1"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:layout_below="@id/errorTextView1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40.0dip"
+            android:layout_marginTop="15.0dip"
+            android:layout_marginRight="40.0dip"
+            android:background="@drawable/blue"
+            android:stateListAnimator="@null"
+            android:text="复制日志"
+            android:textColor="#ffffffff"
+            android:textSize="12.0sp" />
+
+        <Button
+            android:id="@+id/errorButton2"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:layout_below="@id/errorButton1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40.0dip"
+            android:layout_marginTop="10.0dip"
+            android:layout_marginRight="40.0dip"
+            android:background="@drawable/blue"
+            android:stateListAnimator="@null"
+            android:text="发送反馈"
+            android:textColor="#ffffffff"
+            android:textSize="12.0sp" />
+
+        <LinearLayout
+            android:id="@+id/errorLinearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/errorButton2"
+            android:layout_marginTop="20.0dip"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20.0dip"
+                android:gravity="center"
+                android:text="日志信息："
+                android:textColor="#ff000000"
+                android:textSize="12.0sp" />
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="20.0dip">
+
+                <TextView
+                    android:id="@+id/errorTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Text"
+                    android:textColor="#ff000000"
+                    android:textIsSelectable="true"
+                    android:textSize="12.0sp" />
+            </ScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginTop="8.0dip"
+        android:layout_marginBottom="6.0dip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20.0dip"
+            android:gravity="center"
+            android:text="搜索历史"
+            android:textColor="@android:color/black"
+            android:textSize="13.0sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/txRelativeLayout1"
+            android:layout_width="40.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25.0dip">
+
+            <ImageView
+                android:id="@+id/txTextView1"
+                android:layout_width="15.0dip"
+                android:layout_height="15.0dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_bin_delete"
+                android:gravity="center"
+                android:text="清空"
+                android:textColor="#ff059bfa"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="20.0dip"
+        android:layout_marginBottom="20.0dip">
+
+        <com.mylrc.mymusic.tool.FlowLayout
+            android:id="@+id/txFlowLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

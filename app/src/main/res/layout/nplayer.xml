@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="64.0dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="64.0dip"
+            android:layout_height="64.0dip">
+
+            <ImageView
+                android:id="@+id/nPlayerImageView1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/defaultcover"
+                android:text="Text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10.0dip">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/nPlayerTextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="青春纪念册"
+                        android:textColor="#ff000000"
+                        android:textSize="15.0sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/nPlayerTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5.0dip"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="可米小子"
+                        android:textColor="#ff797979"
+                        android:textSize="13.0sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/nPlayerImageView3"
+                            android:layout_width="30.0dip"
+                            android:layout_height="30.0dip"
+                            android:src="@drawable/ic_back"
+                            android:text="Text" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/nPlayerImageView4"
+                            android:layout_width="30.0dip"
+                            android:layout_height="30.0dip"
+                            android:src="@drawable/stop"
+                            android:text="Text" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/nPlayerImageView5"
+                            android:layout_width="30.0dip"
+                            android:layout_height="30.0dip"
+                            android:src="@drawable/next"
+                            android:text="Text" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.0"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/nPlayerImageView2"
+                            android:layout_width="22.0dip"
+                            android:layout_height="22.0dip"
+                            android:layout_marginRight="5.0dip"
+                            android:src="@drawable/ic_close_black"
+                            android:text="Text" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

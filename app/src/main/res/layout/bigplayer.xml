@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bigplayerImageView1"
+                android:layout_width="100.0dip"
+                android:layout_height="100.0dip"
+                android:layout_centerVertical="true"
+                android:src="@drawable/defaultcover"
+                android:text="Text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15.0dip">
+
+            <LinearLayout
+                android:id="@+id/bigplayerLinearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="60.0dip"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bigplayerTextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25.0dip"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="可惜不是你"
+                    android:textColor="#ff000000"
+                    android:textSize="16.0sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/bigplayerTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3.0dip"
+                    android:layout_marginRight="25.0dip"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="梁静茹"
+                    android:textColor="#ff888888"
+                    android:textSize="13.0sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60.0dip"
+                android:layout_below="@id/bigplayerLinearLayout1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0">
+
+                    <ImageView
+                        android:id="@+id/bigplayerImageView3"
+                        android:layout_width="30.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_back"
+                        android:text="Text" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0">
+
+                    <ImageView
+                        android:id="@+id/bigplayerImageView4"
+                        android:layout_width="30.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/stop"
+                        android:text="Text" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0">
+
+                    <ImageView
+                        android:id="@+id/bigplayerImageView5"
+                        android:layout_width="30.0dip"
+                        android:layout_height="30.0dip"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/next"
+                        android:text="Text" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/bigplayerImageView2"
+                android:layout_width="22.0dip"
+                android:layout_height="22.0dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="7.0dip"
+                android:layout_marginRight="12.0dip"
+                android:src="@drawable/ic_close_black"
+                android:text="Text" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

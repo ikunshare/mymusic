@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="1000000.0dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mdTextView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginTop="35.0dip"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="正在下载"
+            android:textColor="#ff000000"
+            android:textSize="12.0sp" />
+
+        <TextView
+            android:id="@+id/mdTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginTop="10.0dip"
+            android:gravity="center_vertical"
+            android:textSize="12.0sp" />
+
+        <ProgressBar
+            android:id="@+id/mdProgressBar1"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="3.0dip"
+            android:layout_marginLeft="20.0dip"
+            android:layout_marginTop="10.0dip"
+            android:layout_marginRight="20.0dip"
+            android:layout_marginBottom="35.0dip"
+            android:progressDrawable="@drawable/prosty" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mdButton2"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45.0dip"
+            android:layout_marginBottom="30.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_btn_blue_rounded"
+            android:text="隐藏窗口"
+            android:textColor="#ffffffff"
+            android:textSize="12.0sp" />
+
+        <View
+            android:layout_width="45.0dip"
+            android:layout_height="fill_parent"
+            android:background="?android:dividerHorizontal"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/mdButton1"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="45.0dip"
+            android:layout_marginBottom="30.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/selector_btn_gray_light_rounded"
+            android:text="取消下载"
+            android:textColor="#ff000000"
+            android:textSize="12.0sp" />
+    </LinearLayout>
+</LinearLayout>

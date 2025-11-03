@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/fLinearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="60.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/fImageView1"
+                android:layout_width="18.0dip"
+                android:layout_height="15.0dip"
+                android:layout_marginBottom="1.0dip"
+                android:text="Text" />
+
+            <ImageView
+                android:id="@+id/fImageView2"
+                android:layout_width="18.0dip"
+                android:layout_height="15.0dip"
+                android:layout_marginTop="1.0dip"
+                android:text="Text" />
+
+            <ImageView
+                android:id="@+id/fImageView3"
+                android:layout_width="18.0dip"
+                android:layout_height="15.0dip"
+                android:layout_marginTop="1.0dip" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/fLinearLayout1">
+
+            <CheckBox
+                android:id="@+id/fCheckBox1"
+                android:layout_width="17.0dip"
+                android:layout_height="17.0dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/checkbox2"
+                android:button="@null"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/fLinearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4.0dip"
+                android:layout_toLeftOf="@id/fCheckBox1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fTextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13.0dip"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="#ff000000"
+                    android:textSize="13.0sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8.0dip"
+                    android:layout_marginBottom="13.0dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="#ff007dfd"
+                        android:textSize="12.0sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2.0dip"
+                        android:layout_marginRight="2.0dip"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="#ff000000" />
+
+                    <TextView
+                        android:id="@+id/fTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="#ff007dfd"
+                        android:textSize="12.0sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5.0dip"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/fTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="#ff000000" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

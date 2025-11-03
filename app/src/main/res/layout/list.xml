@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30.0dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48.0dip"
+                android:gravity="center_vertical"
+                android:text="我的歌单"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/listRelativeLayout1"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:background="@drawable/selector_btn_default">
+
+                <ImageView
+                    android:id="@id/settingtwoImageView1"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/left"
+                    android:text="Text" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/listTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20.0dip"
+                android:gravity="center"
+                android:text="菜单"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/listListView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:divider="@null"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50.0dip"
+                android:layout_height="50.0dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginBottom="60.0dip"
+                android:background="@drawable/listen"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30.0dip" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48.0dip"
+                android:gravity="center_vertical"
+                android:text="歌曲列表"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/songRelativeLayout1"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5.0dip"
+                android:background="@drawable/selector_btn_default">
+
+                <ImageView
+                    android:id="@id/settingtwoImageView1"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/left"
+                    android:text="Text" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@id/songTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20.0dip"
+                android:gravity="center"
+                android:text="多选"
+                android:textColor="#ff000000"
+                android:textSize="13.0sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff">
+
+        <ListView
+            android:id="@+id/songListView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:divider="@null" />
+
+        <LinearLayout
+            android:id="@id/songLinearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="80.0dip"
+            android:orientation="horizontal"
+            android:paddingBottom="40.0dip">
+
+            <ImageView
+                android:id="@id/songImageView1"
+                android:layout_width="42.0dip"
+                android:layout_height="42.0dip"
+                android:background="@drawable/download"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@id/songImageView2"
+            android:layout_width="42.0dip"
+            android:layout_height="42.0dip"
+            android:layout_above="@id/songLinearLayout1"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80.0dip"
+            android:layout_marginBottom="40.0dip"
+            android:background="@drawable/selectall"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@id/songImageView3"
+                android:layout_width="39.0dip"
+                android:layout_height="39.0dip"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginBottom="40.0dip"
+                android:background="@drawable/listen"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="?android:dividerVertical" />
+</LinearLayout>

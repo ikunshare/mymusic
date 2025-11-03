@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="lrc_divider_height">18.0dip</dimen>
+    <dimen name="lrc_drawable_width">18.0dip</dimen>
+    <dimen name="lrc_notext_size">16.0sp</dimen>
+    <dimen name="lrc_text_size">16.0sp</dimen>
+    <dimen name="lrc_time_text_size">14.0sp</dimen>
+    <dimen name="lrc_time_width">35.0dip</dimen>
+    <dimen name="lrc_timeline_height">0.39999998dip</dimen>
+</resources>

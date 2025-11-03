@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_down"
+        android:icon="@drawable/ic_download"
+        android:title="下载历史" />
+    <item
+        android:id="@+id/item_set"
+        android:icon="@drawable/ic_settings"
+        android:title="应用设置" />
+    <item
+        android:id="@+id/item_about"
+        android:icon="@drawable/ic_friend"
+        android:title="关于我们" />
+    <item
+        android:id="@+id/item_feedback"
+        android:icon="@drawable/ic_email_edit"
+        android:title="我要反馈" />
+    <item android:title="同步">
+        <menu>
+            <item
+                android:id="@+id/item_qqplaylist"
+                android:icon="@drawable/ic_qqchat"
+                android:title="Q音歌单" />
+            <item
+                android:id="@+id/item_wyy_playlist"
+                android:icon="@drawable/ic_music_note"
+                android:title="网易歌单" />
+        </menu>
+    </item>
+    <item android:title="其它">
+        <menu>
+            <item
+                android:id="@+id/item_pay"
+                android:icon="@drawable/ic_account_payment"
+                android:title="赞赏我们" />
+            <item
+                android:id="@+id/item_tips"
+                android:icon="@drawable/ic_comment_alert"
+                android:title="温馨提示" />
+        </menu>
+    </item>
+</menu>

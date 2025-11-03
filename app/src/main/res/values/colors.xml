@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 基础颜色 -->
+    <color name="color_black">#FF000000</color>
+    <color name="color_white">#FFFFFFFF</color>
+    <color name="color_blue">#ff01c7ff</color>
+
+    <!-- 歌词相关颜色 -->
+    <color name="lrc_current_text">#ff000000</color>
+    <color name="lrc_normal_text">#ffb1b1b1</color>
+    <color name="lrc_time_text">#ff000000</color>
+    <color name="lrc_timeline">#ff000000</color>
+    <color name="lrc_timeline_text">#fffe4263</color>
+
+    <!-- 按钮状态颜色 -->
+    <color name="button_normal">#ffff6501</color>
+    <color name="button_pressed">#ffa44100</color>
+
+    <!-- 通知相关 -->
+    <color name="notification_icon_bg">#3333b5e5</color>
+    <color name="notification_icon_low_bg">#0cffffff</color>
+
+    <!-- 通用界面颜色 -->
+    <color name="background_dim">#50000000</color>
+    <color name="background_light">#ffeaeaea</color>
+    <color name="text_secondary">#ffbebebe</color>
+    <color name="text_primary_inverse">#ffffffff</color>
+
+    <!-- 没有名字的颜色 -->
+    <color name="t">#eaeaea</color>
+    <color name="black">#eaeaea</color>
+    <color name="bb">#000000</color>
+</resources>
