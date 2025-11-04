@@ -41,7 +41,7 @@ public class DonateActivity extends Activity {
   private void showProgressDialog() {
     Dialog dialog = new Dialog(this);
     this.progressDialog = dialog;
-    Objects.requireNonNull(dialog.getWindow()).setWindowAnimations(R.style.LoadingAnim);
+    Objects.requireNonNull(dialog.getWindow()).setWindowAnimations(R.style.loadingAnim);
     this.progressDialog.requestWindowFeature(1);
     this.progressDialog.setContentView(R.layout.loading);
     this.progressDialog.setCancelable(false);

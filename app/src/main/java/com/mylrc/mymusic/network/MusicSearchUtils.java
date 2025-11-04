@@ -1,6 +1,6 @@
 package com.mylrc.mymusic.network;
 
-import android.os.Build;
+import androidx.annotation.NonNull;
 import com.mylrc.mymusic.R;
 import com.mylrc.mymusic.enums.MusicPlatform;
 import com.mylrc.mymusic.utils.CommonUtils;
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -245,9 +246,9 @@ public class MusicSearchUtils {
           "Mozilla/5.0 (Linux; U; Android 11; zh-CN; M2105K81AC Build/RKQ1.200826.002) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.108 Quark/5.6.6.211 Mobile Safari/537.36");
 
       String url =
-          "https://jadeite.migu.cn/music_search/v3/search/searchAll?isCorrect=0&isCopyright=1"
-              + "&searchSwitch=%7B%22song%22%3A1%2C%22album%22%3A0%2C%22singer%22%3A0%2C%22tagSong%22%3A1%2C%22mvSong%22%3A0%2C%22bestShow%22%3A1%2C%22songlist%22%3A0%2C%22lyricSong%22%3A0%7D"
-              + "&pageSize=20&text=" + keyword + "&pageNo=0&sort=0&sid=USS";
+          String.format(
+              "https://jadeite.migu.cn/music_search/v3/search/searchAll?isCorrect=0&isCopyright=1&searchSwitch={\"song\":1,\"album\":0,\"singer\":0,\"tagSong\":1,\"mvSong\":0,\"bestShow\":1,\"songlist\":0,\"lyricSong\":0}&pageSize=20&text=%s&pageNo=0&sort=0&sid=USS",
+              keyword);
 
       JSONObject response = new JSONObject(HttpRequestUtils.getWithHeaders(url, headers));
       JSONArray songs = response.getJSONObject("songResultData").getJSONArray("resultList");
@@ -347,24 +348,14 @@ public class MusicSearchUtils {
   }
 
   private static List<Map<String, Object>> searchQQMusic(String keyword) {
-    if (1 == 1) {
-      cachedResults = new ArrayList<>();
-    }
+    cachedResults = new ArrayList<>();
 
     try {
-      String requestBody = "{\"comm\":{\"ct\":11,\"cv\":\"1003006\",\"v\":\"1003006\","
-          + "\"QIMEI36\":\"c2cff9d0d3310d40ea444083100014717907\","
-          + "\"QIMEI\":\"c2cff9d0d3310d40ea444083100014717907\","
-          + "\"os_ver\":\"12\",\"phonetype\":\"Redmi K30 Pro\",\"devicelevel\":\"31\","
-          + "\"tmeAppID\":\"qqmusiclight\",\"nettype\":\"NETWORK_WIFI\"},"
-          + "\"req\":{\"module\":\"music.search.SearchCgiService\","
-          + "\"method\":\"DoSearchForQQMusicLite\","
-          + "\"param\":{\"query\":\"" + keyword + "\",\"search_type\":0,"
-          + "\"num_per_page\":50,\"page_num\":1,\"highlight\":1,"
-          + "\"nqc_flag\":0,\"page_id\":1,\"grp\":1}}}";
+      JSONObject requestBody = getStringObjectMap(keyword);
 
       JSONObject response = new JSONObject(
-          HttpRequestUtils.postJson("http://u6.y.qq.com/cgi-bin/musicu.fcg", requestBody));
+          HttpRequestUtils.postJson("http://u6.y.qq.com/cgi-bin/musicu.fcg",
+              requestBody.toString()));
 
       JSONArray songs = response.getJSONObject("req")
           .getJSONObject("data")
@@ -447,6 +438,39 @@ public class MusicSearchUtils {
     }
   }
 
+  @NonNull
+  private static JSONObject getStringObjectMap(String keyword) throws JSONException {
+    JSONObject requestBody = new JSONObject();
+    JSONObject comm = new JSONObject();
+
+    comm.put("ct", 11);
+    comm.put("cv", "1003006");
+    comm.put("v", "1003006");
+    comm.put("os_ver", "12");
+    comm.put("phonetype", "0");
+    comm.put("devicelevel", "31");
+    comm.put("tmeAppID", "qqmusiclight");
+    comm.put("nettype", "NETWORK_WIFI");
+
+    JSONObject param = new JSONObject();
+    param.put("searchid", getSearchId());
+    param.put("query", keyword);
+    param.put("search_type", 0);
+    param.put("num_per_page", 50);
+    param.put("page_num", 1);
+    param.put("highlight", true);
+    param.put("grp", true);
+
+    JSONObject req = new JSONObject();
+    req.put("module", "music.search.SearchCgiService");
+    req.put("method", "DoSearchForQQMusicMobile");
+    req.put("param", param);
+
+    requestBody.put("comm", comm);
+    requestBody.put("req", req);
+    return requestBody;
+  }
+
   private static List<Map<String, Object>> searchNeteaseCloud(String keyword) {
     try {
       List<Map<String, Object>> resultList = new ArrayList<>();
@@ -460,14 +484,13 @@ public class MusicSearchUtils {
 
       String encryptedParams = AESUtils.encryptParams(requestParams.toString());
       String encSecKey = AESUtils.getEncSecKey();
-      String postData = null;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        postData = "params=" + URLEncoder.encode(encryptedParams, StandardCharsets.UTF_8)
-            + "&encSecKey=" + encSecKey;
-      }
+
+      Map<String, String> postData = new HashMap<>();
+      postData.put("params", URLEncoder.encode(encryptedParams, StandardCharsets.UTF_8.toString()));
+      postData.put("encSecKey", encSecKey);
 
       JSONObject response = new JSONObject(
-          HttpRequestUtils.postString("http://music.163.com/weapi/search/get", postData));
+          HttpRequestUtils.postMap("http://music.163.com/weapi/search/get", postData));
       JSONArray songs = response.getJSONObject("result").getJSONArray("songs");
 
       for (int i = 0; i < songs.length(); i++) {
@@ -506,18 +529,23 @@ public class MusicSearchUtils {
         musicInfo.put("singer", singerName);
         musicInfo.put("time", CommonUtils.formatTime(Integer.parseInt(duration) / 1000));
 
-        if (maxBrLevel.equals("hires")) {
-          musicInfo.put("br", R.drawable.hires);
-          musicInfo.put("maxbr", "hr");
-        } else if (maxBrLevel.equals("lossless")) {
-          musicInfo.put("br", R.drawable.sq);
-          musicInfo.put("maxbr", "sq");
-        } else if (maxBrLevel.equals("exhigh")) {
-          musicInfo.put("br", R.drawable.hq);
-          musicInfo.put("maxbr", "hq");
-        } else {
-          musicInfo.put("br", R.drawable.mp3);
-          musicInfo.put("maxbr", "mp3");
+        switch (maxBrLevel) {
+          case "hires":
+            musicInfo.put("br", R.drawable.hires);
+            musicInfo.put("maxbr", "hr");
+            break;
+          case "lossless":
+            musicInfo.put("br", R.drawable.sq);
+            musicInfo.put("maxbr", "sq");
+            break;
+          case "exhigh":
+            musicInfo.put("br", R.drawable.hq);
+            musicInfo.put("maxbr", "hq");
+            break;
+          default:
+            musicInfo.put("br", R.drawable.mp3);
+            musicInfo.put("maxbr", "mp3");
+            break;
         }
 
         if (status.equals("-200")) {
@@ -567,7 +595,7 @@ public class MusicSearchUtils {
   }
 
   private static String limitSingerCount(String singerNames) {
-    if (singerNames.indexOf(SEPARATOR) == -1) {
+    if (!singerNames.contains(SEPARATOR)) {
       return singerNames;
     }
 
@@ -605,8 +633,23 @@ public class MusicSearchUtils {
       if (!song.isNull(quality) && song.getJSONObject(quality).has("size")) {
         return song.getJSONObject(quality).getString("size");
       }
-    } catch (JSONException e) {
+    } catch (JSONException ignored) {
     }
     return "0";
+  }
+
+  public static int randomInt(int min, int max) {
+    Random random = new Random();
+    return random.nextInt(max - min + 1) + min;
+  }
+
+  public static String getSearchId() {
+    int e = randomInt(1, 20);
+    long t = e * 18014398509481984L;
+    long n = (long) randomInt(0, 4194304) * 4294967296L;
+    long a = System.currentTimeMillis();
+    long r = Math.round(a * 1000) % (24 * 60 * 60 * 1000);
+
+    return String.valueOf(t + n + r);
   }
 }

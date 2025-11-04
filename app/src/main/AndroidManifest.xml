@@ -1,48 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.mylrc.mymusic">
 
-
-  <uses-feature android:name="android.hardware.usb.host" />
-
-  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-  <!-- Android 12及以下的存储权限 -->
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-    android:maxSdkVersion="32" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-    android:maxSdkVersion="32" />
-
-  <!-- Android 13+的媒体权限 -->
-  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-  <!-- Android 11+所有文件访问权限 -->
-  <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-
-  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+  <uses-sdk
+    android:minSdkVersion="21"
+    android:targetSdkVersion="28"/>
 
   <application
     android:allowBackup="true"
-    android:dataExtractionRules="@xml/data_extraction_rules"
-    android:extractNativeLibs="false"
-    android:fullBackupContent="@xml/backup_rules"
+    android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+    android:requestLegacyExternalStorage="true"
     android:hardwareAccelerated="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
-    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+    android:name="com.mylrc.mymusic.tool.APPApplication"
     android:networkSecurityConfig="@xml/network_security_config"
     android:supportsRtl="true"
-    android:requestLegacyExternalStorage="true">
-
+    android:theme="@style/AppTheme">
     <activity
       android:exported="true"
+      android:label="@string/app_name"
       android:name="com.mylrc.mymusic.activity.Splash">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -51,75 +28,81 @@
     </activity>
 
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.MainActivity"
       android:resizeableActivity="true"
-      android:windowSoftInputMode="adjustPan|stateHidden" />
+      android:windowSoftInputMode="stateHidden|adjustPan" />
+    <activity
+      android:configChanges="orientation|screenSize"
+      android:launchMode="singleTask"
+      android:name="com.mylrc.mymusic.activity.CloudDiskActivity"
+      android:resizeableActivity="true" />
     <activity
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.DonateActivity"
       android:resizeableActivity="true"
-      android:screenOrientation="fullSensor" />
+      android:screenOrientation="portrait" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:name="com.mylrc.mymusic.activity.MVActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.SongListActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.QQLoginActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.ErrorActivity"
       android:process=":errorProcess"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.DownDirectoryActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.DownloadHistoryActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.FileChooserActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
+      android:launchMode="singleTask"
+      android:name="com.mylrc.mymusic.activity.PlayerActivity"
+      android:resizeableActivity="true"
+      android:theme="@style/th" />
+    <activity
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.QQPlayListActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.BrowserActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.AppSettingActivity"
       android:resizeableActivity="true" />
     <activity
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.AboutActivity"
-      android:resizeableActivity="true" />
-    <activity
-      android:configChanges="screenSize|orientation"
-      android:launchMode="singleTask"
-      android:name="com.mylrc.mymusic.activity.PlayerActivity"
       android:resizeableActivity="true" />
     <activity
       android:launchMode="singleTask"
@@ -132,8 +115,7 @@
 
     <meta-data
       android:name="android.max_aspect"
-      android:value="4" />
-
+      android:value="4.0" />
     <provider
       android:authorities="com.mylrc.mymusic.fileProvider"
       android:exported="false"
@@ -151,17 +133,30 @@
         <action android:name="android.intent.action.MEDIA_BUTTON" />
       </intent-filter>
     </receiver>
-
     <service
       android:enabled="true"
       android:exported="true"
-      android:foregroundServiceType="dataSync"
       android:name="com.mylrc.mymusic.service.DownloadService" />
     <service
-      android:configChanges="screenSize|orientation"
+      android:configChanges="orientation|screenSize"
       android:enabled="true"
       android:exported="true"
+      android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.service.PlayerService" />
   </application>
 
+  <uses-feature android:name="android.hardware.usb.host" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+  <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+  <uses-permission android:name="android.permission.GET_TASKS" />
+  <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 </manifest>

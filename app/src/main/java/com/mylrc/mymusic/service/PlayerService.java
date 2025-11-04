@@ -54,7 +54,7 @@ public class PlayerService extends Service {
   private static final int STATE_PLAYING = 291;
   private static final int STATE_PAUSED = 292;
 
-  public static MediaPlayer mediaPlayer =  new MediaPlayer();
+  public static MediaPlayer mediaPlayer = new MediaPlayer();
   private final Runnable lyricUpdateRunnable = new LyricUpdateRunnable(this);
   private final Handler uiHandler = new UIHandler(this, Looper.getMainLooper());
   private final AudioManager.OnAudioFocusChangeListener audioFocusChangeListener =

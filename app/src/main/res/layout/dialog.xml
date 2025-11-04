@@ -1,97 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="50.0dip"
-            android:gravity="center"
-            android:orientation="horizontal">
-
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="50dp">
             <TextView
-                android:id="@+id/dialogTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/hint"
-                android:textColor="#ff000000"
-                android:textSize="12.0sp"
-                android:textStyle="bold" />
+              android:textSize="12sp"
+              android:textStyle="bold"
+              android:textColor="#000000"
+              android:gravity="center"
+              android:id="@+id/dialogTextView2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="提示"/>
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="90.0dip"
-        android:orientation="horizontal">
-
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="90dp">
         <TextView
-            android:id="@+id/dialogTextView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="35.0dip"
-            android:layout_marginTop="10.0dip"
-            android:layout_marginRight="35.0dip"
-            android:layout_marginBottom="10.0dip"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="4.0dip"
-            android:textColor="#ff000000"
-            android:textCursorDrawable="@null"
-            android:textIsSelectable="true"
-            android:textSize="12.0sp"
-            android:textStyle="normal" />
+          android:textSize="12sp"
+          android:textStyle="normal"
+          android:textColor="#000000"
+          android:gravity="center_vertical"
+          android:id="@+id/dialogTextView1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="35dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginRight="35dp"
+          android:layout_marginBottom="10dp"
+          android:lineSpacingExtra="4dp"
+          android:textIsSelectable="true"
+          android:textCursorDrawable="@null"/>
     </LinearLayout>
-
     <View
-        android:layout_width="fill_parent"
-        android:layout_height="15.0dip"
-        android:background="?android:dividerVertical"
-        android:visibility="invisible" />
-
+      android:background="?android:attr/dividerVertical"
+      android:visibility="invisible"
+      android:layout_width="match_parent"
+      android:layout_height="15dp"/>
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
         <Button
-            android:id="@+id/dialogButton1"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:layout_marginStart="48.0dip"
-            android:layout_marginBottom="30.0dip"
-            android:layout_weight="1.0"
-            android:background="@drawable/selector_btn_blue_rounded"
-            android:text="@string/ok"
-            android:textColor="#ffffffff"
-            android:textSize="12.0sp" />
-
+          android:textSize="12sp"
+          android:textColor="#ffffffff"
+          android:id="@+id/dialogButton1"
+          android:background="@drawable/selector_btn_blue_rounded"
+          android:layout_width="wrap_content"
+          android:layout_height="50dp"
+          android:layout_marginLeft="48dp"
+          android:layout_marginBottom="30dp"
+          android:text="确定"
+          android:layout_weight="1"
+          style="?android:attr/borderlessButtonStyle"/>
         <View
-            android:layout_width="48.0dip"
-            android:layout_height="fill_parent"
-            android:background="?android:dividerHorizontal"
-            android:visibility="invisible" />
-
+          android:background="?android:attr/dividerHorizontal"
+          android:visibility="invisible"
+          android:layout_width="48dp"
+          android:layout_height="match_parent"/>
         <Button
-            android:id="@+id/dialogButton2"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="50.0dip"
-            android:layout_marginEnd="48.0dip"
-            android:layout_marginBottom="30.0dip"
-            android:layout_weight="1.0"
-            android:background="@drawable/selector_btn_gray_light_rounded"
-            android:text="@string/cancel"
-            android:textColor="#ff000000"
-            android:textSize="12.0sp" />
+          android:textSize="12sp"
+          android:textColor="#ff000000"
+          android:id="@+id/dialogButton2"
+          android:background="@drawable/selector_btn_gray_light_rounded"
+          android:layout_width="wrap_content"
+          android:layout_height="50dp"
+          android:layout_marginRight="48dp"
+          android:layout_marginBottom="30dp"
+          android:text="取消"
+          android:layout_weight="1"
+          style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </LinearLayout>

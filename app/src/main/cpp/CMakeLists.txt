@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # 源文件
 set(SOURCES
         md5.cpp
+        cJSON.c
         base64.cpp
-        signer.cpp
 )
 
 # JNI源文件

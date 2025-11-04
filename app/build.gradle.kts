@@ -5,13 +5,13 @@ plugins {
 android {
     namespace = "com.mylrc.mymusic"
     compileSdk {
-        version = release(36)
+        version = release(34)
     }
 
     defaultConfig {
         applicationId = "com.mylrc.mymusic"
-        minSdk = 24
-        targetSdk = 36
+        minSdk = 21
+        targetSdk = 28
         versionName = "4.1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

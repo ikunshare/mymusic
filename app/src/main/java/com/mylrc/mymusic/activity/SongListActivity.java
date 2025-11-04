@@ -230,7 +230,7 @@ public class SongListActivity extends Activity {
       Dialog dialog = new Dialog(this);
       this.loadingDialog = dialog;
       dialog.requestWindowFeature(1);
-      this.loadingDialog.getWindow().setWindowAnimations(R.style.LoadingAnim);
+      this.loadingDialog.getWindow().setWindowAnimations(R.style.loadingAnim);
       this.loadingDialog.setContentView(R.layout.loading);
       this.loadingDialog.setCancelable(false);
     }

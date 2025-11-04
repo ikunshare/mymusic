@@ -86,7 +86,7 @@
                 android:background="@drawable/selector_btn_primary"
                 android:stateListAnimator="@null"
                 android:text="保存"
-                android:textColor="#ffffffff"
+                android:textColor="@color/color_black"
                 android:textSize="11.0sp" />
 
             <View

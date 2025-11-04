@@ -64,12 +64,7 @@ public class DialogHelper {
       negativeButton.setVisibility(View.GONE);
 
       // 设置按钮点击事件
-      positiveButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          dialog.dismiss();
-        }
-      });
+      positiveButton.setOnClickListener(view -> dialog.dismiss());
 
       // 只有在Activity未被销毁时才显示对话框
       if (!mActivity.isFinishing() && !mActivity.isDestroyed()) {

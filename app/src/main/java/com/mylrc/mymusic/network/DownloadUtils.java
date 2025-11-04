@@ -1,6 +1,5 @@
 package com.mylrc.mymusic.network;
 
-import android.app.Application;
 import android.util.Log;
 import com.mylrc.mymusic.tool.APPApplication;
 import java.io.ByteArrayOutputStream;

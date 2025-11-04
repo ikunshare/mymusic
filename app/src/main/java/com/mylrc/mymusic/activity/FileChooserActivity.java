@@ -30,7 +30,6 @@ import java.util.Map;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 
-/* loaded from: classes.dex */
 public class FileChooserActivity extends Activity {
 
   private final Handler handler = new LoadCompleteHandler(this, Looper.getMainLooper());
@@ -48,7 +47,7 @@ public class FileChooserActivity extends Activity {
     new LoadDirectoryThread(this, str).start();
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onCreate(Bundle bundle) {
     new StatusBarManager(this).setStatusBarTheme(StatusBarColor.BLACK);
     setContentView(R.layout.filechooser);
@@ -65,7 +64,7 @@ public class FileChooserActivity extends Activity {
     super.onCreate(bundle);
   }
 
-  @Override // android.app.Activity, android.view.KeyEvent.Callback
+  @Override
   public boolean onKeyDown(int i2, KeyEvent keyEvent) {
     if (i2 != 4) {
       return true;
@@ -88,7 +87,7 @@ public class FileChooserActivity extends Activity {
       this.activity = fileChooserActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       if (!this.activity.currentPath.equals(FrameBodyCOMM.DEFAULT)) {
         FileChooserActivity fileChooserActivity = this.activity;
@@ -116,7 +115,7 @@ public class FileChooserActivity extends Activity {
       this.activity = fileChooserActivity;
     }
 
-    @Override // android.widget.AdapterView.OnItemClickListener
+    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i2, long j2) {
       FileChooserActivity fileChooserActivity = this.activity;
       if (!fileChooserActivity.isLoading) {
@@ -137,7 +136,7 @@ public class FileChooserActivity extends Activity {
       this.activity = fileChooserActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       this.activity.finish();
     }
@@ -147,13 +146,12 @@ public class FileChooserActivity extends Activity {
 
     final FileChooserActivity activity;
 
-    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
     LoadCompleteHandler(FileChooserActivity fileChooserActivity, Looper looper) {
       super(looper);
       this.activity = fileChooserActivity;
     }
 
-    @Override // android.os.Handler
+    @Override
     public void handleMessage(Message message) {
       if (message.what == 1) {
         this.activity.directoryListView.setAdapter(
@@ -176,7 +174,7 @@ public class FileChooserActivity extends Activity {
       this.directoryPath = str;
     }
 
-    @Override // java.lang.Thread, java.lang.Runnable
+    @Override
     public void run() {
       this.activity.directoryList = new ArrayList<>();
       File file = new File(this.directoryPath);
@@ -212,8 +210,7 @@ public class FileChooserActivity extends Activity {
         this.thread = loadDirectoryThread;
       }
 
-      @Override // java.util.Comparator
-      /* renamed from: a, reason: merged with bridge method [inline-methods] */
+      @Override
       public int compare(File file, File file2) {
         if (file.isFile() && file2.isDirectory()) {
           return 1;

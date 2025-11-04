@@ -17,12 +17,13 @@ extern "C" {
  * @param text2 输入文本2（jstring）
  * @return 签名结果的十六进制字符串（jstring）
  */
-JNIEXPORT jstring JNICALL
+JNIEXPORT jstring
+JNICALL
 Java_com_mylrc_mymusic_tool_MusicUrlHelper_tmc(
-        JNIEnv *env,
-        jobject thiz,
-        jstring text1,
-        jstring text2
+    JNIEnv *env,
+    jobject thiz,
+    jstring text1,
+    jstring text2
 );
 
 #ifdef __cplusplus

@@ -87,7 +87,7 @@ public class DownloadHistoryActivity extends Activity {
       Dialog dialog = new Dialog(this);
       this.progressDialog = dialog;
       dialog.requestWindowFeature(1);
-      this.progressDialog.getWindow().setWindowAnimations(R.style.LoadingAnim);
+      this.progressDialog.getWindow().setWindowAnimations(R.style.loadingAnim);
       this.progressDialog.setContentView(R.layout.loading);
       this.progressDialog.setCancelable(false);
     }

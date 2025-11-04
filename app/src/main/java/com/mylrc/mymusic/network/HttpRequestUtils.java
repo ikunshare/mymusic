@@ -2,7 +2,10 @@ package com.mylrc.mymusic.network;
 
 import com.mylrc.mymusic.tool.APPApplication;
 import com.mylrc.mymusic.utils.ZipUtils;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -144,5 +147,33 @@ public class HttpRequestUtils {
 
   public static String postJson(String url, String json) {
     return postString(url, json);
+  }
+
+
+  public static String postMap(String url, Map<String, String> param) {
+    OkHttpClient okHttpClient = new OkHttpClient();
+
+    FormBody.Builder builder = new FormBody.Builder();
+
+    for (String key : param.keySet()) {
+      Object obj = param.get(key);
+      if (obj != null) {
+        builder.addEncoded(key, param.get(key).toString());
+      } else {
+        builder.addEncoded(key, "");
+      }
+    }
+    FormBody requestBody = builder.build();
+
+    Request request = new Request.Builder().url(url).post(requestBody).build();
+    try {
+      Response response = okHttpClient.newCall(request).execute();
+      if (response.isSuccessful()) {
+        return response.body().string();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return "{}";
   }
 }

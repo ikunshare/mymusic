@@ -1,115 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:minWidth="100000.0dip"
-    android:orientation="vertical">
-
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:minWidth="100000dp">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50.0dip"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="50dp">
         <TextView
-            android:id="@id/myserTextView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="切换引擎"
-            android:textColor="#ff000000"
-            android:textSize="13.0sp"
-            android:textStyle="bold" />
+          android:textSize="13sp"
+          android:textStyle="bold"
+          android:textColor="#ff000000"
+          android:gravity="center_vertical"
+          android:id="@+id/myserTextView1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="切换引擎"
+          android:singleLine="true"/>
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/yqLinearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="55.0dip"
-            android:background="@drawable/button"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="30.0dip">
-
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          android:id="@+id/yqLinearLayout1"
+          android:background="@drawable/button"
+          android:paddingLeft="30dp"
+          android:layout_width="match_parent"
+          android:layout_height="55dp">
             <TextView
-                android:id="@+id/yqTextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="引擎一"
-                android:textColor="#ff000000"
-                android:textSize="11.0sp" />
-
+              android:textSize="11sp"
+              android:textColor="#ff000000"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="引擎一"/>
             <TextView
-                android:id="@+id/yqTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2.0dip"
-                android:gravity="center_vertical"
-                android:text="左Q音 右网易"
-                android:textSize="9.0sp" />
+              android:textSize="9sp"
+              android:textColor="#D86363"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="左QQ音乐/右网易云音乐"/>
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/yqLinearLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="55.0dip"
-            android:background="@drawable/button"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="30.0dip">
-
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          android:id="@+id/yqLinearLayout2"
+          android:background="@drawable/button"
+          android:paddingLeft="30dp"
+          android:layout_width="match_parent"
+          android:layout_height="55dp">
             <TextView
-                android:id="@+id/yqTextView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="引擎二"
-                android:textColor="#ff000000"
-                android:textSize="11.0sp" />
-
+              android:textSize="11sp"
+              android:textColor="#ff000000"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="引擎二"/>
             <TextView
-                android:id="@+id/yqTextView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2.0dip"
-                android:gravity="center_vertical"
-                android:text="左咪咕 右酷狗"
-                android:textSize="9.0sp" />
+              android:textSize="9sp"
+              android:textColor="#D86363"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="左咪咕音乐（已无法使用）/右酷狗音乐"/>
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/yqLinearLayout3"
-            android:layout_width="fill_parent"
-            android:layout_height="55.0dip"
-            android:background="@drawable/button"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingLeft="30.0dip">
-
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          android:id="@+id/yqLinearLayout3"
+          android:background="@drawable/button"
+          android:paddingLeft="30dp"
+          android:layout_width="match_parent"
+          android:layout_height="55dp">
             <TextView
-                android:id="@+id/yqTextView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="引擎三"
-                android:textColor="#ff000000"
-                android:textSize="11.0sp" />
-
+              android:textSize="11sp"
+              android:textColor="#ff000000"
+              android:gravity="center_vertical"
+              android:id="@id/yqTextView5"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="引擎三"/>
             <TextView
-                android:id="@+id/yqTextView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2.0dip"
-                android:gravity="center_vertical"
-                android:text="左酷我"
-                android:textSize="9.0sp" />
+              android:textSize="9sp"
+              android:textColor="#D86363"
+              android:gravity="center_vertical"
+              android:id="@id/yqTextView6"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="左酷我音乐"/>
+        </LinearLayout>
+        <LinearLayout
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          android:id="@+id/yqLinearLayout4"
+          android:background="@drawable/button"
+          android:paddingLeft="30dp"
+          android:layout_width="match_parent"
+          android:layout_height="55dp">
+            <TextView
+              android:textSize="11sp"
+              android:textColor="#ff000000"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView5"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="云盘资源"/>
+            <TextView
+              android:textSize="9sp"
+              android:textColor="#D86363"
+              android:gravity="center_vertical"
+              android:id="@+id/yqTextView6"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="收录了部分下架、数字专辑的资源"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

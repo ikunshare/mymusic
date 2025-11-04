@@ -396,7 +396,7 @@ public class AppUpdateManager {
       if (manager.progressDialog == null) {
         manager.progressDialog = new Dialog(this.manager.activity);
         this.manager.progressDialog.requestWindowFeature(1);
-        this.manager.progressDialog.getWindow().setWindowAnimations(R.style.LoadingAnim);
+        this.manager.progressDialog.getWindow().setWindowAnimations(R.style.loadingAnim);
         this.manager.progressDialog.setContentView(R.layout.loading);
         this.manager.progressDialog.setCancelable(false);
       }
