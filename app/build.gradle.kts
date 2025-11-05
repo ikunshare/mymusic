@@ -23,6 +23,10 @@ android {
         versionCode = 4150
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
