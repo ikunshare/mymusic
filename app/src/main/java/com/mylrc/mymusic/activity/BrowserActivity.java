@@ -25,14 +25,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.AppUpdateManager;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.network.HttpRequestUtils;
+import com.mylrc.mymusic.utils.ToastUtils;
 import java.util.HashMap;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.json.JSONObject;
-import utils.AppUpdateManager;
-import utils.HttpRequestUtils;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class BrowserActivity extends Activity {

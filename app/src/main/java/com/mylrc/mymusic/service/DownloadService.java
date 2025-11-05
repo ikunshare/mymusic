@@ -19,7 +19,12 @@ import android.widget.Toast;
 import com.mylrc.mymusic.R;
 import com.mylrc.mymusic.activity.MainActivity;
 import com.mylrc.mymusic.activity.SongListActivity;
+import com.mylrc.mymusic.database.SongDatabaseHelper;
+import com.mylrc.mymusic.network.ImageDownloadUtils;
+import com.mylrc.mymusic.network.LyricDownloadUtils;
+import com.mylrc.mymusic.network.OkHttpClient;
 import com.mylrc.mymusic.tool.MusicUrlHelper;
+import com.mylrc.mymusic.utils.FileUtils;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,11 +37,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.json.JSONException;
-import utils.FileUtils;
-import utils.ImageDownloadUtils;
-import utils.LyricDownloadUtils;
-import utils.OkHttpClient;
-import utils.SongDatabaseHelper;
+
 
 public class DownloadService extends Service {
 

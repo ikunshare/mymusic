@@ -16,6 +16,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,9 +29,6 @@ import java.util.List;
 import java.util.Map;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 public class FileChooserActivity extends Activity {
 

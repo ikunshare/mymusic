@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
-import utils.DialogFactory;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.ui.dialog.DialogFactory;
+import com.mylrc.mymusic.utils.ToastUtils;
 
 /**
  * 应用设置界面 Activity 用于管理应用的各种设置选项

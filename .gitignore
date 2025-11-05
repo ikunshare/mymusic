@@ -1,7 +1,16 @@
+# Compiled class file
 *.class
+
+# Log file
 *.log
+
+# BlueJ files
 *.ctxt
+
+# Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
+# Package Files #
 *.jar
 *.war
 *.nar
@@ -9,11 +18,17 @@
 *.zip
 *.tar.gz
 *.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*.gradle/
+replay_pid*
+
+.gradle/
 *.keystore
 app/.cxx
-build/*.iml
+build/
+
+*.iml
 .gradle
 /local.properties
 /.idea/caches
@@ -27,22 +42,4 @@ build/*.iml
 /captures
 .externalNativeBuild
 .cxx
-local.properties.idea/*.iml*.iws.idea/caches/
-.idea/libraries/
-.idea/modules.xml
-.idea/workspace.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
-.idea/gradle.xml
-.idea/misc.xml
-.idea/jdk.table.xml/build/*/build/.externalNativeBuild/
-.cxx//captures//signing/*/build/outputs/mapping//local.properties/local.config*.keystore
-*.jks
-*.key
-*.p12.gradle/gradlew
-gradlew.batgradle/buildOutputCleanup/
-gradle/daemon/
-gradle/caches/.DS_StoreThumbs.db
-$RECYCLE.BIN/*.swp
-*.swo*.log
-logs/*/build/reports/*/build/jacoco//test-data/
+local.properties

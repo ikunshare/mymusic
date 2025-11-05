@@ -11,11 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.utils.ToastUtils;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.mp4.atom.Mp4DataBox;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class ErrorActivity extends Activity {

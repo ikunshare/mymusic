@@ -22,7 +22,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.network.HttpRequestUtils;
 import com.mylrc.mymusic.tool.MusicUrlHelper;
+import com.mylrc.mymusic.ui.dialog.DialogFactory;
+import com.mylrc.mymusic.utils.CommonUtils;
+import com.mylrc.mymusic.utils.ContextHolder;
+import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -35,13 +42,6 @@ import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import utils.CommonUtils;
-import utils.ContextHolder;
-import utils.DialogFactory;
-import utils.HttpRequestUtils;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 public class CloudDiskActivity extends Activity {
 

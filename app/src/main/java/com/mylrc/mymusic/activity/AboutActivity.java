@@ -16,10 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mylrc.mymusic.R;
-import utils.DialogHelper;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.ui.dialog.DialogHelper;
+import com.mylrc.mymusic.utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class AboutActivity extends Activity {

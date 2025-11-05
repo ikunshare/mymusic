@@ -22,6 +22,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.ui.dialog.DialogFactory;
+import com.mylrc.mymusic.utils.FileUtils;
+import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -29,11 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
-import utils.DialogFactory;
-import utils.FileUtils;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 public class Splash extends Activity {
 

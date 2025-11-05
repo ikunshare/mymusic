@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.utils.ToastUtils;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class QQLoginActivity extends Activity {

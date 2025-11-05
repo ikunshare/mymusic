@@ -14,11 +14,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.utils.ToastUtils;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
-import utils.FileUtils;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class DownDirectoryActivity extends Activity {
@@ -48,7 +47,7 @@ public class DownDirectoryActivity extends Activity {
     TextView textView;
     StringBuilder sb;
     TextView textView2;
-    String externalStoragePath = FileUtils.getExternalStoragePath(this);
+    String externalStoragePath = com.mylrc.mymusic.utils.FileUtils.getExternalStoragePath(this);
     if (!TextUtils.isEmpty(externalStoragePath)) {
       try {
         StatFs statFs = new StatFs(externalStoragePath);
@@ -175,7 +174,7 @@ public class DownDirectoryActivity extends Activity {
     @Override // android.view.View.OnClickListener
     public void onClick(View view) {
       if (TextUtils.isEmpty(
-          FileUtils.getExternalStoragePath(this.activity))) {
+          com.mylrc.mymusic.utils.FileUtils.getExternalStoragePath(this.activity))) {
         ToastUtils.showToast(this.activity, "未检测到SD卡或SD卡无读写权限");
         return;
       }

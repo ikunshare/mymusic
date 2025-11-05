@@ -15,17 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.mylrc.mymusic.R;
+import com.mylrc.mymusic.enums.StatusBarColor;
+import com.mylrc.mymusic.manager.StatusBarManager;
+import com.mylrc.mymusic.network.HttpRequestUtils;
+import com.mylrc.mymusic.network.OkHttpClient;
 import com.mylrc.mymusic.tool.APPApplication;
+import com.mylrc.mymusic.utils.ToastUtils;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import okhttp3.Request;
 import org.json.JSONObject;
-import utils.HttpRequestUtils;
-import utils.OkHttpClient;
-import utils.StatusBarColor;
-import utils.StatusBarManager;
-import utils.ToastUtils;
 
 
 public class DonateActivity extends Activity {
@@ -128,11 +128,12 @@ public class DonateActivity extends Activity {
           uri.putExtra("LauncherUI.From.Scaner.Shortcut", true);
           uri.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         } else {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             uri = Intent.parseUri(
                 ("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode="
-                    + URLEncoder.encode(this.activity.alipayCode, "utf-8"))
+                    + URLEncoder.encode(this.activity.alipayCode, StandardCharsets.UTF_8))
                     + "%3F_s%3Dweb-other", Intent.URI_INTENT_SCHEME);
-
+          }
         }
         this.activity.startActivity(uri);
       } catch (Exception e2) {
