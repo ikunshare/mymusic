@@ -15,17 +15,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.manager.StatusBarManager;
-import com.mylrc.mymusic.network.HttpRequestUtils;
-import com.mylrc.mymusic.network.OkHttpClientManager;
 import com.mylrc.mymusic.tool.APPApplication;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import okhttp3.Request;
 import org.json.JSONObject;
+import utils.HttpRequestUtils;
+import utils.OkHttpClient;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
 
 
 public class DonateActivity extends Activity {
@@ -55,7 +55,6 @@ public class DonateActivity extends Activity {
     this.handler.sendMessage(message);
   }
 
-  /* JADX INFO: Access modifiers changed from: private */
   public void sendMessage(int i2) {
     Message message = new Message();
     message.what = i2;
@@ -65,7 +64,7 @@ public class DonateActivity extends Activity {
   public void downloadQRCode(String str) {
     try {
       this.qrCodeBitmap = BitmapFactory.decodeStream(
-          OkHttpClientManager.getInstance()
+          OkHttpClient.getInstance()
               .newCall(new Request.Builder()
                   .url(str)
                   .header("User-Agent", APPApplication.userAgent)
@@ -84,7 +83,7 @@ public class DonateActivity extends Activity {
     new LoadQRCodeThread(this, str).start();
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
     new StatusBarManager(this).setStatusBarTheme(StatusBarColor.BLACK);
@@ -106,7 +105,7 @@ public class DonateActivity extends Activity {
       this.activity = donateActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       this.activity.finish();
     }
@@ -120,7 +119,7 @@ public class DonateActivity extends Activity {
       this.activity = donateActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       Intent uri = new Intent();
       try {
@@ -129,12 +128,11 @@ public class DonateActivity extends Activity {
           uri.putExtra("LauncherUI.From.Scaner.Shortcut", true);
           uri.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
         } else {
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             uri = Intent.parseUri(
                 ("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode="
-                    + URLEncoder.encode(this.activity.alipayCode, StandardCharsets.UTF_8))
+                    + URLEncoder.encode(this.activity.alipayCode, "utf-8"))
                     + "%3F_s%3Dweb-other", Intent.URI_INTENT_SCHEME);
-          }
+
         }
         this.activity.startActivity(uri);
       } catch (Exception e2) {
@@ -147,13 +145,12 @@ public class DonateActivity extends Activity {
 
     final DonateActivity activity;
 
-    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
     MessageHandler(DonateActivity donateActivity, Looper looper) {
       super(looper);
       this.activity = donateActivity;
     }
 
-    @Override // android.os.Handler
+    @Override
     public void handleMessage(Message message) {
       int i2 = message.what;
       if (i2 == 0) {
@@ -182,7 +179,7 @@ public class DonateActivity extends Activity {
       this.paymentType = str;
     }
 
-    @Override // java.lang.Thread, java.lang.Runnable
+    @Override
     public void run() {
       JSONObject jSONObject = new JSONObject();
       try {

@@ -27,14 +27,9 @@ import android.view.WindowManager;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.model.GlobalData;
-import com.mylrc.mymusic.network.ImageDownloadUtils;
-import com.mylrc.mymusic.network.LyricDownloadUtils;
 import com.mylrc.mymusic.receiver.HeadsetButtonReceiver;
 import com.mylrc.mymusic.tool.LrcView;
 import com.mylrc.mymusic.tool.MusicUrlHelper;
-import com.mylrc.mymusic.utils.FileUtils;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +37,11 @@ import java.util.Objects;
 import java.util.Random;
 import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 import org.json.JSONException;
+import utils.FileUtils;
+import utils.GlobalData;
+import utils.ImageDownloadUtils;
+import utils.LyricDownloadUtils;
+import utils.ToastUtils;
 
 public class PlayerService extends Service {
 

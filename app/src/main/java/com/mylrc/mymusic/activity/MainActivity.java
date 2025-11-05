@@ -68,32 +68,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.database.SongDatabaseHelper;
-import com.mylrc.mymusic.enums.MusicPlatform;
-import com.mylrc.mymusic.enums.NumberEnum;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.manager.AppUpdateManager;
-import com.mylrc.mymusic.manager.HistoryManager;
-import com.mylrc.mymusic.manager.StatusBarManager;
-import com.mylrc.mymusic.model.GlobalData;
-import com.mylrc.mymusic.network.DownloadUtils;
-import com.mylrc.mymusic.network.HttpRequestUtils;
-import com.mylrc.mymusic.network.ImageDownloadUtils;
-import com.mylrc.mymusic.network.LyricDownloadUtils;
-import com.mylrc.mymusic.network.MusicSearchUtils;
-import com.mylrc.mymusic.network.MvDownloader;
-import com.mylrc.mymusic.network.MvUrlParser;
-import com.mylrc.mymusic.network.OkHttpClientManager;
 import com.mylrc.mymusic.service.DownloadService;
 import com.mylrc.mymusic.service.PlayerService;
 import com.mylrc.mymusic.tool.MusicUrlHelper;
-import com.mylrc.mymusic.ui.dialog.DialogFactory;
-import com.mylrc.mymusic.ui.dialog.DialogHelper;
-import com.mylrc.mymusic.ui.viewholder.CheckBoxHolder;
-import com.mylrc.mymusic.utils.CommonUtils;
-import com.mylrc.mymusic.utils.ContextHolder;
-import com.mylrc.mymusic.utils.FileUtils;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -113,6 +90,29 @@ import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utils.AppUpdateManager;
+import utils.CheckBoxHolder;
+import utils.CommonUtils;
+import utils.ContextHolder;
+import utils.DialogFactory;
+import utils.DialogHelper;
+import utils.DownloadUtils;
+import utils.FileUtils;
+import utils.GlobalData;
+import utils.HistoryManager;
+import utils.HttpRequestUtils;
+import utils.ImageDownloadUtils;
+import utils.LyricDownloadUtils;
+import utils.MusicPlatform;
+import utils.MusicSearchUtils;
+import utils.MvDownloader;
+import utils.MvUrlParser;
+import utils.NumberEnum;
+import utils.OkHttpClient;
+import utils.SongDatabaseHelper;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
 
 public class MainActivity extends Activity {
 
@@ -246,16 +246,18 @@ public class MainActivity extends Activity {
       String string2 = Objects.requireNonNull(this.leftMusicList.get(i2).get("filename"))
           .toString();
       if (this.appPreferences.getInt("filemode", 0) == 1) {
-        str = Objects.requireNonNull(this.leftMusicList.get(i2).get(Mp4NameBox.IDENTIFIER)) + " - "
-            + Objects.requireNonNull(this.leftMusicList.get(
-            i2).get("singer"));
+        str =
+            Objects.requireNonNull(this.leftMusicList.get(i2).get(Mp4NameBox.IDENTIFIER)) + " - "
+                + Objects.requireNonNull(this.leftMusicList.get(
+                i2).get("singer"));
       } else {
         str = string2;
       }
       str2 =
           string + "∮∮" + str + "∮∮" + Objects.requireNonNull(
               this.leftMusicList.get(i2).get("maxbr")) + "∮∮" + (
-              this.leftMusicList.get(i2).get(Mp4NameBox.IDENTIFIER) + "∮∮" + this.leftMusicList.get(
+              this.leftMusicList.get(i2).get(Mp4NameBox.IDENTIFIER) + "∮∮"
+                  + this.leftMusicList.get(
                       i2)
                   .get("singer") + "∮∮" + this.leftMusicList.get(i2).get("album") + " ");
       Map<Integer, Boolean> map2 = this.leftSelectionMap;
@@ -278,7 +280,8 @@ public class MainActivity extends Activity {
       map = this.rightMusicList.get(i2);
     }
     String string3 = Objects.requireNonNull(map.get(str4)).toString();
-    String string4 = Objects.requireNonNull(this.rightMusicList.get(i2).get("filename")).toString();
+    String string4 = Objects.requireNonNull(this.rightMusicList.get(i2).get("filename"))
+        .toString();
     if (this.appPreferences.getInt("filemode", 0) == 1) {
       str3 =
           Objects.requireNonNull(this.rightMusicList.get(i2).get(Mp4NameBox.IDENTIFIER))
@@ -291,7 +294,8 @@ public class MainActivity extends Activity {
     str2 = string3 + "∮∮" + str3 + "∮∮" + Objects.requireNonNull(
         this.rightMusicList.get(i2).get("maxbr")) + "∮∮"
         + (
-        this.rightMusicList.get(i2).get(Mp4NameBox.IDENTIFIER) + "∮∮" + this.rightMusicList.get(i2)
+        this.rightMusicList.get(i2).get(Mp4NameBox.IDENTIFIER) + "∮∮" + this.rightMusicList.get(
+                i2)
             .get("singer")
             + "∮∮" + this.rightMusicList.get(i2).get("album") + " ");
     HashMap<Integer, Boolean> map3 = this.rightSelectionMap;
@@ -324,7 +328,8 @@ public class MainActivity extends Activity {
       return;
     }
     this.isDownloading = true;
-    String strReplace = str2.replace(":", "：").replace("?", "？").replace("|", "｜").replace("*", "＊")
+    String strReplace = str2.replace(":", "：").replace("?", "？").replace("|", "｜")
+        .replace("*", "＊")
         .replace("\\", "＼").replace("/", "／").replace("\"", "＂").replace("<", "〈")
         .replace(">", "〉");
     if (strReplace.getBytes().length <= 249) {
@@ -341,7 +346,7 @@ public class MainActivity extends Activity {
     String str10 = this.downloadDirectory + "/" + str7 + ".lrc";
     String str11 = sdCardPath + "/MusicDownloader/bin";
     try {
-      Response e0VarH = OkHttpClientManager.getInstance()
+      Response e0VarH = OkHttpClient.getInstance()
           .newCall(new Builder().url(str).build()).execute();
       if (e0VarH.code() != 200) {
         this.dialogMessage =
@@ -411,7 +416,8 @@ public class MainActivity extends Activity {
             }
             FileUtils.writeId3Tags(str9, str4, str5, str6, null, str8);
           } else if (str.contains("vkey=")) {
-            if (ImageDownloadUtils.downloadQQMusicCoverBySongMid(this.coverImageId, str11)) {
+            if (ImageDownloadUtils.downloadQQMusicCover(this.coverImageId, str11)) {
+
             }
           }
         }
@@ -423,7 +429,8 @@ public class MainActivity extends Activity {
           ContentValues contentValues = new ContentValues();
           contentValues.put(Mp4NameBox.IDENTIFIER, this.currentDownloadFileName);
           contentValues.put("path", str9);
-          this.database.delete("song_list", "name = ?", new String[]{this.currentDownloadFileName});
+          this.database.delete("song_list", "name = ?",
+              new String[]{this.currentDownloadFileName});
           this.database.insert("song_list", null, contentValues);
         } else {
           i0(str7 + str3 + "：下载失败");
@@ -516,7 +523,8 @@ public class MainActivity extends Activity {
     x0Var.setClickable(true);
     this.menuImageView.setOnLongClickListener(new s0(this));
     this.downloadProgressDialog = new DialogFactory().createDialog(this);
-    View downloadDialogRootView = LayoutInflater.from(this).inflate(R.layout.download_dialog, null);
+    View downloadDialogRootView = LayoutInflater.from(this)
+        .inflate(R.layout.download_dialog, null);
     this.downloadProgressDialog.setCancelable(false);
     this.downloadProgressDialog.setContentView(downloadDialogRootView);
     this.downloadDialogMsg = downloadDialogRootView.findViewById(R.id.mdTextView1);
@@ -609,9 +617,12 @@ public class MainActivity extends Activity {
         String string3 = this.rightMusicList.get(i2).get("filesize") +
             FrameBodyCOMM.DEFAULT;
         String strSubstring = string3.substring(0, string3.indexOf("mp"));
-        String strSubstring2 = string3.substring(string3.indexOf("mp") + 2, string3.indexOf("hq"));
-        String strSubstring3 = string3.substring(string3.indexOf("hq") + 2, string3.indexOf("sq"));
-        String strSubstring4 = string3.substring(string3.indexOf("sq") + 2, string3.indexOf("hr"));
+        String strSubstring2 = string3.substring(string3.indexOf("mp") + 2,
+            string3.indexOf("hq"));
+        String strSubstring3 = string3.substring(string3.indexOf("hq") + 2,
+            string3.indexOf("sq"));
+        String strSubstring4 = string3.substring(string3.indexOf("sq") + 2,
+            string3.indexOf("hr"));
         String strSubstring5 = string3.substring(string3.indexOf("hr") + 2);
         String string4 = this.rightMusicList.get(i2).get("filehash").toString();
         hasLyricFile(string4.substring(0, string4.indexOf("低高")));
@@ -785,11 +796,15 @@ public class MainActivity extends Activity {
         linearLayout4.setVisibility(View.GONE);
         viewFindViewById.setVisibility(View.GONE);
         hasLyricFile(this.leftMusicList.get(i2).get("id") + FrameBodyCOMM.DEFAULT);
-        button.setText("标准" + this.leftMusicList.get(i2).get("mp3size") + FrameBodyCOMM.DEFAULT);
-        button2.setText("高品" + this.leftMusicList.get(i2).get("hqsize") + FrameBodyCOMM.DEFAULT);
-        button3.setText("无损" + this.leftMusicList.get(i2).get("sqsize") + FrameBodyCOMM.DEFAULT);
+        button.setText(
+            "标准" + this.leftMusicList.get(i2).get("mp3size") + FrameBodyCOMM.DEFAULT);
+        button2.setText(
+            "高品" + this.leftMusicList.get(i2).get("hqsize") + FrameBodyCOMM.DEFAULT);
+        button3.setText(
+            "无损" + this.leftMusicList.get(i2).get("sqsize") + FrameBodyCOMM.DEFAULT);
         button4.setText("HR" + this.leftMusicList.get(i2).get("hrsize") + FrameBodyCOMM.DEFAULT);
-        button6.setText("播放" + this.leftMusicList.get(i2).get("mp3size") + FrameBodyCOMM.DEFAULT);
+        button6.setText(
+            "播放" + this.leftMusicList.get(i2).get("mp3size") + FrameBodyCOMM.DEFAULT);
         if (string10.equals("sq")) {
           linearLayout3.setVisibility(View.GONE);
         } else {
@@ -1095,8 +1110,8 @@ public class MainActivity extends Activity {
     }
     button2.setText("取消");
     new u0(this, button).start();
-    button.setOnClickListener(new v0(this, dialog));
-    button2.setOnClickListener(new a(this, dialog));
+    button.setOnClickListener(new v0(dialog));
+    button2.setOnClickListener(new a(dialog));
   }
 
   public void y0() {
@@ -1282,7 +1297,6 @@ public class MainActivity extends Activity {
   @Override
   public boolean onKeyDown(int i2, KeyEvent keyEvent) {
     if (i2 == 4) {
-      // 如果正在搜索，先中断搜索
       if (!isSearchEnabled && loadingDialog != null && loadingDialog.isShowing()) {
         isSearchCancelled = true;
         searchEditText();
@@ -1326,42 +1340,22 @@ public class MainActivity extends Activity {
   public void v0() {
     try {
       WindowManager windowManager = getWindowManager();
-      if (windowManager == null) {
-        ToastUtils.showToast(this, "无法获取窗口管理器");
-        return;
-      }
-
       Display defaultDisplay = windowManager.getDefaultDisplay();
-      if (defaultDisplay == null) {
-        ToastUtils.showToast(this, "无法获取显示信息");
-        return;
-      }
-
       DisplayMetrics displayMetrics = new DisplayMetrics();
       defaultDisplay.getMetrics(displayMetrics);
       int i2 = displayMetrics.widthPixels;
 
       Dialog dialogA = new DialogFactory().createDialog(this);
-      if (dialogA == null) {
-        ToastUtils.showToast(this, "对话框创建失败");
-        return;
-      }
 
       View viewInflate = LayoutInflater.from(this).inflate(R.layout.tx, null);
-      if (viewInflate == null) {
-        ToastUtils.showToast(this, "布局加载失败");
-        return;
-      }
 
       dialogA.setContentView(viewInflate);
 
       Window window = dialogA.getWindow();
-      if (window != null) {
-        LayoutParams attributes = window.getAttributes();
-        if (attributes != null) {
-          attributes.width = defaultDisplay.getWidth();
-          window.setAttributes(attributes);
-        }
+      LayoutParams attributes = window.getAttributes();
+      if (attributes != null) {
+        attributes.width = defaultDisplay.getWidth();
+        window.setAttributes(attributes);
       }
 
       dialogA.show();
@@ -1372,13 +1366,8 @@ public class MainActivity extends Activity {
       }
 
       ViewGroup viewGroup = viewInflate.findViewById(R.id.txFlowLayout1);
-      if (viewGroup == null) {
-        ToastUtils.showToast(this, "容器视图未找到");
-        dialogA.dismiss();
-        return;
-      }
-
       View closeView = viewInflate.findViewById(R.id.txRelativeLayout1);
+
       if (closeView != null) {
         closeView.setOnClickListener(new n0(this, dialogA));
       }
@@ -1429,7 +1418,6 @@ public class MainActivity extends Activity {
 
         } catch (Exception e) {
           e.printStackTrace();
-          // 单个按钮创建失败不影响其他按钮
         }
       }
 
@@ -1628,52 +1616,84 @@ public class MainActivity extends Activity {
     }
   }
 
-  class a implements OnClickListener {
+  static class b implements OnClickListener {
 
-    final Dialog f2215a;
+    final Dialog dialog;
 
-    final MainActivity f2216b;
-
-    a(MainActivity music, Dialog dialog) {
-      this.f2216b = music;
-      this.f2215a = dialog;
-    }
-
-    @Override
-    public void onClick(View view) {
-      MainActivity music = this.f2216b;
-      if (music.isNoticeRead) {
-        music.appPreferences.edit().putString("gk", this.f2216b.noticeContent).apply();
-        this.f2215a.dismiss();
-        return;
-      }
-      music.i0("请先阅读，剩余" + this.f2216b.noticeCountdownSeconds + "秒才可以操作噢");
-    }
-  }
-
-  class b implements OnClickListener {
-
-    final Dialog f2219a;
-
-    final MainActivity f2220b;
+    final MainActivity mainActivity;
 
     b(MainActivity music, Dialog dialog) {
-      this.f2220b = music;
-      this.f2219a = dialog;
+      this.mainActivity = music;
+      this.dialog = dialog;
     }
 
     @Override
     public void onClick(View view) {
-      if (this.f2220b.noticeMessage1.equals(FrameBodyCOMM.DEFAULT)) {
-        this.f2219a.dismiss();
+      if (this.mainActivity.noticeMessage1.equals(FrameBodyCOMM.DEFAULT)) {
+        this.dialog.dismiss();
         return;
       }
       try {
-        this.f2219a.dismiss();
+        this.dialog.dismiss();
         Intent intent = new Intent("android.intent.action.VIEW");
-        intent.setData(Uri.parse(this.f2220b.noticeMessage1));
-        this.f2220b.startActivity(intent);
+        intent.setData(Uri.parse(this.mainActivity.noticeMessage1));
+        this.mainActivity.startActivity(intent);
       } catch (Exception e2) {
+      }
+    }
+  }
+
+  class a implements View.OnClickListener {
+
+    final Dialog noticeDialog;
+
+    a(Dialog dialog) {
+      this.noticeDialog = dialog;
+    }
+
+    @Override
+    public void onClick(View view) {
+      MainActivity mainActivity = MainActivity.this;
+      if (mainActivity.isNoticeRead) {
+        mainActivity.appPreferences.edit().putString("gk",
+            String.valueOf(mainActivity.isNoticeRead)).apply();
+        this.noticeDialog.dismiss();
+        return;
+      }
+      mainActivity.i0("请先阅读，剩余" + mainActivity.noticeCountdownSeconds + "秒才可以操作噢");
+    }
+  }
+
+  class v0 implements View.OnClickListener {
+
+    final Dialog noticeDialog;
+    MainActivity mainActivity;
+
+    v0(Dialog dialog) {
+      this.noticeDialog = dialog;
+      this.mainActivity = MainActivity.this;
+    }
+
+    @Override
+    public void onClick(View view) {
+      if (!mainActivity.noticeContent.equals(FrameBodyCOMM.DEFAULT)) {
+        mainActivity.appPreferences.edit().putString("gk",
+            String.valueOf(mainActivity.isNoticeRead)).apply();
+        this.noticeDialog.dismiss();
+        try {
+          Intent intent = new Intent("android.intent.action.VIEW");
+          intent.setData(Uri.parse(mainActivity.noticeContent));
+          mainActivity.startActivity(intent);
+          return;
+        } catch (Exception unused) {
+          return;
+        }
+      }
+
+      if (mainActivity.isNoticeRead) {
+        mainActivity.appPreferences.edit().putString("gk",
+            String.valueOf(mainActivity.isNoticeRead)).apply();
+        this.noticeDialog.dismiss();
       }
     }
   }
@@ -1727,7 +1747,7 @@ public class MainActivity extends Activity {
       public void run() {
         this.f2224a.mainActivity.searchSuggestions = new ArrayList();
         try {
-          JSONArray jSONArray = new JSONObject(HttpRequestUtils.get(
+          JSONArray jSONArray = new JSONObject(HttpRequestUtils.httpGet(
               "http://msearchcdn.kugou.com/new/app/i/search.php?cmd=302&keyword="
                   + this.f2224a.mainActivity.searchEditText.getText().toString())).getJSONArray(
               Mp4DataBox.IDENTIFIER);
@@ -1797,14 +1817,10 @@ public class MainActivity extends Activity {
       if (i3 == 1) {
         music = this.mainActivity;
         pVar = MusicPlatform.QQ;
+      } else if (i3 == 3) {
+        music = this.mainActivity;
+        pVar = MusicPlatform.KUWO;
       } else {
-        if (i3 != 2) {
-          if (i3 == 3) {
-            music = this.mainActivity;
-            pVar = MusicPlatform.KUWO;
-          }
-          this.mainActivity.qualitySelector(i2);
-        }
         music = this.mainActivity;
         pVar = MusicPlatform.MIGU;
       }
@@ -1946,12 +1962,11 @@ public class MainActivity extends Activity {
       } else if (i2 == 3) {
         music = this.mainActivity;
         bitmapJ = ImageDownloadUtils.getKugouAlbumCover(this.coverUrl);
+      } else if (i2 == 5) {
+        music = this.mainActivity;
+        bitmapJ = ImageDownloadUtils.getKuwoBitmap(this.coverUrl);
       } else {
         if (i2 != 4) {
-          if (i2 == 5) {
-            music = this.mainActivity;
-            bitmapJ = ImageDownloadUtils.getKuwoBitmap(this.coverUrl);
-          }
           Message message = new Message();
           message.what = 14;
           message.obj = mainActivity.coverBitmap;
@@ -1996,17 +2011,14 @@ public class MainActivity extends Activity {
       if (i3 == 1) {
         music = this.f2233a;
         pVar = MusicPlatform.WYY;
+      } else if (i3 == 3) {
+        music = this.f2233a;
+        pVar = MusicPlatform.KUWO;
       } else {
-        if (i3 != 2) {
-          if (i3 == 3) {
-            music = this.f2233a;
-            pVar = null;
-          }
-          this.f2233a.qualitySelector(i2);
-        }
         music = this.f2233a;
         pVar = MusicPlatform.KUGOU;
       }
+
       music.currentMusicPlatform = pVar;
       this.f2233a.qualitySelector(i2);
     }
@@ -2032,7 +2044,8 @@ public class MainActivity extends Activity {
 
       if (!this.f2234a.equals("d")) {
         if (this.f2234a.equals("l")) {
-          if (!CommonUtils.checkNotificationPermission(this.mainActivity.getApplicationContext())) {
+          if (!CommonUtils.checkNotificationPermission(
+              this.mainActivity.getApplicationContext())) {
             this.mainActivity.mainHandler.post(new a(this));
             return;
           }
@@ -2124,9 +2137,11 @@ public class MainActivity extends Activity {
         title = this.mainActivity.rightMusicList.get(this.f2235b).get(Mp4NameBox.IDENTIFIER)
             + FrameBodyCOMM.DEFAULT;
         singer =
-            this.mainActivity.rightMusicList.get(this.f2235b).get("singer") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.rightMusicList.get(this.f2235b).get("singer")
+                + FrameBodyCOMM.DEFAULT;
         album =
-            this.mainActivity.rightMusicList.get(this.f2235b).get("album") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.rightMusicList.get(this.f2235b).get("album")
+                + FrameBodyCOMM.DEFAULT;
 
         if (this.mainActivity.appPreferences.getInt("filemode", 0) == 1) {
           fileName = title + " - " + singer;
@@ -2134,7 +2149,6 @@ public class MainActivity extends Activity {
           fileName = originalFileName;
         }
 
-        // 下载歌词
         if (this.mainActivity.appPreferences.getInt("lrcmode", 0) == 0) {
           String lrcPath = this.mainActivity.downloadDirectory + "/" + fileName + ".lrc";
           String encoding =
@@ -2150,7 +2164,6 @@ public class MainActivity extends Activity {
           mainActivity.hasLyricFile = hasLyric;
         }
 
-        // 获取音乐URL
         try {
           if (this.f2236c.equals("mp3")) {
             this.mainActivity.kugouStandardHash = fileHash.substring(0, fileHash.indexOf("低高"));
@@ -2213,9 +2226,11 @@ public class MainActivity extends Activity {
         title = this.mainActivity.rightMusicList.get(this.f2235b).get(Mp4NameBox.IDENTIFIER)
             + FrameBodyCOMM.DEFAULT;
         singer =
-            this.mainActivity.rightMusicList.get(this.f2235b).get("singer") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.rightMusicList.get(this.f2235b).get("singer")
+                + FrameBodyCOMM.DEFAULT;
         album =
-            this.mainActivity.rightMusicList.get(this.f2235b).get("album") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.rightMusicList.get(this.f2235b).get("album")
+                + FrameBodyCOMM.DEFAULT;
 
         if (this.mainActivity.appPreferences.getInt("filemode", 0) == 1) {
           fileName = title + " - " + singer;
@@ -2223,7 +2238,6 @@ public class MainActivity extends Activity {
           fileName = originalFileName;
         }
 
-        // 下载歌词
         try {
           if (this.mainActivity.appPreferences.getInt("lrcmode", 0) == 0) {
             String lrcPath = this.mainActivity.downloadDirectory + "/" + fileName + ".lrc";
@@ -2243,7 +2257,6 @@ public class MainActivity extends Activity {
           throw new RuntimeException(e);
         }
 
-        // 获取音乐URL
         try {
           String quality = this.f2236c;
           if (quality.equals("mp3") || quality.equals("hq")) {
@@ -2274,7 +2287,8 @@ public class MainActivity extends Activity {
             this.mainActivity.leftMusicList.get(this.f2235b).get("filename")
                 + FrameBodyCOMM.DEFAULT;
         singer =
-            this.mainActivity.leftMusicList.get(this.f2235b).get("singer") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.leftMusicList.get(this.f2235b).get("singer")
+                + FrameBodyCOMM.DEFAULT;
         title = this.mainActivity.leftMusicList.get(this.f2235b).get(Mp4NameBox.IDENTIFIER)
             + FrameBodyCOMM.DEFAULT;
         album =
@@ -2286,7 +2300,6 @@ public class MainActivity extends Activity {
           fileName = originalFileName;
         }
 
-        // 下载歌词
         try {
           String encoding =
               this.mainActivity.appPreferences.getInt("type", 0) == 0 ? "utf-8" : "gbk";
@@ -2302,7 +2315,6 @@ public class MainActivity extends Activity {
           throw new RuntimeException(e);
         }
 
-        // 获取音乐URL
         try {
           String quality = this.f2236c;
           if (quality.equals("mp3") || quality.equals("hq")) {
@@ -2335,7 +2347,8 @@ public class MainActivity extends Activity {
         title = this.mainActivity.leftMusicList.get(this.f2235b).get(Mp4NameBox.IDENTIFIER)
             + FrameBodyCOMM.DEFAULT;
         singer =
-            this.mainActivity.leftMusicList.get(this.f2235b).get("singer") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.leftMusicList.get(this.f2235b).get("singer")
+                + FrameBodyCOMM.DEFAULT;
         album =
             this.mainActivity.leftMusicList.get(this.f2235b).get("album") + FrameBodyCOMM.DEFAULT;
 
@@ -2345,7 +2358,6 @@ public class MainActivity extends Activity {
           fileName = originalFileName;
         }
 
-        // 下载歌词
         if (this.mainActivity.appPreferences.getInt("lrcmode", 0) == 0) {
           String lrcPath = this.mainActivity.downloadDirectory + "/" + fileName + ".lrc";
           String encoding =
@@ -2360,7 +2372,6 @@ public class MainActivity extends Activity {
           mainActivity.hasLyricFile = hasLyric;
         }
 
-        // 获取音乐URL
         try {
           String quality = this.f2236c;
           if (quality.equals("mp3") || quality.equals("hq")) {
@@ -2385,14 +2396,16 @@ public class MainActivity extends Activity {
         String songId =
             this.mainActivity.leftMusicList.get(this.f2235b).get("id") + FrameBodyCOMM.DEFAULT;
         String albumId =
-            this.mainActivity.leftMusicList.get(this.f2235b).get("albumid") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.leftMusicList.get(this.f2235b).get("albumid")
+                + FrameBodyCOMM.DEFAULT;
         String originalFileName =
             this.mainActivity.leftMusicList.get(this.f2235b).get("filename")
                 + FrameBodyCOMM.DEFAULT;
         title = this.mainActivity.leftMusicList.get(this.f2235b).get(Mp4NameBox.IDENTIFIER)
             + FrameBodyCOMM.DEFAULT;
         singer =
-            this.mainActivity.leftMusicList.get(this.f2235b).get("singer") + FrameBodyCOMM.DEFAULT;
+            this.mainActivity.leftMusicList.get(this.f2235b).get("singer")
+                + FrameBodyCOMM.DEFAULT;
         album =
             this.mainActivity.leftMusicList.get(this.f2235b).get("album") + FrameBodyCOMM.DEFAULT;
 
@@ -2402,7 +2415,6 @@ public class MainActivity extends Activity {
           fileName = originalFileName;
         }
 
-        // 下载歌词
         if (this.mainActivity.appPreferences.getInt("lrcmode", 0) == 0) {
           String lrcPath = this.mainActivity.downloadDirectory + "/" + fileName + ".lrc";
           String encoding =
@@ -2413,11 +2425,11 @@ public class MainActivity extends Activity {
               this.mainActivity.getFilesDir().getParent() + "/app_tmpFile/downTmp.lrc";
           String encoding =
               this.mainActivity.appPreferences.getInt("type", 0) == 0 ? "utf-8" : "gbk";
-          boolean hasLyric = LyricDownloadUtils.downloadQQMusicLyric(songId, tmpLrcPath, encoding);
+          boolean hasLyric = LyricDownloadUtils.downloadQQMusicLyric(songId, tmpLrcPath,
+              encoding);
           mainActivity.hasLyricFile = hasLyric;
         }
 
-        // 获取音乐URL
         try {
           String quality = this.f2236c;
           if (quality.equals("mp3") || quality.equals("hq")) {
@@ -2441,7 +2453,6 @@ public class MainActivity extends Activity {
         return;
       }
 
-      // 最终下载处理
       if (musicUrl != null && fileExtension != null) {
         try {
           mainActivity.searchText(musicUrl, fileName, fileExtension, title, singer, album);
@@ -2596,19 +2607,14 @@ public class MainActivity extends Activity {
       } catch (Exception e2) {
       }
 
-      // 检查是否已取消搜索
       if (this.mainActivity.isSearchCancelled) {
         this.mainActivity.searchEditText();
         return;
       }
 
-      new HistoryManager(getApplicationContext()).saveHistory(mainActivity.searchText);
-
       if (i2 == 1) {
         try {
           mainActivity.leftMusicList = MusicSearchUtils.search(MusicPlatform.QQ,
-              mainActivity.searchText);
-          mainActivity.rightMusicList = MusicSearchUtils.search(MusicPlatform.WYY,
               mainActivity.searchText);
         } catch (JSONException e) {
           throw new RuntimeException(e);
@@ -2619,6 +2625,8 @@ public class MainActivity extends Activity {
           return;
         }
 
+        pVar = MusicPlatform.WYY;
+        str = mainActivity.searchText;
       } else {
         if (i2 != 2) {
           if (i2 == 3) {
@@ -2644,7 +2652,7 @@ public class MainActivity extends Activity {
           return;
         }
         try {
-          mainActivity.rightMusicList = MusicSearchUtils.search(MusicPlatform.KUGOU,
+          mainActivity.leftMusicList = MusicSearchUtils.search(MusicPlatform.MIGU,
               mainActivity.searchText);
         } catch (JSONException e) {
           throw new RuntimeException(e);
@@ -2654,6 +2662,20 @@ public class MainActivity extends Activity {
           this.mainActivity.searchEditText();
           return;
         }
+
+        pVar = MusicPlatform.KUGOU;
+        str = mainActivity.searchText;
+      }
+
+      try {
+        mainActivity.rightMusicList = MusicSearchUtils.search(pVar, str);
+      } catch (JSONException e) {
+        throw new RuntimeException(e);
+      }
+
+      if (this.mainActivity.isSearchCancelled) {
+        this.mainActivity.searchEditText();
+        return;
       }
 
       Message message2 = new Message();
@@ -2797,7 +2819,8 @@ public class MainActivity extends Activity {
           return;
         } else {
           if (i2 == 22) {
-            DialogHelper.showDialog(mainActivity, mainActivity.dialogMessage, "提示", "确定", true);
+            DialogHelper.showDialog(mainActivity, "提示", mainActivity.dialogMessage, "确定",
+                true);
             return;
           }
           return;
@@ -2909,7 +2932,8 @@ public class MainActivity extends Activity {
         button4.setOnLongClickListener(new c(this, dialogA, vVar));
       }
       list = mainActivity.rightMusicList;
-      mainActivity.mvUrl = list.get(mainActivity.leftListSelectedIndex).get("filename").toString();
+      mainActivity.mvUrl = list.get(mainActivity.leftListSelectedIndex).get("filename")
+          .toString();
       MvDownloader vVar2 = new MvDownloader();
       Dialog dialogA2 = new DialogFactory().createDialog(this.mainActivity);
       View viewInflate2 = LayoutInflater.from(this.mainActivity).inflate(R.layout.mvbr, null);
@@ -3091,7 +3115,8 @@ public class MainActivity extends Activity {
         CheckBoxHolder tVar;
         if (view == null) {
           CheckBoxHolder tVar2 = new CheckBoxHolder();
-          view = LayoutInflater.from(this.f2257a.mainActivity).inflate(R.layout.history_item, null);
+          view = LayoutInflater.from(this.f2257a.mainActivity)
+              .inflate(R.layout.history_item, null);
           tVar2.mInstance = view.findViewById(R.id.fCheckBox1);
           view.setTag(tVar2);
           tVar = tVar2;
@@ -3161,7 +3186,7 @@ public class MainActivity extends Activity {
         @Override
         public void run() {
           MainActivity music = this.f2259a.f2258a.mainActivity;
-          new HistoryManager(getApplicationContext()).saveHistory(music.searchText);
+          music.l0(music.searchText);
           this.f2259a.f2258a.mainActivity.z0();
           this.f2259a.f2258a.mainActivity.m0();
         }
@@ -3493,7 +3518,8 @@ public class MainActivity extends Activity {
       if (!this.f2287a.getText().toString().equals(FrameBodyCOMM.DEFAULT)) {
         this.f2289c.appPreferences.edit().putString("qqimg", this.f2287a.getText().toString())
             .apply();
-        Toast.makeText(this.f2289c.getApplicationContext(), "保存成功！", Toast.LENGTH_LONG).show();
+        Toast.makeText(this.f2289c.getApplicationContext(), "保存成功！", Toast.LENGTH_LONG)
+            .show();
         this.f2289c.p0();
       }
       this.f2288b.dismiss();
@@ -3952,7 +3978,6 @@ public class MainActivity extends Activity {
         dialog.show();
         dialog.setContentView(helpView);
 
-        // 设置对话框宽度
         Display display = getWindowManager().getDefaultDisplay();
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = display.getWidth();
@@ -3977,7 +4002,8 @@ public class MainActivity extends Activity {
           intent = new Intent(this.mainActivity.getApplicationContext(), BrowserActivity.class);
           intent.putExtra("url", "https://music.163.com/m/login");
         } else {
-          intent = new Intent(this.mainActivity.getApplicationContext(), WYYPlayListActivity.class);
+          intent = new Intent(this.mainActivity.getApplicationContext(),
+              WYYPlayListActivity.class);
         }
         this.mainActivity.startActivity(intent);
       } else if (itemId == R.id.item_pay) {
@@ -3988,46 +4014,10 @@ public class MainActivity extends Activity {
     }
   }
 
-  class v0 implements OnClickListener {
-
-    final Dialog f2324a;
-
-    final MainActivity f2325b;
-
-    v0(MainActivity music, Dialog dialog) {
-      this.f2325b = music;
-      this.f2324a = dialog;
-    }
-
-    @Override
-    public void onClick(View view) {
-      if (!this.f2325b.noticeMessage1.equals(FrameBodyCOMM.DEFAULT)) {
-        this.f2325b.appPreferences.edit().putString("gk", this.f2325b.noticeContent).commit();
-        this.f2324a.dismiss();
-        try {
-          Intent intent = new Intent("android.intent.action.VIEW");
-          intent.setData(Uri.parse(this.f2325b.noticeMessage1));
-          this.f2325b.startActivity(intent);
-          return;
-        } catch (Exception e2) {
-          return;
-        }
-      }
-      MainActivity music = this.f2325b;
-      if (music.isNoticeRead) {
-        music.appPreferences.edit().putString("gk", this.f2325b.noticeContent).commit();
-        this.f2324a.dismiss();
-        return;
-      }
-      music.i0("请先阅读，剩余" + this.f2325b.noticeCountdownSeconds + "秒才可以操作噢");
-    }
-  }
-
-  // 音质选择监听器 - 合并了 w, x, y, z, a0, b0 类
   class QualityClickListener implements OnClickListener {
 
     final int index;
-    final String action; // "d" 表示下载, "l" 表示播放
+    final String action;
     final String quality;
     final MainActivity activity;
 
@@ -4133,7 +4123,7 @@ public class MainActivity extends Activity {
         if (!this.f2334a.searchText.equals(FrameBodyCOMM.DEFAULT)) {
           music = this.f2334a;
           if (!music.isLeftMultiSelectMode && !music.isRightMultiSelectMode) {
-            new HistoryManager(getApplicationContext()).saveHistory(music.searchText);
+            music.l0(music.searchText);
             this.f2334a.z0();
             this.f2334a.m0();
           } else {

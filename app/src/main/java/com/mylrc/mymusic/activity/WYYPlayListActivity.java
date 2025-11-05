@@ -20,12 +20,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.manager.StatusBarManager;
-import com.mylrc.mymusic.network.DownloadUtils;
-import com.mylrc.mymusic.ui.dialog.DialogFactory;
-import com.mylrc.mymusic.utils.CommonUtils;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +30,12 @@ import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utils.CommonUtils;
+import utils.DialogFactory;
+import utils.DownloadUtils;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
 
 public class WYYPlayListActivity extends Activity {
 

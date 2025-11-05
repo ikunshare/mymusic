@@ -19,12 +19,7 @@ import android.widget.Toast;
 import com.mylrc.mymusic.R;
 import com.mylrc.mymusic.activity.MainActivity;
 import com.mylrc.mymusic.activity.SongListActivity;
-import com.mylrc.mymusic.database.SongDatabaseHelper;
-import com.mylrc.mymusic.network.ImageDownloadUtils;
-import com.mylrc.mymusic.network.LyricDownloadUtils;
-import com.mylrc.mymusic.network.OkHttpClientManager;
 import com.mylrc.mymusic.tool.MusicUrlHelper;
-import com.mylrc.mymusic.utils.FileUtils;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +32,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.json.JSONException;
+import utils.FileUtils;
+import utils.ImageDownloadUtils;
+import utils.LyricDownloadUtils;
+import utils.OkHttpClient;
+import utils.SongDatabaseHelper;
 
 public class DownloadService extends Service {
 
@@ -85,7 +85,7 @@ public class DownloadService extends Service {
     BufferedOutputStream outputStream = null;
 
     try {
-      Response response = OkHttpClientManager.getInstance()
+      Response response = OkHttpClient.getInstance()
           .newCall(new Request.Builder().url(musicUrl).build())
           .execute();
 
@@ -286,8 +286,7 @@ public class DownloadService extends Service {
             .setContentText("如果长时间停留在此界面，请截图反馈给我们");
       } else {
         builder.setContentTitle("正在下载：" + currentFileName)
-            .setContentText(String.format("总共/成功/失败/剩余：   %d/%d/%d/%d",
-                totalCount, successCount, failCount, remainingCount));
+            .setContentText(String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount, failCount, remainingCount));
       }
     } else {
       notificationManager.createNotificationChannel(
@@ -305,8 +304,7 @@ public class DownloadService extends Service {
             .setContentText("如果长时间停留在此界面，请截图反馈给我们");
       } else {
         builder.setContentTitle("正在下载：" + currentFileName)
-            .setContentText(String.format("总共/成功/失败/剩余：   %d/%d/%d/%d",
-                totalCount, successCount, failCount, remainingCount));
+            .setContentText(String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount, failCount, remainingCount));
       }
     }
 
@@ -320,8 +318,7 @@ public class DownloadService extends Service {
         .setSmallIcon(R.drawable.ic_music)
         .setContentTitle("批量下载完成")
         .setTicker("批量下载完成")
-        .setContentText(String.format("总共／成功／失败：   %d／%d／%d",
-            totalCount, successCount, failCount))
+        .setContentText(String.format("总共／成功／失败: %d／%d／%d", totalCount, successCount, failCount))
         .setSound(null)
         .setVibrate(vibrationPattern);
 
@@ -363,7 +360,7 @@ public class DownloadService extends Service {
     return super.onStartCommand(intent, flags, startId);
   }
 
-  class DownloadThread extends Thread {
+  static class DownloadThread extends Thread {
 
     private final DownloadService service;
 
@@ -375,7 +372,7 @@ public class DownloadService extends Service {
     public void run() {
       try {
         Thread.sleep(1000L);
-      } catch (InterruptedException e) {
+      } catch (InterruptedException ignored) {
       }
 
       for (int i = 0; i < service.downloadTaskList.size(); i++) {
@@ -401,9 +398,7 @@ public class DownloadService extends Service {
         String musicUrl = null;
         try {
           musicUrl = service.musicUrlHelper.getMusicUrl(musicType, musicId, bitrate);
-        } catch (JSONException e) {
-          throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
           throw new RuntimeException(e);
         }
 
@@ -422,7 +417,7 @@ public class DownloadService extends Service {
     }
   }
 
-  class UIHandler extends Handler {
+  static class UIHandler extends Handler {
 
     private final DownloadService service;
 

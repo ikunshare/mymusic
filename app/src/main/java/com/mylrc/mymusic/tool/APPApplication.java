@@ -9,10 +9,10 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
-import com.mylrc.mymusic.exception.CrashHandler;
-import com.mylrc.mymusic.manager.ImageLoaderConfig;
-import com.mylrc.mymusic.utils.CommonUtils;
 import me.sukimon.utils.DeviceVerifyUtils;
+import utils.CommonUtils;
+import utils.CrashHandler;
+import utils.ImageLoaderConfig;
 
 
 public class APPApplication extends Application {

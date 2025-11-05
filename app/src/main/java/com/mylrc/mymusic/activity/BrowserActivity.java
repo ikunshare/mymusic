@@ -25,14 +25,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.manager.AppUpdateManager;
-import com.mylrc.mymusic.manager.StatusBarManager;
-import com.mylrc.mymusic.network.HttpRequestUtils;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.util.HashMap;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.json.JSONObject;
+import utils.AppUpdateManager;
+import utils.HttpRequestUtils;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
 
 /* loaded from: classes.dex */
 public class BrowserActivity extends Activity {
@@ -327,7 +327,7 @@ public class BrowserActivity extends Activity {
         HashMap map = new HashMap();
         map.put("Cookie", this.cookie);
         AppUpdateManager.sharedPreferences.edit().putString("wyyuid", new JSONObject(
-            HttpRequestUtils.getWithHeaders("https://interface.music.163.com/api/nuser/account/get",
+            HttpRequestUtils.httpGetWithHeaders("https://interface.music.163.com/api/nuser/account/get",
                 map)).getJSONObject("profile").getString("userId")).apply();
         ToastUtils.showToast(this.activity.getApplicationContext(), "登录成功，请重新获取");
         this.activity.finish();

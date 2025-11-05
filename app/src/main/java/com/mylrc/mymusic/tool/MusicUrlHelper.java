@@ -1,13 +1,13 @@
 package com.mylrc.mymusic.tool;
 
 import android.os.Build;
-import com.mylrc.mymusic.network.HttpRequestUtils;
-import com.mylrc.mymusic.utils.ZipUtils;
 import java.io.IOException;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.mp4.atom.Mp4DataBox;
 import org.json.JSONException;
 import org.json.JSONObject;
+import utils.HttpRequestUtils;
+import utils.ZipUtils;
 
 public class MusicUrlHelper {
 

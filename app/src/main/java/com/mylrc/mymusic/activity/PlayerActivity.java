@@ -41,20 +41,21 @@ import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.model.GlobalData;
 import com.mylrc.mymusic.service.PlayerService;
 import com.mylrc.mymusic.tool.LrcView;
-import com.mylrc.mymusic.ui.dialog.DialogFactory;
-import com.mylrc.mymusic.ui.viewholder.ViewHolder;
-import com.mylrc.mymusic.utils.CommonUtils;
-import com.mylrc.mymusic.utils.FileUtils;
-import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import utils.CommonUtils;
+import utils.DialogFactory;
+import utils.FileUtils;
+import utils.GlobalData;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
+import utils.ViewHolder;
 
 /**
  * 音乐播放器主界面 负责显示和控制音乐播放、歌词显示、播放列表等功能
@@ -203,7 +204,7 @@ public class PlayerActivity extends Activity {
     overridePendingTransition(R.anim.in_from_up, 0);
 
     // 设置状态栏主题
-    new com.mylrc.mymusic.manager.StatusBarManager(this)
+    new StatusBarManager(this)
         .setStatusBarTheme(StatusBarColor.BLACK);
 
     setContentView(R.layout.player);

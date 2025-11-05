@@ -14,9 +14,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import com.mylrc.mymusic.R;
-import com.mylrc.mymusic.enums.StatusBarColor;
-import com.mylrc.mymusic.manager.StatusBarManager;
-import com.mylrc.mymusic.utils.ToastUtils;
+import utils.StatusBarColor;
+import utils.StatusBarManager;
+import utils.ToastUtils;
 
 
 public class WYYLoginActivity extends Activity {
