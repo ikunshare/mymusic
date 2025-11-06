@@ -22,12 +22,13 @@ public class APPApplication extends Application {
   public static String versionName;
   public static String versionCode;
   public static String userAgent;
-  public static Context context;
+
+  public Context context;
 
   public static String getDeviceBrandModel() {
     String brand = Build.BRAND;
     String model = Build.MODEL;
-    if (model.toLowerCase().indexOf(brand.toLowerCase()) != -1) {
+    if (model.toLowerCase().contains(brand.toLowerCase())) {
       return model;
     }
     return brand + " " + model;
@@ -46,11 +47,11 @@ public class APPApplication extends Application {
     StringBuilder sb = new StringBuilder();
     try {
       sb.append(DeviceVerifyUtils.getUniqueDeviceRandomId(context));
-    } catch (Exception e) {
+    } catch (Exception ignored) {
     }
     sb.append(Build.BRAND);
     sb.append(Build.MODEL);
-    return CommonUtils.md5(sb.toString());
+    return CommonUtils.createMD5(sb.toString());
   }
 
   private String getVersionCode() {

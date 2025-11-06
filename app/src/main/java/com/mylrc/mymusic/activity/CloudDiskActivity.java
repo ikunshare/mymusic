@@ -414,7 +414,7 @@ public class CloudDiskActivity extends Activity {
 
         JSONObject request = new JSONObject();
         request.put("s", keyword);
-        request.put("sign", CommonUtils.md5(URLEncoder.encode(keyword) + timestamp + "yun_search"));
+        request.put("sign", CommonUtils.createMD5(URLEncoder.encode(keyword) + timestamp + "yun_search"));
         request.put("t", timestamp);
 
         String response = HttpRequestUtils.postBytes(

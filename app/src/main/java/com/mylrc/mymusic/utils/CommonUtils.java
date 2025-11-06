@@ -29,7 +29,7 @@ import org.json.JSONObject;
 
 public class CommonUtils {
 
-  public static String md5(String str) {
+  public static String createMD5(String str) {
     if (!TextUtils.isEmpty(str)) {
       try {
         byte[] bArrDigest = MessageDigest.getInstance("MD5")

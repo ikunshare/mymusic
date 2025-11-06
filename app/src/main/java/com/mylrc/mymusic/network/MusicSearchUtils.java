@@ -235,7 +235,7 @@ public class MusicSearchUtils {
 
       String signText = keyword
           + "6cdc72a439cef99a3418d2a78aa28c73yyapp2d16148780a1dcc7408e06336b98cfd507B51A6ADBA32B0FD46773B37EC4355C61651662030";
-      String sign = CommonUtils.md5(signText);
+      String sign = CommonUtils.createMD5(signText);
 
       Map<String, String> headers = new HashMap<>();
       headers.put("sign", sign);

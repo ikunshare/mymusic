@@ -1,7 +1,7 @@
 #include "Mverify.h"
-#include "base64.h"
-#include "cJSON.h"
-#include "md5.h"
+#include "base64/base64.h"
+#include "cJSON/cJSON.h"
+#include "md5/md5.h"
 #include <string>
 #include <cstring>
 #include <ctime>

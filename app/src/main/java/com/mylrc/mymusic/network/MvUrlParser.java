@@ -38,7 +38,7 @@ public class MvUrlParser {
       String sb = "http://trackermv.kugou.com/interface/index/cmd=100&hash=" +
           str.toUpperCase() +
           "&key=" +
-          CommonUtils.md5(str.toUpperCase() + "kugoumvcloud") +
+          CommonUtils.createMD5(str.toUpperCase() + "kugoumvcloud") +
           "&ext=mp4";
 
       String response = HttpRequestUtils.httpGet(sb);

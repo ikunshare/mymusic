@@ -12,10 +12,6 @@
         android:id="@+id/item_about"
         android:icon="@drawable/ic_friend"
         android:title="关于我们" />
-    <item
-        android:id="@+id/item_feedback"
-        android:icon="@drawable/ic_email_edit"
-        android:title="我要反馈" />
     <item android:title="同步">
         <menu>
             <item
@@ -30,10 +26,14 @@
     </item>
     <item android:title="其它">
         <menu>
+<!--            <item-->
+<!--                android:id="@+id/item_pay"-->
+<!--                android:icon="@drawable/ic_account_payment"-->
+<!--                android:title="赞赏我们" />-->
             <item
-                android:id="@+id/item_pay"
-                android:icon="@drawable/ic_account_payment"
-                android:title="赞赏我们" />
+              android:id="@+id/item_pay"
+              android:icon="@drawable/ic_account_payment"
+              android:title="赞赏我们" />
             <item
                 android:id="@+id/item_tips"
                 android:icon="@drawable/ic_comment_alert"

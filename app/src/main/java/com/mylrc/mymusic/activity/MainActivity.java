@@ -1154,24 +1154,24 @@ public class MainActivity extends Activity {
     }
     this.loadingDialog.show();
   }
-
-  public void a0() {
-    Dialog dialogA = new DialogFactory().createDialog(this);
-    dialogA.show();
-    View viewInflate = LayoutInflater.from(this).inflate(R.layout.fgdialog, null);
-    ((TextView) viewInflate.findViewById(R.id.fgdialogTextView1)).setText("赞赏方式");
-    dialogA.setContentView(viewInflate);
-    Display defaultDisplay = getWindowManager().getDefaultDisplay();
-    LayoutParams attributes = dialogA.getWindow().getAttributes();
-    attributes.width = defaultDisplay.getWidth();
-    dialogA.getWindow().setAttributes(attributes);
-    Button button = viewInflate.findViewById(R.id.fgdialogButton1);
-    Button button2 = viewInflate.findViewById(R.id.fgdialogButton2);
-    button.setText("微信");
-    button2.setText("支付宝");
-    button.setOnClickListener(new q0(this, dialogA));
-    button2.setOnClickListener(new r0(this, dialogA));
-  }
+//
+//  public void a0() {
+//    Dialog dialogA = new DialogFactory().createDialog(this);
+//    dialogA.show();
+//    View viewInflate = LayoutInflater.from(this).inflate(R.layout.fgdialog, null);
+//    ((TextView) viewInflate.findViewById(R.id.fgdialogTextView1)).setText("赞赏方式");
+//    dialogA.setContentView(viewInflate);
+//    Display defaultDisplay = getWindowManager().getDefaultDisplay();
+//    LayoutParams attributes = dialogA.getWindow().getAttributes();
+//    attributes.width = defaultDisplay.getWidth();
+//    dialogA.getWindow().setAttributes(attributes);
+//    Button button = viewInflate.findViewById(R.id.fgdialogButton1);
+//    Button button2 = viewInflate.findViewById(R.id.fgdialogButton2);
+//    button.setText("微信");
+//    button2.setText("支付宝");
+//    button.setOnClickListener(new q0(this, dialogA));
+//    button2.setOnClickListener(new r0(this, dialogA));
+//  }
 
   @SuppressLint("UnspecifiedRegisterReceiverFlag")
   public void c0() {
@@ -1581,25 +1581,25 @@ public class MainActivity extends Activity {
     }
   }
 
-  static class q0 implements OnClickListener {
-
-    final Dialog f2303a;
-
-    final MainActivity f2304b;
-
-    q0(MainActivity music, Dialog dialog) {
-      this.f2304b = music;
-      this.f2303a = dialog;
-    }
-
-    @Override
-    public void onClick(View view) {
-      this.f2303a.dismiss();
-      Intent intent = new Intent(this.f2304b.getApplicationContext(), DonateActivity.class);
-      intent.putExtra("type", "wx");
-      this.f2304b.startActivity(intent);
-    }
-  }
+//  static class q0 implements OnClickListener {
+//
+//    final Dialog f2303a;
+//
+//    final MainActivity f2304b;
+//
+//    q0(MainActivity music, Dialog dialog) {
+//      this.f2304b = music;
+//      this.f2303a = dialog;
+//    }
+//
+//    @Override
+//    public void onClick(View view) {
+//      this.f2303a.dismiss();
+//      Intent intent = new Intent(this.f2304b.getApplicationContext(), DonateActivity.class);
+//      intent.putExtra("type", "wx");
+//      this.f2304b.startActivity(intent);
+//    }
+//  }
 
   static class r implements OnClickListener {
 
@@ -3083,7 +3083,6 @@ public class MainActivity extends Activity {
           holder = new CheckBoxHolder();
           holder.mInstance = view.findViewById(R.id.fCheckBox1);
           view.setTag(holder);
-          holder = holder;
         } else {
           holder = (CheckBoxHolder) view.getTag();
         }
@@ -3103,53 +3102,45 @@ public class MainActivity extends Activity {
 
     }
 
-
     class e extends SimpleAdapter {
 
-      final i0 f2257a;
+      final i0 f2256a;
 
       e(i0 i0Var, Context context, List list, int i2, String[] strArr, int[] iArr) {
         super(context, list, i2, strArr, iArr);
-        this.f2257a = i0Var;
+        this.f2256a = i0Var;
       }
 
       @Override
       public View getView(int i2, View view, ViewGroup viewGroup) {
-        CheckBoxHolder tVar;
+        CheckBoxHolder holder;
+
         if (view == null) {
-          CheckBoxHolder tVar2 = new CheckBoxHolder();
-          view = LayoutInflater.from(this.f2257a.mainActivity)
-              .inflate(R.layout.history_item, null);
-          tVar2.mInstance = view.findViewById(R.id.fCheckBox1);
-          view.setTag(tVar2);
-          tVar = tVar2;
+          view = LayoutInflater.from(viewGroup.getContext())
+              .inflate(R.layout.f, viewGroup, false);
+          holder = new CheckBoxHolder();
+          holder.mInstance = view.findViewById(R.id.fCheckBox1);
+          view.setTag(holder);
+          holder = holder;
         } else {
-          Object tag = view.getTag();
-          if (tag instanceof CheckBoxHolder) {
-            tVar = (CheckBoxHolder) tag;
-          } else {
-            tVar = new CheckBoxHolder();
-            tVar.mInstance = view.findViewById(R.id.fCheckBox1);
-            view.setTag(tVar);
-          }
+          holder = (CheckBoxHolder) view.getTag();
         }
 
-        if (tVar.mInstance == null) {
-          return super.getView(i2, view, viewGroup);
-        }
-
-        MainActivity music = this.f2257a.mainActivity;
+        MainActivity music = this.f2256a.mainActivity;
         if (music.isRightMultiSelectMode) {
-          tVar.mInstance.setChecked(
-              music.rightSelectionMap != null && music.rightSelectionMap.containsKey(
-                  i2));
-          tVar.mInstance.setVisibility(View.VISIBLE);
+          Map<Integer, Boolean> map = music.rightSelectionMap;
+          holder.mInstance.setChecked(
+              map != null && map.containsKey(Integer.valueOf(i2)));
+          holder.mInstance.setVisibility(View.VISIBLE);
         } else {
-          tVar.mInstance.setVisibility(View.INVISIBLE);
+          holder.mInstance.setVisibility(View.GONE);
         }
+
         return super.getView(i2, view, viewGroup);
       }
+
     }
+
 
     class f implements OnItemClickListener {
 
@@ -3565,25 +3556,25 @@ public class MainActivity extends Activity {
     }
   }
 
-  class r0 implements OnClickListener {
-
-    final Dialog f2307a;
-
-    final MainActivity f2308b;
-
-    r0(MainActivity music, Dialog dialog) {
-      this.f2308b = music;
-      this.f2307a = dialog;
-    }
-
-    @Override
-    public void onClick(View view) {
-      this.f2307a.dismiss();
-      Intent intent = new Intent(this.f2308b.getApplicationContext(), DonateActivity.class);
-      intent.putExtra("type", "zfb");
-      this.f2308b.startActivity(intent);
-    }
-  }
+//  class r0 implements OnClickListener {
+//
+//    final Dialog f2307a;
+//
+//    final MainActivity f2308b;
+//
+//    r0(MainActivity music, Dialog dialog) {
+//      this.f2308b = music;
+//      this.f2307a = dialog;
+//    }
+//
+//    @Override
+//    public void onClick(View view) {
+//      this.f2307a.dismiss();
+//      Intent intent = new Intent(this.f2308b.getApplicationContext(), DonateActivity.class);
+//      intent.putExtra("type", "zfb");
+//      this.f2308b.startActivity(intent);
+//    }
+//  }
 
   class s implements OnClickListener {
 
@@ -3985,7 +3976,7 @@ public class MainActivity extends Activity {
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = display.getWidth();
         dialog.getWindow().setAttributes(params);
-      } else if (itemId == R.id.item_feedback) {
+      } else if (itemId == R.id.item_pay) {
         intent = new Intent(this.mainActivity, BrowserActivity.class);
         intent.putExtra("url", "https://shop.ikunshare.com/");
         this.mainActivity.startActivity(intent);
@@ -4009,9 +4000,10 @@ public class MainActivity extends Activity {
               WYYPlayListActivity.class);
         }
         this.mainActivity.startActivity(intent);
-      } else if (itemId == R.id.item_pay) {
-        this.mainActivity.a0();
       }
+//      } else if (itemId == R.id.item_pay) {
+//        this.mainActivity.a0();
+//      }
 
       return true;
     }

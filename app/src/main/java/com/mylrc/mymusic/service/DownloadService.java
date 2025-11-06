@@ -158,47 +158,28 @@ public class DownloadService extends Service {
   private void downloadLyrics(String musicUrl, String musicId, String lrcFilePath)
       throws JSONException, IOException {
     int lrcMode = preferences.getInt("lrcmode", 0);
-    int textMode = preferences.getInt("textmode", 0);
     int encoding = preferences.getInt("type", 0);
     String encodingType = encoding == 0 ? "utf-8" : "gbk";
 
     if (musicUrl.contains("kugou")) {
       if (lrcMode == 1) {
-        if (textMode == 0) {
-          lrcDownloadSuccess = LyricDownloadUtils.downloadKugouLyric(musicId, lrcFilePath,
-              encodingType);
-        } else {
-          LyricDownloadUtils.downloadKugouLyricAlt(musicId, lrcFilePath, encodingType);
-        }
+        lrcDownloadSuccess = LyricDownloadUtils.downloadKugouLyric(musicId, lrcFilePath,
+            encodingType);
       }
     } else if (musicUrl.contains("ymusic")) {
       if (lrcMode == 1) {
-        if (textMode == 0) {
-          lrcDownloadSuccess = LyricDownloadUtils.downloadNeteaseCloudLyric(musicId, lrcFilePath,
-              encodingType);
-        } else {
-          LyricDownloadUtils.downloadNeteaseCloudLyricWithTranslation(musicId, lrcFilePath,
-              encodingType);
-        }
+        lrcDownloadSuccess = LyricDownloadUtils.downloadNeteaseCloudLyric(musicId, lrcFilePath,
+            encodingType);
       }
     } else if (musicUrl.contains("kuwo")) {
       if (lrcMode == 1) {
-        if (textMode == 0) {
-          lrcDownloadSuccess = LyricDownloadUtils.downloadKuwoLyric(musicId, lrcFilePath,
-              encodingType);
-        } else {
-          LyricDownloadUtils.downloadKuwoLyric(musicId, lrcFilePath, encodingType);
-        }
+        lrcDownloadSuccess = LyricDownloadUtils.downloadKuwoLyric(musicId, lrcFilePath,
+            encodingType);
       }
     } else if (musicUrl.contains("vkey=")) {
       if (lrcMode == 1) {
-        if (textMode == 0) {
-          lrcDownloadSuccess = LyricDownloadUtils.downloadQQMusicLyric(musicId, lrcFilePath,
-              encodingType);
-        } else {
-          LyricDownloadUtils.downloadQQMusicLyricWithTranslation(musicId, lrcFilePath,
-              encodingType);
-        }
+        lrcDownloadSuccess = LyricDownloadUtils.downloadQQMusicLyric(musicId, lrcFilePath,
+            encodingType);
       }
     }
   }
@@ -287,7 +268,9 @@ public class DownloadService extends Service {
             .setContentText("如果长时间停留在此界面，请截图反馈给我们");
       } else {
         builder.setContentTitle("正在下载：" + currentFileName)
-            .setContentText(String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount, failCount, remainingCount));
+            .setContentText(
+                String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount,
+                    failCount, remainingCount));
       }
     } else {
       notificationManager.createNotificationChannel(
@@ -305,7 +288,9 @@ public class DownloadService extends Service {
             .setContentText("如果长时间停留在此界面，请截图反馈给我们");
       } else {
         builder.setContentTitle("正在下载：" + currentFileName)
-            .setContentText(String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount, failCount, remainingCount));
+            .setContentText(
+                String.format("总共/成功/失败/剩余：%d/%d/%d/%d", totalCount, successCount,
+                    failCount, remainingCount));
       }
     }
 
@@ -319,7 +304,8 @@ public class DownloadService extends Service {
         .setSmallIcon(R.drawable.ic_music)
         .setContentTitle("批量下载完成")
         .setTicker("批量下载完成")
-        .setContentText(String.format("总共／成功／失败: %d／%d／%d", totalCount, successCount, failCount))
+        .setContentText(
+            String.format("总共／成功／失败: %d／%d／%d", totalCount, successCount, failCount))
         .setSound(null)
         .setVibrate(vibrationPattern);
 

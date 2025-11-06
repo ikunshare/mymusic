@@ -274,7 +274,7 @@ public class AppSettingActivity extends Activity {
         break;
       case 6: // 编码类型
         encodingType = value;
-        prefKey = "textmode";
+        prefKey = "type";
         break;
       default:
         return;

@@ -1,6 +1,7 @@
 package com.mylrc.mymusic.activity;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -21,7 +22,6 @@ import com.mylrc.mymusic.manager.StatusBarManager;
 import com.mylrc.mymusic.ui.dialog.DialogHelper;
 import com.mylrc.mymusic.utils.ToastUtils;
 
-/* loaded from: classes.dex */
 public class AboutActivity extends Activity {
 
   RelativeLayout backButton;
@@ -47,20 +47,17 @@ public class AboutActivity extends Activity {
     this.announcementButton.setOnClickListener(new AnnouncementButtonClickListener(this));
   }
 
-  public void openQQGroup(String str) {
+  public void openQQGroup(String key) {
     Intent intent = new Intent("android.intent.action.VIEW");
-    intent.setData(Uri.parse(
-        "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3F_wv%3D1027%26k%3DqE_iy7evGGR2XyDOPx2cno1qhxarmRlo%26authKey%3DulcUW4CoJHc3i7t%252BNyK%252FWj8WOuK4pEA1x9tOTqlx9rqL7Va2ab%252BxdajKERPPrJ1L%26noverify%3D0%26group_code%3D951962664"
-            + str));
+    intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D" + key));
     try {
       startActivity(intent);
-    } catch (Exception e2) {
-      Toast.makeText(getApplicationContext(), e2.toString(), Toast.LENGTH_LONG).show();
+    } catch (ActivityNotFoundException e2) {
+      Toast.makeText(getApplicationContext(), "您还没有安装QQ", Toast.LENGTH_LONG).show();
     }
   }
 
   @Override
-  // android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
   public Resources getResources() {
     Resources resources = super.getResources();
     Configuration configuration = new Configuration();
@@ -69,7 +66,7 @@ public class AboutActivity extends Activity {
     return resources;
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
     new StatusBarManager(this).setStatusBarTheme(StatusBarColor.BLACK);
@@ -82,11 +79,11 @@ public class AboutActivity extends Activity {
     initializeViews();
   }
 
-  @Override // android.view.Window.Callback
+  @Override
   public void onPointerCaptureChanged(boolean z2) {
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onStop() {
     super.onStop();
   }
@@ -99,7 +96,7 @@ public class AboutActivity extends Activity {
       this.activity = aboutActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       this.activity.finish();
     }
@@ -113,13 +110,13 @@ public class AboutActivity extends Activity {
       this.activity = aboutActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
-      this.activity.openQQGroup("0QPd5uPTINGPimzHvdIfhGQvfd5f-apX");
+      this.activity.openQQGroup("71HyZmLJfMIWHqNncPhhN3ee1lacfY6p");
     }
   }
 
-  class AnnouncementButtonClickListener implements View.OnClickListener {
+  static class AnnouncementButtonClickListener implements View.OnClickListener {
 
     final AboutActivity activity;
 
@@ -127,7 +124,7 @@ public class AboutActivity extends Activity {
       this.activity = aboutActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       DialogHelper.showDialog(this.activity, "提示",
           "本软件为修改版歌词适配，希望大家不要到处乱发。本人授权可转发至公开平台者：科技长青，YHY分享，星之墨辰，宝藏分享",
@@ -139,13 +136,12 @@ public class AboutActivity extends Activity {
 
     final AboutActivity activity;
 
-    /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
     MessageHandler(AboutActivity aboutActivity, Looper looper) {
       super(looper);
       this.activity = aboutActivity;
     }
 
-    @Override // android.os.Handler
+    @Override
     public void handleMessage(Message message) {
       int i2 = message.what;
       if (i2 != 1 && i2 == 0) {

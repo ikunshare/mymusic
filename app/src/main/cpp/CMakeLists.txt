@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 源文件
 set(SOURCES
-        md5.cpp
-        cJSON.c
-        base64.cpp
+        md5/md5.cpp
+        cJSON/cJSON.c
+        base64/base64.cpp
 )
 
 # JNI源文件

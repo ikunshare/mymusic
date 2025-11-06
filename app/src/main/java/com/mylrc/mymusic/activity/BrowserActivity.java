@@ -34,7 +34,6 @@ import java.util.HashMap;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.json.JSONObject;
 
-/* loaded from: classes.dex */
 public class BrowserActivity extends Activity {
 
   WebView webView;
@@ -44,7 +43,6 @@ public class BrowserActivity extends Activity {
   private ValueCallback<Uri> filePathCallback;
   private ValueCallback<Uri[]> filePathCallbackArray;
 
-  /* JADX INFO: Access modifiers changed from: private */
   public void processNeteaseLogin(String str) {
     new Thread(new NeteaseLoginThread(this, str)).start();
   }
@@ -76,7 +74,6 @@ public class BrowserActivity extends Activity {
     this.filePathCallbackArray = null;
   }
 
-  /* JADX INFO: Access modifiers changed from: private */
   public void openFileChooser() {
     Intent intent = new Intent("android.intent.action.GET_CONTENT");
     intent.addCategory("android.intent.category.OPENABLE");
@@ -85,7 +82,6 @@ public class BrowserActivity extends Activity {
   }
 
   @Override
-  // android.view.ContextThemeWrapper, android.content.ContextWrapper, android.content.Context
   public Resources getResources() {
     Resources resources = super.getResources();
     Configuration configuration = new Configuration();
@@ -94,7 +90,7 @@ public class BrowserActivity extends Activity {
     return resources;
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onActivityResult(int i2, int i3, Intent intent) {
     super.onActivityResult(i2, i3, intent);
     if (i2 == 400) {
@@ -114,7 +110,7 @@ public class BrowserActivity extends Activity {
     }
   }
 
-  @Override // android.app.Activity
+  @Override
   public void onBackPressed() {
     if (this.webView.canGoBack()) {
       this.webView.goBack();
@@ -124,7 +120,7 @@ public class BrowserActivity extends Activity {
     }
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
     new StatusBarManager(this).setStatusBarTheme(StatusBarColor.BLACK);
@@ -146,7 +142,7 @@ public class BrowserActivity extends Activity {
     this.webView.loadUrl(stringExtra);
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onDestroy() {
     deleteDatabase("webview.db");
     deleteDatabase("webviewCache.db");
@@ -154,7 +150,7 @@ public class BrowserActivity extends Activity {
     super.onDestroy();
   }
 
-  @Override // android.app.Activity, android.view.KeyEvent.Callback
+  @Override
   public boolean onKeyDown(int i2, KeyEvent keyEvent) {
     if (i2 != 4) {
       return super.onKeyDown(i2, keyEvent);
@@ -163,7 +159,7 @@ public class BrowserActivity extends Activity {
     return true;
   }
 
-  @Override // android.app.Activity
+  @Override
   protected void onNewIntent(Intent intent) {
     if (intent == null) {
       return;
@@ -183,7 +179,7 @@ public class BrowserActivity extends Activity {
       this.activity = browserActivity;
     }
 
-    @Override // android.webkit.WebViewClient
+    @Override
     public void onPageFinished(WebView webView, String str) {
       super.onPageFinished(webView, str);
       if (str.equals("https://y.music.163.com/m")) {
@@ -216,19 +212,19 @@ public class BrowserActivity extends Activity {
       }
     }
 
-    @Override // android.webkit.WebViewClient
+    @Override
     public void onPageStarted(WebView webView, String str, Bitmap bitmap) {
       Log.d("swallow", "onPageStarted------->" + str);
       super.onPageStarted(webView, str, bitmap);
     }
 
-    @Override // android.webkit.WebViewClient
+    @Override
     public void onReceivedSslError(WebView webView, SslErrorHandler sslErrorHandler,
         SslError sslError) {
       sslErrorHandler.proceed();
     }
 
-    @Override // android.webkit.WebViewClient
+    @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String str) {
       if (str.startsWith("http://") || str.startsWith("https://")) {
         webView.loadUrl(str);
@@ -251,7 +247,7 @@ public class BrowserActivity extends Activity {
       this.activity = browserActivity;
     }
 
-    @Override // android.webkit.WebChromeClient
+    @Override
     public void onProgressChanged(WebView webView, int i2) {
       if (i2 == 100) {
         this.activity.progressBar.setVisibility(View.GONE);
@@ -262,12 +258,12 @@ public class BrowserActivity extends Activity {
       super.onProgressChanged(webView, i2);
     }
 
-    @Override // android.webkit.WebChromeClient
+    @Override
     public void onReceivedTitle(WebView webView, String str) {
       this.activity.titleTextView.setText(str);
     }
 
-    @Override // android.webkit.WebChromeClient
+    @Override
     public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> valueCallback,
         WebChromeClient.FileChooserParams fileChooserParams) {
       this.activity.filePathCallbackArray = valueCallback;
@@ -284,7 +280,7 @@ public class BrowserActivity extends Activity {
       this.activity = browserActivity;
     }
 
-    @Override // android.webkit.DownloadListener
+    @Override
     public void onDownloadStart(String str, String str2, String str3, String str4, long j2) {
       this.activity.progressBar.setVisibility(View.GONE);
       try {
@@ -305,7 +301,7 @@ public class BrowserActivity extends Activity {
       this.activity = browserActivity;
     }
 
-    @Override // android.view.View.OnClickListener
+    @Override
     public void onClick(View view) {
       this.activity.finish();
     }
@@ -321,13 +317,14 @@ public class BrowserActivity extends Activity {
       this.cookie = str;
     }
 
-    @Override // java.lang.Runnable
+    @Override
     public void run() {
       try {
         HashMap map = new HashMap();
         map.put("Cookie", this.cookie);
         AppUpdateManager.sharedPreferences.edit().putString("wyyuid", new JSONObject(
-            HttpRequestUtils.httpGetWithHeaders("https://interface.music.163.com/api/nuser/account/get",
+            HttpRequestUtils.httpGetWithHeaders(
+                "https://interface.music.163.com/api/nuser/account/get",
                 map)).getJSONObject("profile").getString("userId")).apply();
         ToastUtils.showToast(this.activity.getApplicationContext(), "登录成功，请重新获取");
         this.activity.finish();

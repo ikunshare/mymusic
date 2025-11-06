@@ -38,11 +38,11 @@
       android:launchMode="singleTask"
       android:name="com.mylrc.mymusic.activity.CloudDiskActivity"
       android:resizeableActivity="true" />
-    <activity
-      android:launchMode="singleTask"
-      android:name="com.mylrc.mymusic.activity.DonateActivity"
-      android:resizeableActivity="true"
-      android:screenOrientation="portrait" />
+<!--    <activity-->
+<!--      android:launchMode="singleTask"-->
+<!--      android:name="com.mylrc.mymusic.activity.DonateActivity"-->
+<!--      android:resizeableActivity="true"-->
+<!--      android:screenOrientation="portrait" />-->
     <activity
       android:configChanges="orientation|screenSize"
       android:name="com.mylrc.mymusic.activity.MVActivity"
