@@ -4,5 +4,5 @@ import android.widget.CheckBox;
 
 public class CheckBoxHolder {
 
-  public CheckBox mInstance;
+  public CheckBox checkBox;
 }

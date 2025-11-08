@@ -63,9 +63,9 @@ public class AppUpdateManager {
   private void getSplashConfig() {
     SharedPreferences.Editor editor;
     try {
-      String host = new URL("http://api.ikunshare.com/client/cgi-bin/Splash").getHost();
+      String host = new URL("http://music.ikun0014.top/client/cgi-bin/Splash").getHost();
       JSONObject jsonObject = new JSONObject(
-          HttpRequestUtils.httpGet("http://api.ikunshare.com/client/cgi-bin/Splash"));
+          HttpRequestUtils.httpGet("http://music.ikun0014.top/client/cgi-bin/Splash"));
 
       String state = jsonObject.getString("state");
       String color = jsonObject.getString("color");
@@ -164,7 +164,7 @@ public class AppUpdateManager {
       JSONObject responseJson = new JSONObject(
           OkHttpClient.getInstance()
               .newCall(new Request.Builder()
-                  .url("http://api.ikunshare.com/client/cgi-bin/check_version")
+                  .url("http://music.ikun0014.top/client/cgi-bin/check_version")
                   .header("User-Agent", APPApplication.userAgent)
                   .post(RequestBody.create(MediaType.parse("gcsp/stream"),
                       CommonUtils.getDeviceInfo()))

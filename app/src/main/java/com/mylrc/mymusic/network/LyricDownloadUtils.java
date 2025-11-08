@@ -13,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.zip.Inflater;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyCOMM;
 import org.jaudiotagger.tag.mp4.atom.Mp4DataBox;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

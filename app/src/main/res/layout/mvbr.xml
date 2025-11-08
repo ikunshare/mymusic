@@ -32,7 +32,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <com.mylrc.mymusic.tool.RoundedLinearLayout
+                        <com.mylrc.mymusic.tool.CircleImageView
                             android:id="@+id/mvbri1"
                             android:layout_width="48.0dip"
                             android:layout_height="48.0dip" />

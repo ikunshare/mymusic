@@ -31,8 +31,7 @@ public class MusicSearchUtils {
         return searchQQMusic(keyword);
       case WYY:
         return searchNeteaseCloud(keyword);
-      case MIGU:
-        return searchMigu(keyword);
+
       case KUGOU:
         return searchKugou(keyword);
       case KUWO:
@@ -347,7 +346,7 @@ public class MusicSearchUtils {
     }
   }
 
-  private static List<Map<String, Object>> searchQQMusic(String keyword) {
+  public static List<Map<String, Object>> searchQQMusic(String keyword) {
     cachedResults = new ArrayList<>();
 
     try {
@@ -651,5 +650,20 @@ public class MusicSearchUtils {
     long r = Math.round(a * 1000) % (24 * 60 * 60 * 1000);
 
     return String.valueOf(t + n + r);
+  }
+
+  public static List<String> getSearchSuggestions(String keyword) {
+    ArrayList<String> searchSuggestions = new ArrayList<>();
+    try {
+      JSONArray jSONArray = new JSONObject(HttpRequestUtils.httpGet(
+          "http://msearchcdn.kugou.com/new/app/i/search.php?cmd=302&keyword="
+              + keyword)).getJSONArray("data");
+      for (int i2 = 0; i2 < jSONArray.length(); i2++) {
+        searchSuggestions.add(jSONArray.getJSONObject(i2).getString("keyword"));
+      }
+      return searchSuggestions;
+    } catch (Exception ignored) {
+    }
+    return searchSuggestions;
   }
 }

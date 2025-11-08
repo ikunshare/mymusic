@@ -15,7 +15,7 @@ public class MusicUrlHelper {
     System.loadLibrary("Mverify");
   }
 
-  private final String apiUrl = "http://api.ikunshare.com/client/cgi-bin/api.fcg";
+  private final String apiUrl = "http://music.ikun0014.top/client/cgi-bin/api.fcg";
 
   private byte[] encryptData(String data) throws IOException {
     return ZipUtils.compress(data.getBytes());

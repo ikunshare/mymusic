@@ -131,7 +131,7 @@ public class DonateActivity extends Activity {
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             uri = Intent.parseUri(
                 ("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7.0.0718&qrcode="
-                    + URLEncoder.encode(this.activity.alipayCode, StandardCharsets.UTF_8))
+                    + URLEncoder.encode(this.activity.alipayCode, StandardCharsets.UTF_8.toString()))
                     + "%3F_s%3Dweb-other", Intent.URI_INTENT_SCHEME);
           }
         }
@@ -187,7 +187,7 @@ public class DonateActivity extends Activity {
         jSONObject.put("type", this.paymentType);
         new HttpRequestUtils();
         JSONObject jSONObject2 = new JSONObject(
-            HttpRequestUtils.postBytes("http://api.ikunshare.com/client/cgi-bin/zz",
+            HttpRequestUtils.postBytes("http://music.ikun0014.top/client/cgi-bin/zz",
                 jSONObject.toString().getBytes()));
         this.activity.downloadQRCode(jSONObject2.getString("url"));
         if (this.paymentType.equals("zfb")) {

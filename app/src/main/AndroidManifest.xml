@@ -3,7 +3,7 @@
   package="com.mylrc.mymusic">
 
   <uses-sdk
-    android:minSdkVersion="21"
+    android:minSdkVersion="24"
     android:targetSdkVersion="28"/>
 
   <application
@@ -156,7 +156,6 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
-
   <uses-permission android:name="android.permission.GET_TASKS" />
   <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 </manifest>

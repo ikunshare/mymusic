@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mylrc.mymusic"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 28
         versionName = "4.1.5"
 
@@ -21,6 +21,9 @@ android {
             }
         }
         versionCode = 4150
+        ndk {
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
+        }
     }
 
     lint {
@@ -39,7 +42,6 @@ android {
         }
         getByName("debug") {
             isJniDebuggable = true
-            isRenderscriptDebuggable = false
             signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             multiDexEnabled = false

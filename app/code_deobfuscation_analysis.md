@@ -366,9 +366,9 @@
 
 ### 1. ikunshare API
 
-- 搜索：`http://api.ikunshare.com/songinfoandlrc?musicId={id}`
-- 版本检查：`http://api.ikunshare.com/client/cgi-bin/check_version`
-- 启动页：`http://api.ikunshare.com/client/cgi-bin/Splash`
+- 搜索：`http://music.ikun0014.top/songinfoandlrc?musicId={id}`
+- 版本检查：`http://music.ikun0014.top/client/cgi-bin/check_version`
+- 启动页：`http://music.ikun0014.top/client/cgi-bin/Splash`
 
 ### 2. 酷狗音乐 API
 
