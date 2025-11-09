@@ -94,10 +94,9 @@ public class PlayerService extends Service {
       wifiLock.acquire();
     }
 
-    String basePath = Environment.getExternalStorageDirectory().getAbsolutePath()
-        + "/MusicDownloader/";
-    lyricFilePath = basePath + "bin/lyrics.lrc";
-    coverImagePath = basePath + "bin/cover.jpg";
+    String basePath = getFilesDir().getParent() + "/app_tmpFile/";
+    lyricFilePath = basePath + "listen_tmp.lrc";
+    coverImagePath = basePath + "listen_tmp.jpg";
 
     initFloatingLyric();
 

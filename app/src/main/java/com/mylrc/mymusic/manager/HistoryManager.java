@@ -38,7 +38,7 @@ public class HistoryManager {
       for (String item : historyArray) {
         if (!TextUtils.isEmpty(item)) {
           Map<String, Object> map = new HashMap<>();
-          map.put("identifier", item);
+          map.put("data", item);
           historyList.add(map);
         }
       }

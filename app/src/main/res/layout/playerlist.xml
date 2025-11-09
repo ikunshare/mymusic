@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/playerListImageView"
+            android:layout_toEndOf="@id/playerListImageView"
             android:gravity="center_vertical"
             android:text="@string/play_mode_order"
             android:textColor="#ff000000"

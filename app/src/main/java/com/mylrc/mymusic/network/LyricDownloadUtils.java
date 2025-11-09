@@ -191,16 +191,17 @@ public class LyricDownloadUtils {
     }
   }
 
-  public static void downloadLyricFromUrl(String url, String outputPath, String fileName)
+  public static boolean downloadLyricFromUrl(String url, String outputPath, String fileName)
       throws IOException {
     String lyric = HttpRequestUtils.httpGet(url);
 
     if (lyric.equals(EMPTY_STRING)) {
       Log.w(TAG, "歌词内容为空 - URL: " + url);
-      return;
+      return false;
     }
 
     FileUtils.writeFile(lyric, outputPath, fileName);
+    return false;
   }
 
   public static boolean downloadQQMusicLyric(String songMid, String outputPath, String fileName) {

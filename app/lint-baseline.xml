@@ -4910,8 +4910,8 @@
 
     <issue
         id="HardcodedText"
-        message="Hardcoded string &quot;当前：内部存储/PMSLLM/Music&quot;, should use `@string` resource"
-        errorLine1="            android:text=&quot;当前：内部存储/PMSLLM/Music&quot;"
+        message="Hardcoded string &quot;当前：内部存储/MusicDownloader/Music&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;当前：内部存储/MusicDownloader/Music&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/filechooser.xml"

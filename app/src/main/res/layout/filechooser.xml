@@ -61,7 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15.0dip"
             android:gravity="center"
-            android:text="当前：内部存储/PMSLLM/Music"
+            android:text="当前：内部存储/MusicDownloader/Music"
             android:textColor="#ff00c4fd"
             android:textSize="10.0sp" />
     </RelativeLayout>
