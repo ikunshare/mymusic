@@ -22,8 +22,6 @@ public class MusicSearchUtils {
   private static final String SEPARATOR = "、";
   private static final int MAX_SINGER_COUNT = 5;
 
-  private static List<Map<String, Object>> cachedResults;
-
   public static List<Map<String, Object>> search(MusicPlatform platform, String keyword)
       throws JSONException {
     switch (platform) {
@@ -347,7 +345,7 @@ public class MusicSearchUtils {
   }
 
   public static List<Map<String, Object>> searchQQMusic(String keyword) {
-    cachedResults = new ArrayList<>();
+    List<Map<String, Object>> cachedResults = new ArrayList<>();
 
     try {
       JSONObject requestBody = getStringObjectMap(keyword);

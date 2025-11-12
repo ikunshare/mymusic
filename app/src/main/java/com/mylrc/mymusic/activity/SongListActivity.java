@@ -248,7 +248,7 @@ public class SongListActivity extends Activity {
 
   private void showQualityDialog() {
     ArrayList<String> items = this.selectedItems;
-    if (items == null || items.size() == 0) {
+    if (items == null || items.isEmpty()) {
       this.showToast("请先选择一些歌吧～");
       return;
     }
@@ -344,7 +344,7 @@ public class SongListActivity extends Activity {
     @Override
     public void onClick(View view) {
       this.dialog.dismiss();
-      if (this.activity.selectedItems.size() == 0) {
+      if (this.activity.selectedItems.isEmpty()) {
         this.activity.showToast("你还没有选择歌曲哦～");
         return;
       }

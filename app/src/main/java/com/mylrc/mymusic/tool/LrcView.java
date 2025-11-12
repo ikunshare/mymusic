@@ -334,7 +334,7 @@ public class LrcView extends View {
   }
 
   public String getLrcText(int line) {
-    if (this.lrcEntryList.size() == 0 || line > this.lrcEntryList.size() - 1) {
+    if (this.lrcEntryList.isEmpty() || line > this.lrcEntryList.size() - 1) {
       return FrameBodyCOMM.DEFAULT;
     }
     return this.lrcEntryList.get(line).getText();

@@ -20,7 +20,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
   private static final CrashHandler instance = new CrashHandler();
   private static Thread crashThread;
   private static Throwable crashException;
-  private Thread.UncaughtExceptionHandler defaultHandler;
 
   private Context mContext;
 
@@ -57,7 +56,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
   }
 
   public void init(Context context, Application application) {
-    this.defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+    Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
     Thread.setDefaultUncaughtExceptionHandler(this);
     this.mContext = context.getApplicationContext();
   }

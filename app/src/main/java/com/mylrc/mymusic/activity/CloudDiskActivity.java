@@ -64,7 +64,6 @@ public class CloudDiskActivity extends Activity {
   private Dialog loadingDialog;
   // 工具类
   private MusicUrlHelper musicUrlHelper;
-  private ContextHolder contextHolder;
   // 状态标志
   private boolean hasMoreData = true;
   private boolean isSearchMode = false;
@@ -107,7 +106,7 @@ public class CloudDiskActivity extends Activity {
     helpTextView = findViewById(R.id.yuny1);
 
     musicUrlHelper = new MusicUrlHelper();
-    contextHolder = new ContextHolder(this);
+    ContextHolder contextHolder = new ContextHolder(this);
 
     helpTextView.setText("点击此处查看云盘引擎帮助说明～");
   }

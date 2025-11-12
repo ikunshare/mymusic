@@ -269,7 +269,7 @@ public class DownloadHistoryActivity extends Activity {
         }
         this.activity.historyList.add(map);
       }
-      if (this.activity.historyList.size() == 0) {
+      if (this.activity.historyList.isEmpty()) {
         this.activity.showToast("下载历史空空如也");
       }
       this.activity.dismissProgressDialog();

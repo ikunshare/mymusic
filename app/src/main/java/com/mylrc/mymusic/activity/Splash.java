@@ -31,7 +31,7 @@ import java.io.IOException;
 
 public class Splash extends Activity {
   private SharedPreferences sharedPreferences;
-  private String emptyString = "";
+  private final String emptyString = "";
   private String externalStoragePath;
   private Dialog permissionDialog;
   private ImageView logoImageView;

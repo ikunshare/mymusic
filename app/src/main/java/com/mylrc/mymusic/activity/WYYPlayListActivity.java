@@ -441,7 +441,7 @@ public class WYYPlayListActivity extends Activity {
           );
           listener.activity.sendHandlerMessage(3);
           List<Map<String, Object>> list = WYYPlayListActivity.playlistData;
-          if (list == null || list.size() == 0) {
+          if (list == null || list.isEmpty()) {
             return;
           }
           Intent intent = new Intent(listener.activity.getApplicationContext(),
@@ -458,7 +458,7 @@ public class WYYPlayListActivity extends Activity {
           );
           listener.activity.sendHandlerMessage(3);
           List<Map<String, Object>> list2 = WYYPlayListActivity.playlistData;
-          if (list2 == null || list2.size() == 0) {
+          if (list2 == null || list2.isEmpty()) {
             return;
           }
           Intent intent2 = new Intent(listener.activity.getApplicationContext(),

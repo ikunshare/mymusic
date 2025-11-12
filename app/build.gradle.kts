@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mylrc.mymusic"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 28
         versionName = "4.1.5"
 
@@ -22,7 +22,7 @@ android {
         }
         versionCode = 4150
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a")
+            abiFilters += setOf("armeabi-v7a", "arm64-v8a")
         }
     }
 
@@ -71,7 +71,9 @@ dependencies {
     implementation(libs.okhttp3)
     implementation(libs.jaudiotagger)
     implementation(libs.imageloader)
+    implementation(libs.ads.mobile.sdk)
     testImplementation(libs.junit)
+    debugImplementation(libs.userCertificateTrust)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
