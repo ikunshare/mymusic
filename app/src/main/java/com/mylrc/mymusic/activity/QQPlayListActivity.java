@@ -225,21 +225,6 @@ public class QQPlayListActivity extends Activity {
     this.handler.sendMessage(message);
   }
 
-  public void showLoadingDialog2() {
-    if (this.loadingDialog == null) {
-      Dialog dialog = new Dialog(this);
-      this.loadingDialog = dialog;
-      dialog.requestWindowFeature(1);
-      this.loadingDialog.getWindow().setWindowAnimations(R.style.loadingAnim);
-      this.loadingDialog.setContentView(R.layout.loading);
-      this.loadingDialog.setCancelable(false);
-    }
-    if (this.loadingDialog.isShowing() || isFinishing()) {
-      return;
-    }
-    this.loadingDialog.show();
-  }
-
   public void showMenu() {
     Dialog menuDialog = new DialogFactory().createDialog(this);
     View dialogView = LayoutInflater.from(this).inflate(R.layout.fgdialog, null);
@@ -310,7 +295,7 @@ public class QQPlayListActivity extends Activity {
   public String getUserLikedPlaylistsJson(String userId) {
     try {
       String url =
-          "https://c.y.qq.com/fav/fcgi-bin/fcg_get_profile_order_asset.fcg?cv=4747474&ct=20&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=1&cid=205360956&userid="
+          "http://c.y.qq.com/fav/fcgi-bin/fcg_get_profile_order_asset.fcg?cv=4747474&ct=20&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=yqq.json&needNewCode=1&cid=205360956&userid="
               +
               userId + "&reqtype=3&sin=0&ein=1000";
       String result = makeHttpRequest(url);
@@ -449,9 +434,20 @@ public class QQPlayListActivity extends Activity {
       if (what == 0) {
         ToastUtils.showToast(this.activity, message.obj + "");
       } else if (what == 2) {
-        this.activity.showLoadingDialog2();
+        if (loadingDialog == null) {
+          Dialog dialog = new Dialog(this.activity);
+          loadingDialog = dialog;
+          dialog.requestWindowFeature(1);
+          loadingDialog.getWindow().setWindowAnimations(R.style.loadingAnim);
+          loadingDialog.setContentView(R.layout.loading);
+          loadingDialog.setCancelable(false);
+        }
+        if (loadingDialog.isShowing() || isFinishing()) {
+          return;
+        }
+        loadingDialog.show();
       } else if (what == 3) {
-        this.activity.dismissLoadingDialog();
+        loadingDialog.dismiss();
         String[] from = new String[]{"text", "name", "num"};
         int[] to = new int[]{R.id.listitemTextView1, R.id.listitemTextView2,
             R.id.listitemTextView3};
@@ -459,12 +455,12 @@ public class QQPlayListActivity extends Activity {
             R.layout.listitem, from, to);
         this.activity.listView.setAdapter(adapter);
       } else if (what == 5) {
-        this.activity.dismissLoadingDialog();
+        loadingDialog.dismiss();
         ToastUtils.showToast(this.activity, message.obj + "");
         this.activity.sharedPreferences.edit().putString("qquin", FrameBodyCOMM.DEFAULT).commit();
         this.activity.finish();
       } else if (what == 6) {
-        this.activity.dismissLoadingDialog();
+        loadingDialog.dismiss();
         ToastUtils.showToast(this.activity, "登录身份认证已过期，请重新登录。");
         this.activity.finish();
       }
