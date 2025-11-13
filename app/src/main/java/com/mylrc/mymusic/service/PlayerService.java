@@ -125,9 +125,13 @@ public class PlayerService extends Service {
   }
 
 
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void registerReceivers() {
     IntentFilter controlFilter = new IntentFilter();
     controlFilter.addAction("com.mylrc.mymusic.ac");
+    controlFilter.addAction("android.intent.action.HEADSET_PLUG");
+    controlFilter.addAction("com.music.remove");
+    controlFilter.addAction("com.music.add");
     registerReceiver(new PlayControlReceiver(), controlFilter);
 
     ComponentName component = new ComponentName(getPackageName(),
@@ -879,9 +883,53 @@ public class PlayerService extends Service {
     @Override
     public void onReceive(Context context, Intent intent) {
       try {
-        int control = intent.getIntExtra("control", 0);
+        String action = intent.getAction();
 
+        // Handle headset plug/unplug
+        if (intent.hasExtra("state")) {
+          int state = intent.getIntExtra("state", 0);
+          if (state == 0) {  // Headset unplugged
+            pause();
+          }
+        }
+
+        // Handle notification actions
+        if ("com.music.remove".equals(action)) {
+          removeFloatingLyric();
+        } else if ("com.music.add".equals(action)) {
+          showFloatingLyric();
+        }
+
+        // Handle playback control codes
+        int control = intent.getIntExtra("control", -1);
         switch (control) {
+          case 0x123:  // 291 - Play/Resume
+            resume();
+            break;
+
+          case 0x124:  // 292 - Pause
+            pause();
+            break;
+
+          case 0x125:  // 293 - Stop
+            stopPlayback();
+            break;
+
+          case 0x126:  // 294 - Next
+            playNext();
+            break;
+
+          case 0x127:  // 295 - Previous
+            playPrevious();
+            break;
+
+          case 0x128:  // 296 - Exit
+            Intent exitIntent = new Intent("com.music.exit");
+            sendBroadcast(exitIntent);
+            stopSelf();
+            break;
+
+          // Legacy control codes (for backward compatibility)
           case 1:
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
               pause();
