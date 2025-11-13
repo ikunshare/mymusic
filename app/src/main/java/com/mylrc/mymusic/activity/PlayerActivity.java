@@ -732,17 +732,31 @@ public class PlayerActivity extends Activity {
 
     private void loadLyrics() {
       try {
+        File lrcFile = new File(lyricFilePath);
+        Log.d(TAG, "Loading lyrics from: " + lyricFilePath);
+        Log.d(TAG, "Lyrics file exists: " + lrcFile.exists());
+
+        if (!lrcFile.exists()) {
+          Log.w(TAG, "Lyrics file does not exist, skipping load");
+          lrcView.setDraggable(true, new LrcSeekListener());
+          uiHandler.post(uiUpdateRunnable);
+          return;
+        }
+
         String lrcContent = FileUtils.readFileUTF8(lyricFilePath);
+        Log.d(TAG, "Lyrics content length: " + (lrcContent != null ? lrcContent.length() : 0));
 
         if (lrcContent != null && lrcContent.contains(DUAL_LYRICS_SEPARATOR)) {
+          Log.d(TAG, "Loading dual lyrics");
           String[] parts = lrcContent.split(DUAL_LYRICS_SEPARATOR);
           if (parts.length == 2) {
             lrcView.loadLrc(parts[0], parts[1]);
           } else {
-            lrcView.loadLrc(new File(lyricFilePath));
+            lrcView.loadLrc(lrcFile);
           }
         } else {
-          lrcView.loadLrc(new File(lyricFilePath));
+          Log.d(TAG, "Loading single lyric file");
+          lrcView.loadLrc(lrcFile);
         }
 
         lrcView.setDraggable(true, new LrcSeekListener());
@@ -751,6 +765,7 @@ public class PlayerActivity extends Activity {
 
       } catch (IOException e) {
         Log.e(TAG, "Failed to load lyrics", e);
+        lrcView.setDraggable(true, new LrcSeekListener());
         uiHandler.post(uiUpdateRunnable);
       }
     }
