@@ -262,6 +262,10 @@ public class PlayerActivity extends Activity {
   }
 
   private void initUIAndListeners() {
+    // Re-setup seekbar and play/pause listeners (as per original smali)
+    seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener());
+    playPauseButton.setOnClickListener(new PlayPauseButtonListener());
+
     titleTextView.setText(GlobalData.currentMusicName != null ?
         GlobalData.currentMusicName : "");
     artistTextView.setText(GlobalData.currentArtist != null ?
@@ -780,6 +784,8 @@ public class PlayerActivity extends Activity {
 
       switch (action) {
         case ACTION_UPDATE_VIEW:
+          // Update MediaPlayer reference (PlayerService may recreate it)
+          mediaPlayer = PlayerService.mediaPlayer;
           initUIAndListeners();
           break;
         case ACTION_UPDATE_VIEW2:
