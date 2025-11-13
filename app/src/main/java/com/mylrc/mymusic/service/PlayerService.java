@@ -93,7 +93,7 @@ public class PlayerService extends Service {
 
     String basePath = getFilesDir().getParent() + "/app_tmpFile/";
     lyricFilePath = basePath + "listen_tmp.lrc";
-    coverImagePath = basePath + "listen_tmp.jpg";
+    coverImagePath = basePath + "listen_tmp.bin";
 
     initFloatingLyric();
 
@@ -583,8 +583,10 @@ public class PlayerService extends Service {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     playList = GlobalData.playList;
-    FileUtils.createDirectory(lyricFilePath);
-    FileUtils.createDirectory(coverImagePath);
+
+    // Create parent directory only (not the file paths!)
+    String basePath = getFilesDir().getParent() + "/app_tmpFile/";
+    FileUtils.createDirectory(basePath);
 
     new PlayControlThread(this).start();
 
@@ -619,8 +621,8 @@ public class PlayerService extends Service {
 
     @Override
     public void run() {
-      FileUtils.createDirectory(service.lyricFilePath);
-      FileUtils.createDirectory(service.coverImagePath);
+      // Parent directory should already be created in onStartCommand
+      // No need to create file paths as directories
 
       int playMode = GlobalData.playMode;
       if (playMode == 0 || playMode == 1) {
