@@ -198,10 +198,10 @@ public class PlayerActivity extends Activity {
     currentTimeTextView = findViewById(R.id.time1);
     totalTimeTextView = findViewById(R.id.time2);
     seekBar = findViewById(R.id.playerSeekBar1);
-    prevButton = findViewById(R.id.next);
+    prevButton = findViewById(R.id.up);
     backButton = findViewById(R.id.playerRelativeLayout2);
     playModeButton = findViewById(R.id.mode);
-    nextButton = findViewById(R.id.up);
+    nextButton = findViewById(R.id.next);
     playPauseButton = findViewById(R.id.playerRelativeLayout3);
     albumArtToggleLayout = findViewById(R.id.playerRelativeLayout4);
     playPauseIcon = findViewById(R.id.play);
