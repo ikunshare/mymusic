@@ -184,6 +184,10 @@ public class PlayerActivity extends Activity {
     configureUI();
     setupListeners();
     registerBroadcastReceiver();
+
+    // Get MediaPlayer instance from PlayerService
+    this.mediaPlayer = PlayerService.mediaPlayer;
+
     loadAlbumArt();
     initUIAndListeners();
   }
