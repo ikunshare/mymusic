@@ -308,7 +308,6 @@ public class PlayerActivity extends Activity {
 
   protected void sendPlayerControlBroadcast(int controlCode) {
     Intent intent = new Intent(ACTION_PLAYER_CONTROL);
-    intent.setPackage(getPackageName());
     intent.putExtra("control", controlCode);
     sendBroadcast(intent);
   }
