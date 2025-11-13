@@ -153,8 +153,12 @@ public class PlayerService extends Service {
       currentPlatform = GlobalData.currentSource;
 
       Map<String, Object> currentSong = playList.get(currentIndex);
-      GlobalData.currentMusicName = currentSong.get(Mp4NameBox.IDENTIFIER).toString();
-      GlobalData.currentArtist = currentSong.get("singer").toString();
+
+      Object nameObj = currentSong.get(Mp4NameBox.IDENTIFIER);
+      Object singerObj = currentSong.get("singer");
+
+      GlobalData.currentMusicName = nameObj != null ? nameObj.toString() : "Unknown";
+      GlobalData.currentArtist = singerObj != null ? singerObj.toString() : "Unknown";
       currentMusicTitle = GlobalData.currentMusicName + " - " + GlobalData.currentArtist;
 
       String musicUrl = null;
@@ -182,10 +186,20 @@ public class PlayerService extends Service {
   }
 
   private String getMusicUrlKugou(Map<String, Object> song) throws JSONException, IOException {
-    String fileHash = song.get("filehash").toString();
+    Object fileHashObj = song.get("filehash");
+    if (fileHashObj == null) {
+      showToast("歌曲信息不完整");
+      playNext();
+      return null;
+    }
+
+    String fileHash = fileHashObj.toString();
     String musicId = fileHash.substring(0, fileHash.indexOf("低高"));
-    String payType = song.get("pay").toString();
-    String copyright = song.get("cy").toString();
+
+    Object payTypeObj = song.get("pay");
+    Object copyrightObj = song.get("cy");
+    String payType = payTypeObj != null ? payTypeObj.toString() : "";
+    String copyright = copyrightObj != null ? copyrightObj.toString() : "";
 
     if ("pay".equals(payType) || "5".equals(copyright)) {
       showToast(currentMusicTitle + "：无版权或者为数字专辑，不能播放！下一曲");
@@ -203,9 +217,19 @@ public class PlayerService extends Service {
   }
 
   private String getMusicUrlNetease(Map<String, Object> song) throws JSONException, IOException {
-    String musicId = song.get("id").toString();
-    String payType = song.get("pay").toString();
-    String copyright = song.get("cy").toString();
+    Object musicIdObj = song.get("id");
+    if (musicIdObj == null) {
+      showToast("歌曲信息不完整");
+      playNext();
+      return null;
+    }
+
+    String musicId = musicIdObj.toString();
+
+    Object payTypeObj = song.get("pay");
+    Object copyrightObj = song.get("cy");
+    String payType = payTypeObj != null ? payTypeObj.toString() : "";
+    String copyright = copyrightObj != null ? copyrightObj.toString() : "";
 
     if ("4".equals(payType) || "-200".equals(copyright)) {
       showToast(currentMusicTitle + "：无版权或者为数字专辑，不能播放！下一曲");
@@ -219,17 +243,35 @@ public class PlayerService extends Service {
   }
 
   private String getMusicUrlMigu(Map<String, Object> song) throws IOException, JSONException {
-    String musicId = song.get("id").toString();
-    String lrcUrl = song.get("lrc").toString();
+    Object musicIdObj = song.get("id");
+    Object lrcUrlObj = song.get("lrc");
 
-    LyricDownloadUtils.downloadLyricFromUrl(lrcUrl, lyricFilePath, "utf-8");
+    if (musicIdObj == null) {
+      showToast("歌曲信息不完整");
+      playNext();
+      return null;
+    }
+
+    String musicId = musicIdObj.toString();
+    String lrcUrl = lrcUrlObj != null ? lrcUrlObj.toString() : "";
+
+    if (!lrcUrl.isEmpty()) {
+      LyricDownloadUtils.downloadLyricFromUrl(lrcUrl, lyricFilePath, "utf-8");
+    }
     lyricDisplayMode = 1;
 
     return musicUrlHelper.getMusicUrl(PLATFORM_MIGU, musicId, "mp3");
   }
 
   private String getMusicUrlQQ(Map<String, Object> song) throws IOException, JSONException {
-    String musicId = song.get("id").toString();
+    Object musicIdObj = song.get("id");
+    if (musicIdObj == null) {
+      showToast("歌曲信息不完整");
+      playNext();
+      return null;
+    }
+
+    String musicId = musicIdObj.toString();
 
     LyricDownloadUtils.downloadQQMusicLyric(musicId, lyricFilePath, "utf-8");
 
@@ -237,7 +279,14 @@ public class PlayerService extends Service {
   }
 
   private String getMusicUrlKuwo(Map<String, Object> song) throws JSONException, IOException {
-    String musicId = song.get("id").toString();
+    Object musicIdObj = song.get("id");
+    if (musicIdObj == null) {
+      showToast("歌曲信息不完整");
+      playNext();
+      return null;
+    }
+
+    String musicId = musicIdObj.toString();
 
     LyricDownloadUtils.downloadKuwoLyric(musicId, lyricFilePath, "utf-8");
     lyricDisplayMode = 1;
@@ -295,7 +344,10 @@ public class PlayerService extends Service {
       int currentIndex = GlobalData.currentIndex;
       int playMode = GlobalData.playMode;
 
-      if (playMode == 1) {
+      // Play mode 0: Sequential play, move to next
+      // Play mode 1: Single repeat, should NOT be called from here
+      // Play mode 2: List repeat, wrap around to first song
+      if (playMode == 2) {
         currentIndex = (currentIndex + 1) % playList.size();
       } else {
         currentIndex++;
@@ -597,28 +649,46 @@ public class PlayerService extends Service {
     public void run() {
       try {
         int currentIndex = GlobalData.currentIndex;
+        Map<String, Object> currentSong = GlobalData.playList.get(currentIndex);
 
         if (PLATFORM_KUGOU.equals(platform)) {
-          String fileHash = Objects.requireNonNull(
-              GlobalData.playList.get(currentIndex).get("filehash")).toString();
-          String id = fileHash.substring(0, fileHash.indexOf("低高"));
-          ImageDownloadUtils.downloadKugouCover(id, service.coverImagePath);
+          Object fileHashObj = currentSong.get("filehash");
+          if (fileHashObj != null) {
+            String fileHash = fileHashObj.toString();
+            int separatorIndex = fileHash.indexOf("低高");
+            if (separatorIndex > 0) {
+              String id = fileHash.substring(0, separatorIndex);
+              ImageDownloadUtils.downloadKugouCover(id, service.coverImagePath);
+            }
+          }
 
         } else if (PLATFORM_NETEASE.equals(platform)) {
-          String id = GlobalData.playList.get(currentIndex).get("id").toString();
-          ImageDownloadUtils.downloadNeteaseCloudCover(id, service.coverImagePath);
+          Object idObj = currentSong.get("id");
+          if (idObj != null) {
+            String id = idObj.toString();
+            ImageDownloadUtils.downloadNeteaseCloudCover(id, service.coverImagePath);
+          }
 
         } else if (PLATFORM_MIGU.equals(platform)) {
-          String imgUrl = GlobalData.playList.get(currentIndex).get("imgurl").toString();
-          ImageDownloadUtils.downloadImageToFile(imgUrl, service.coverImagePath);
+          Object imgUrlObj = currentSong.get("imgurl");
+          if (imgUrlObj != null) {
+            String imgUrl = imgUrlObj.toString();
+            ImageDownloadUtils.downloadImageToFile(imgUrl, service.coverImagePath);
+          }
 
         } else if (PLATFORM_QQ.equals(platform)) {
-          String albumId = GlobalData.playList.get(currentIndex).get("albumid").toString();
-          ImageDownloadUtils.downloadQQMusicCover(albumId, service.coverImagePath);
+          Object albumIdObj = currentSong.get("albumid");
+          if (albumIdObj != null) {
+            String albumId = albumIdObj.toString();
+            ImageDownloadUtils.downloadQQMusicCover(albumId, service.coverImagePath);
+          }
 
         } else if (PLATFORM_KUWO.equals(platform)) {
-          String id = GlobalData.playList.get(currentIndex).get("id").toString();
-          ImageDownloadUtils.downloadKuwoCover(id, service.coverImagePath);
+          Object idObj = currentSong.get("id");
+          if (idObj != null) {
+            String id = idObj.toString();
+            ImageDownloadUtils.downloadKuwoCover(id, service.coverImagePath);
+          }
         }
 
         Intent intent = new Intent();
@@ -753,10 +823,16 @@ public class PlayerService extends Service {
     public void onCompletion(MediaPlayer mp) {
       try {
         int playMode = GlobalData.playMode;
-        if (playMode == 0 || playMode == 1) {
+        // Play mode 0: Sequential play - go to next song
+        // Play mode 1: Single repeat - replay current song
+        // Play mode 2: List repeat - replay from beginning
+        // Play mode 3: Random play - play random song
+        if (playMode == 0) {
           service.playNext();
+        } else if (playMode == 1) {
+          service.startPlayMusic();  // Replay current song
         } else if (playMode == 2) {
-          service.startPlayMusic();
+          service.playNext();  // Will wrap around to first song
         } else if (playMode == 3) {
           service.playRandom();
         }

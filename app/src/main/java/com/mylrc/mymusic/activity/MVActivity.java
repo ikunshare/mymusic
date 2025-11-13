@@ -5,36 +5,68 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
 import com.mylrc.mymusic.R;
 
-/* loaded from: classes.dex */
+/**
+ * Activity for playing music videos (MV).
+ * Displays video in full screen landscape mode.
+ */
 public class MVActivity extends Activity {
 
-  VideoView videoView;
+  private static final String TAG = "MVActivity";
+  private VideoView videoView;
 
-  private void playVideo(String str) throws IllegalStateException {
-    this.videoView.setMediaController(new MediaController(this));
-    this.videoView.setVideoPath(Uri.parse(str).toString());
-    this.videoView.start();
-    this.videoView.requestFocus();
-    // Pause music if playing
-    MediaPlayer mediaPlayer = MainActivity.mediaPlayer;
-    if (mediaPlayer == null || !mediaPlayer.isPlaying()) {
-      return;
+  private void playVideo(String videoUrl) {
+    try {
+      if (videoUrl == null || videoUrl.isEmpty()) {
+        Log.e(TAG, "Video URL is null or empty");
+        finish();
+        return;
+      }
+
+      videoView.setMediaController(new MediaController(this));
+      videoView.setVideoPath(Uri.parse(videoUrl).toString());
+      videoView.start();
+      videoView.requestFocus();
+
+      // Pause background music if playing
+      pauseBackgroundMusic();
+
+    } catch (IllegalStateException e) {
+      Log.e(TAG, "Error playing video: " + e.getMessage());
+      finish();
     }
-    MainActivity.mediaPlayer.pause();
   }
 
-  @Override // android.app.Activity
-  protected void onCreate(Bundle bundle) throws IllegalStateException {
-    super.onCreate(bundle);
-    getWindow().setFlags(1024, 1024);
+  private void pauseBackgroundMusic() {
+    try {
+      MediaPlayer mediaPlayer = MainActivity.mediaPlayer;
+      if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+        mediaPlayer.pause();
+      }
+    } catch (IllegalStateException e) {
+      Log.e(TAG, "Error pausing background music: " + e.getMessage());
+    }
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Set full screen and landscape mode
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     getWindow().setFormat(-3);
+
     setContentView(R.layout.ts);
-    this.videoView = findViewById(R.id.tsVideoView);
-    playVideo(getIntent().getStringExtra("url"));
+    videoView = findViewById(R.id.tsVideoView);
+
+    String videoUrl = getIntent().getStringExtra("url");
+    playVideo(videoUrl);
   }
 }

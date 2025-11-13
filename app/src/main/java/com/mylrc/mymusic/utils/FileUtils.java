@@ -31,78 +31,61 @@ import org.jaudiotagger.tag.reference.PictureTypes;
 
 public class FileUtils {
 
-  public static String getMD5(String str) {
-    byte[] bArr = new byte[1024];
+  public static String getMD5(String filePath) {
+    byte[] buffer = new byte[1024];
     try {
-      try (FileInputStream fileInputStream = new FileInputStream(str)) {
+      try (FileInputStream inputStream = new FileInputStream(filePath)) {
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         while (true) {
-          int i2 = fileInputStream.read(bArr);
-          if (i2 <= 0) {
-            fileInputStream.close();
+          int bytesRead = inputStream.read(buffer);
+          if (bytesRead <= 0) {
+            inputStream.close();
             return bytesToHex(messageDigest.digest());
           }
-          messageDigest.update(bArr, 0, i2);
+          messageDigest.update(buffer, 0, bytesRead);
         }
       }
-    } catch (Exception e2) {
-      Log.e("FileUtils", "getMD5 failed: " + e2.getMessage());
+    } catch (Exception e) {
+      Log.e("FileUtils", "getMD5 failed: " + e.getMessage());
       return FrameBodyCOMM.DEFAULT;
     }
   }
 
-  public static boolean copyFile(String str, String str2) throws IOException {
-    FileInputStream fileInputStream = null;
-    FileOutputStream fileOutputStream = null;
+  public static boolean copyFile(String sourcePath, String destinationPath) throws IOException {
     try {
-      File file = new File(str);
-      if (!file.exists()) {
-        Log.e("--Method--", "copyFile:  oldFile not exist.");
+      File sourceFile = new File(sourcePath);
+      if (!sourceFile.exists()) {
+        Log.e("FileUtils", "copyFile: source file does not exist.");
         return false;
       }
-      if (!file.isFile()) {
-        Log.e("--Method--", "copyFile:  oldFile not file.");
+      if (!sourceFile.isFile()) {
+        Log.e("FileUtils", "copyFile: source is not a file.");
         return false;
       }
-      if (!file.canRead()) {
-        Log.e("--Method--", "copyFile:  oldFile cannot read.");
+      if (!sourceFile.canRead()) {
+        Log.e("FileUtils", "copyFile: source file cannot be read.");
         return false;
       }
-      fileInputStream = new FileInputStream(str);
-      fileOutputStream = new FileOutputStream(str2);
-      byte[] bArr = new byte[1024];
-      while (true) {
-        int i2 = fileInputStream.read(bArr);
-        if (-1 == i2) {
-          fileOutputStream.flush();
-          return true;
+
+      try (FileInputStream inputStream = new FileInputStream(sourcePath);
+          FileOutputStream outputStream = new FileOutputStream(destinationPath)) {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+          outputStream.write(buffer, 0, bytesRead);
         }
-        fileOutputStream.write(bArr, 0, i2);
+        outputStream.flush();
+        return true;
       }
-    } catch (Exception e2) {
-      Log.e("FileUtils", "copyFile failed: " + e2.getMessage());
-      e2.printStackTrace();
+    } catch (Exception e) {
+      Log.e("FileUtils", "copyFile failed: " + e.getMessage());
+      e.printStackTrace();
       return false;
-    } finally {
-      if (fileInputStream != null) {
-        try {
-          fileInputStream.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-      if (fileOutputStream != null) {
-        try {
-          fileOutputStream.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
     }
   }
 
-  public static boolean deleteFile(String str) {
-    File file = new File(str);
+  public static boolean deleteFile(String filePath) {
+    File file = new File(filePath);
     if (file.exists()) {
       return file.delete();
     }
@@ -121,144 +104,126 @@ public class FileUtils {
     return null;
   }
 
-  public static void createDirectory(String str) {
-    File file = new File(str);
-    if (!file.exists()) {
-      file.mkdirs();
+  public static void createDirectory(String directoryPath) {
+    File directory = new File(directoryPath);
+    if (!directory.exists()) {
+      directory.mkdirs();
     }
   }
 
-  public static String readFileUTF8(String str) throws IOException {
-    try (FileInputStream fileInputStream = new FileInputStream(
-        str); BufferedReader bufferedReader = new BufferedReader(
-        new InputStreamReader(fileInputStream, StandardCharsets.UTF_8))) {
-      StringBuilder sb = new StringBuilder();
+  public static String readFileUTF8(String filePath) throws IOException {
+    try (FileInputStream inputStream = new FileInputStream(filePath);
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+      StringBuilder content = new StringBuilder();
       String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        sb.append(line);
-        sb.append("\n");
+      while ((line = reader.readLine()) != null) {
+        content.append(line);
+        content.append("\n");
       }
-      return sb.toString();
-    } catch (Exception e2) {
-      Log.e("FileUtils", "readFileUTF8 failed: " + e2.getMessage());
+      return content.toString();
+    } catch (Exception e) {
+      Log.e("FileUtils", "readFileUTF8 failed: " + e.getMessage());
       return FrameBodyCOMM.DEFAULT;
     }
   }
 
-  public static String readFileWithEncoding(String str) {
-    FileInputStream fileInputStream = null;
-    BufferedReader bufferedReader = null;
+  public static String readFileWithEncoding(String filePath) {
     try {
-      fileInputStream = new FileInputStream(str);
+      // Determine encoding based on user preferences
+      String encoding = StandardCharsets.UTF_8.name();
       if (APPApplication.sharedPreferences != null) {
-        bufferedReader = new BufferedReader(
-            APPApplication.sharedPreferences.getInt("type", 0) == 0 ? new InputStreamReader(
-                fileInputStream, StandardCharsets.UTF_8)
-                : new InputStreamReader(fileInputStream, "GBK"));
-      } else {
-        bufferedReader = new BufferedReader(
-            new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
+        int encodingType = APPApplication.sharedPreferences.getInt("type", 0);
+        encoding = (encodingType == 0) ? StandardCharsets.UTF_8.name() : "GBK";
       }
-      StringBuilder sb = new StringBuilder();
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        sb.append(line);
-        sb.append("\n");
+
+      try (FileInputStream inputStream = new FileInputStream(filePath);
+          BufferedReader reader = new BufferedReader(
+              new InputStreamReader(inputStream, encoding))) {
+        StringBuilder content = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+          content.append(line);
+          content.append("\n");
+        }
+        return content.toString();
       }
-      return sb.toString();
-    } catch (Exception e2) {
-      Log.e("FileUtils", "readFileWithEncoding failed: " + e2.getMessage());
+    } catch (Exception e) {
+      Log.e("FileUtils", "readFileWithEncoding failed: " + e.getMessage());
       return FrameBodyCOMM.DEFAULT;
-    } finally {
-      if (bufferedReader != null) {
-        try {
-          bufferedReader.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-      if (fileInputStream != null) {
-        try {
-          fileInputStream.close();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
     }
   }
 
-  public static void writeFile(String str, String str2, String str3) throws IOException {
-    try (BufferedWriter bufferedWriter = new BufferedWriter(
-        new OutputStreamWriter(new FileOutputStream(str2), str3))) {
-      bufferedWriter.write(str);
-      bufferedWriter.flush();
-    } catch (IOException e2) {
-      Log.e("FileUtils", "writeFile failed: " + e2.getMessage());
-      throw e2;
+  public static void writeFile(String content, String filePath, String encoding) throws IOException {
+    try (BufferedWriter writer = new BufferedWriter(
+        new OutputStreamWriter(new FileOutputStream(filePath), encoding))) {
+      writer.write(content);
+      writer.flush();
+    } catch (IOException e) {
+      Log.e("FileUtils", "writeFile failed: " + e.getMessage());
+      throw e;
     }
   }
 
-  public static String bytesToHex(byte[] bArr) {
-    char[] cArr = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-    StringBuilder sb = new StringBuilder(bArr.length * 2);
-    for (byte b : bArr) {
-      sb.append(cArr[(b & 240) >>> 4]);
-      sb.append(cArr[b & 15]);
+  public static String bytesToHex(byte[] bytes) {
+    char[] hexChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    StringBuilder hexString = new StringBuilder(bytes.length * 2);
+    for (byte b : bytes) {
+      hexString.append(hexChars[(b & 0xF0) >>> 4]);
+      hexString.append(hexChars[b & 0x0F]);
     }
-    return sb.toString();
+    return hexString.toString();
   }
 
   public static void writeId3Tags(String filePath, String title, String artist, String album,
-      String coverPath,
-      String lyrics) {
-    AudioFileWriter flacFileWriter;
+      String coverPath, String lyricsPath) {
+    AudioFileWriter fileWriter;
     AudioFile audioFile;
     try {
-      if (!filePath.endsWith(".mp3")) {
-        if (filePath.endsWith(".flac")) {
-          AudioFile audioFile2 = new FlacFileReader().read(new File(filePath));
-          FlacTag flacTag = (FlacTag) audioFile2.getTag();
-          flacTag.setField(FieldKey.TITLE, title);
-          flacTag.setField(FieldKey.ARTIST, artist);
-          flacTag.setField(FieldKey.ALBUM, album);
-          if (lyrics != null) {
-            flacTag.setField(FieldKey.LYRICS, readFileWithEncoding(lyrics));
-          }
-          if (coverPath != null) {
-            try (RandomAccessFile randomAccessFile = new RandomAccessFile(new File(coverPath),
-                "r")) {
-              byte[] bArr = new byte[(int) randomAccessFile.length()];
-              randomAccessFile.read(bArr);
-              flacTag.setField(flacTag.createArtworkField(bArr, PictureTypes.DEFAULT_ID,
-                  ImageFormats.MIME_TYPE_JPEG, FrameBodyCOMM.DEFAULT, 800, 800, 0, 0));
-            }
-          }
-          flacFileWriter = new FlacFileWriter();
-          audioFile = audioFile2;
-          flacFileWriter.write(audioFile);
-
-          Log.d("FileUtils",
-              "writeId3 to " + filePath + "Success" + "\n" + "name" + title + "cover" + coverPath);
+      if (filePath.endsWith(".mp3")) {
+        // Handle MP3 files
+        audioFile = new MP3FileReader().read(new File(filePath));
+        audioFile.setTag(audioFile.createDefaultTag());
+        Tag tag = audioFile.getTag();
+        tag.setField(FieldKey.TITLE, title);
+        tag.setField(FieldKey.ARTIST, artist);
+        tag.setField(FieldKey.ALBUM, album);
+        if (lyricsPath != null) {
+          tag.setField(FieldKey.LYRICS, readFileWithEncoding(lyricsPath));
         }
-        return;
+        if (coverPath != null) {
+          tag.setField(ArtworkFactory.createArtworkFromFile(new File(coverPath)));
+        }
+        fileWriter = new MP3FileWriter();
+        fileWriter.write(audioFile);
+
+      } else if (filePath.endsWith(".flac")) {
+        // Handle FLAC files
+        audioFile = new FlacFileReader().read(new File(filePath));
+        FlacTag flacTag = (FlacTag) audioFile.getTag();
+        flacTag.setField(FieldKey.TITLE, title);
+        flacTag.setField(FieldKey.ARTIST, artist);
+        flacTag.setField(FieldKey.ALBUM, album);
+        if (lyricsPath != null) {
+          flacTag.setField(FieldKey.LYRICS, readFileWithEncoding(lyricsPath));
+        }
+        if (coverPath != null) {
+          try (RandomAccessFile coverFile = new RandomAccessFile(new File(coverPath), "r")) {
+            byte[] coverImageData = new byte[(int) coverFile.length()];
+            coverFile.read(coverImageData);
+            flacTag.setField(flacTag.createArtworkField(coverImageData, PictureTypes.DEFAULT_ID,
+                ImageFormats.MIME_TYPE_JPEG, FrameBodyCOMM.DEFAULT, 800, 800, 0, 0));
+          }
+        }
+        fileWriter = new FlacFileWriter();
+        fileWriter.write(audioFile);
+
+        Log.d("FileUtils",
+            "writeId3 to " + filePath + " Success\nname: " + title + " cover: " + coverPath);
       }
-      audioFile = new MP3FileReader().read(new File(filePath));
-      audioFile.setTag(audioFile.createDefaultTag());
-      Tag tag = audioFile.getTag();
-      tag.setField(FieldKey.TITLE, title);
-      tag.setField(FieldKey.ARTIST, artist);
-      tag.setField(FieldKey.ALBUM, album);
-      if (lyrics != null) {
-        tag.setField(FieldKey.LYRICS, readFileWithEncoding(lyrics));
-      }
-      if (coverPath != null) {
-        tag.setField(ArtworkFactory.createArtworkFromFile(new File(coverPath)));
-      }
-      flacFileWriter = new MP3FileWriter();
-      flacFileWriter.write(audioFile);
-    } catch (Exception e2) {
-      Log.e("FileUtils", "writeId3Tags failed: " + e2.getMessage());
-      Log.getStackTraceString(e2);
+    } catch (Exception e) {
+      Log.e("FileUtils", "writeId3Tags failed: " + e.getMessage());
+      Log.getStackTraceString(e);
     }
   }
 }
