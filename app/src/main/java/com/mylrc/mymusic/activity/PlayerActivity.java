@@ -185,7 +185,6 @@ public class PlayerActivity extends Activity {
     setupListeners();
     registerBroadcastReceiver();
 
-    // Get MediaPlayer instance from PlayerService
     this.mediaPlayer = PlayerService.mediaPlayer;
 
     loadAlbumArt();
@@ -262,7 +261,6 @@ public class PlayerActivity extends Activity {
   }
 
   private void initUIAndListeners() {
-    // Re-setup seekbar and play/pause listeners (as per original smali)
     seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener());
     playPauseButton.setOnClickListener(new PlayPauseButtonListener());
 
@@ -799,7 +797,6 @@ public class PlayerActivity extends Activity {
 
       switch (action) {
         case ACTION_UPDATE_VIEW:
-          // Update MediaPlayer reference (PlayerService may recreate it)
           mediaPlayer = PlayerService.mediaPlayer;
           initUIAndListeners();
           break;

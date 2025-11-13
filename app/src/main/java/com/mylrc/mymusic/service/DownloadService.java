@@ -357,11 +357,6 @@ public class DownloadService extends Service {
 
     @Override
     public void run() {
-      try {
-        Thread.sleep(1000L);
-      } catch (InterruptedException ignored) {
-      }
-
       for (int i = 0; i < service.downloadTaskList.size(); i++) {
         service.remainingCount = service.downloadTaskList.size() - i;
 

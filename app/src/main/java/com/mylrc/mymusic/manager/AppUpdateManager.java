@@ -358,11 +358,6 @@ public class AppUpdateManager {
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
-        try {
-          Thread.sleep(100L);
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
 
         String calculatedMd5 = FileUtils.getMD5(this.localFilePath);
         if (!this.manager.fileMd5.equals(FrameBodyCOMM.DEFAULT) &&

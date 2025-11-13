@@ -409,12 +409,6 @@ public class SongListActivity extends Activity {
         } else {
           this.activity.startService(serviceIntent);
         }
-
-        try {
-          Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
       }
 
       Message finishMsg = new Message();

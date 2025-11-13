@@ -248,10 +248,6 @@ public class DownloadHistoryActivity extends Activity {
     @Override // java.lang.Thread, java.lang.Runnable
     public void run() {
       this.activity.showProgressDialogMessage();
-      try {
-        Thread.sleep(500L);
-      } catch (InterruptedException ignored) {
-      }
       SQLiteDatabase writableDatabase = new SongDatabaseHelper(this.activity).getWritableDatabase();
       writableDatabase.beginTransaction();
       Cursor cursorQuery = writableDatabase.query("song_list", null, null, null, null, null,

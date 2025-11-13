@@ -344,12 +344,6 @@ public class CloudDiskActivity extends Activity {
     @Override
     public void run() {
       try {
-        Thread.sleep(100);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-
-      try {
         JSONObject request = new JSONObject();
         request.put("page", page);
         request.put("pageSize", "20");
@@ -401,12 +395,6 @@ public class CloudDiskActivity extends Activity {
 
     @Override
     public void run() {
-      try {
-        Thread.sleep(100);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-
       try {
         musicList = new ArrayList<>();
         long timestamp = System.currentTimeMillis();
@@ -460,12 +448,6 @@ public class CloudDiskActivity extends Activity {
     @Override
     public void run() {
       showLoadingDialog();
-
-      try {
-        Thread.sleep(200);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
 
       try {
         String hash = musicList.get(position).get("hash").toString();

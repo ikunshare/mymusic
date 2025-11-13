@@ -372,10 +372,6 @@ public class QQPlayListActivity extends Activity {
       this.activity.showLoadingDialog();
       String userId = this.activity.sharedPreferences.getString("qquin", FrameBodyCOMM.DEFAULT);
       this.activity.loadUserPlaylists(userId);
-      try {
-        Thread.sleep(50L);
-      } catch (InterruptedException ignored) {
-      }
       this.activity.dismissLoadingDialog();
     }
   }

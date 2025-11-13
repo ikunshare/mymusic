@@ -549,7 +549,7 @@ public class WYYPlayListActivity extends Activity {
 
       @Override
       public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
+        View view = LayoutInflater.from(WYYPlayListActivity.this).inflate(R.layout.listitem, null);
         TextView countText = view.findViewById(R.id.listitemTextView2);
         try {
           String numStr = WYYPlayListActivity.playlistData.get(position).get("num").toString();

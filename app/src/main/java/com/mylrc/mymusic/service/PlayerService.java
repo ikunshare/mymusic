@@ -492,19 +492,15 @@ public class PlayerService extends Service {
           createPendingIntent(3));
 
       Notification.Builder builder = null;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        builder = new Notification.Builder(this)
-            .setSmallIcon(R.drawable.ic_music)
-            .setCustomContentView(remoteViews)
-            .setOngoing(true);
-      }
+      builder = new Notification.Builder(this)
+          .setSmallIcon(R.drawable.ic_music)
+          .setCustomContentView(remoteViews)
+          .setOngoing(true);
 
-      if (Build.VERSION.SDK_INT >= 26) {
-        notificationManager.createNotificationChannel(
-            new NotificationChannel("channel_8", "后台播放服务",
-                NotificationManager.IMPORTANCE_LOW));
-        builder.setChannelId("channel_8");
-      }
+      notificationManager.createNotificationChannel(
+          new NotificationChannel("channel_8", "后台播放服务",
+              NotificationManager.IMPORTANCE_LOW));
+      builder.setChannelId("channel_8");
 
       startForeground(1, builder.build());
 
