@@ -46,6 +46,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -315,7 +316,7 @@ public class MainActivity extends Activity {
     }
   }
 
-  public void searchEditText() {
+  public void dismissLoadDialog() {
     Dialog dialog = this.loadingDialog;
     if (dialog == null || !dialog.isShowing()) {
       return;
@@ -327,7 +328,7 @@ public class MainActivity extends Activity {
       String songName, String artistName, String additionalParam) {
     if (!downloadUrl.startsWith(HTTP_PREFIX)) {
       this.dialogMessage = downloadUrl;
-      o0(ERROR_CODE);
+      sendMessage(ERROR_CODE);
       return;
     }
 
@@ -366,7 +367,7 @@ public class MainActivity extends Activity {
         deleteFileIfExists(lrcFilePath);
         this.isDownloading = false;
         this.isDownloadCancelled = false;
-        o0(ERROR_CODE);
+        sendMessage(ERROR_CODE);
         return;
       }
 
@@ -393,7 +394,7 @@ public class MainActivity extends Activity {
           r0();
         }
 
-        o0(COMPLETE_CODE);
+        sendMessage(COMPLETE_CODE);
 
         if (!this.isDownloading) {
           deleteFileIfExists(musicFilePath);
@@ -422,15 +423,15 @@ public class MainActivity extends Activity {
 
   private String sanitizeFileName(String fileName) {
     return fileName
-        .replace(":", "\uff1a")
-        .replace("?", "\uff1f")
-        .replace("|", "\uff5c")
-        .replace("*", "\uff0a")
-        .replace("\\", "\uff3c")
-        .replace("/", "\uff0f")
-        .replace("\"", "\uff02")
-        .replace("<", "\u3008")
-        .replace(">", "\u3009");
+        .replace(":", "：")
+        .replace("?", "？")
+        .replace("|", "｜")
+        .replace("*", "＊")
+        .replace("\\", "＼")
+        .replace("/", "／")
+        .replace("\"", "＂")
+        .replace("<", "〈")
+        .replace(">", "〉");
   }
 
   private void processCover(String downloadUrl, String musicFilePath, String songName,
@@ -495,7 +496,7 @@ public class MainActivity extends Activity {
     showMessage("下载过程出现错误!" + e.toString());
     deleteFileIfExists(musicPath);
     deleteFileIfExists(lrcPath);
-    o0(COMPLETE_CODE);
+    sendMessage(COMPLETE_CODE);
   }
 
   private void deleteFileIfExists(String filePath) {
@@ -1036,9 +1037,9 @@ public class MainActivity extends Activity {
     }
   }
 
-  public void o0(int i2) {
+  public void sendMessage(int msg) {
     Message message = new Message();
-    message.what = i2;
+    message.what = msg;
     this.mainHandler.sendMessage(message);
   }
 
@@ -1278,11 +1279,11 @@ public class MainActivity extends Activity {
     return resources;
   }
 
-  public void l0(String str) {
+  public void saveSearchHistory(String str) {
     new HistoryManager(getApplicationContext()).saveHistory(str);
   }
 
-  public void m0() {
+  public void sendSearchStart() {
     this.isSearchEnabled = true;
     this.isSearchCancelled = false;
     new Thread(new h0(this)).start();
@@ -1317,7 +1318,7 @@ public class MainActivity extends Activity {
   protected void onDestroy() {
     super.onDestroy();
     stopService(new Intent(getApplicationContext(), mediaPlayer.getClass()));
-    searchEditText();
+    dismissLoadDialog();
     PopupWindow popupWindow = this.suggestionPopup;
     if (popupWindow != null && popupWindow.isShowing()) {
       this.suggestionPopup.dismiss();
@@ -1330,35 +1331,27 @@ public class MainActivity extends Activity {
   }
 
   @Override
-  public boolean onKeyDown(int i2, KeyEvent keyEvent) {
-    if (i2 == 4) {
-      if (!isSearchEnabled && loadingDialog != null && loadingDialog.isShowing()) {
-        isSearchCancelled = true;
-        searchEditText();
-        showMessage("搜索已取消");
-        return true;
-      }
-
-      DrawerLayout drawerLayout = this.leftMenuLayout;
-      if (drawerLayout == null || drawerLayout.isDrawerOpen(GravityCompat.START)) {
-        DrawerLayout drawerLayout2 = this.leftMenuLayout;
-        if (drawerLayout2 != null) {
-          drawerLayout2.open();
-        }
-      } else {
-        long jCurrentTimeMillis = System.currentTimeMillis();
-        if (jCurrentTimeMillis - aLong <= 2000) {
-          stopService(new Intent(getApplicationContext(), mediaPlayer.getClass()));
-          finish();
-          Process.killProcess(Process.myPid());
-        } else {
-          showMessage("再按一次退出程序");
-          aLong = jCurrentTimeMillis;
-        }
-      }
-      return true;
+  public void onBackPressed() {
+    if (!isSearchEnabled && loadingDialog != null && loadingDialog.isShowing()) {
+      isSearchCancelled = true;
+      dismissLoadDialog();
+      showMessage("搜索已取消");
     }
-    return super.onKeyDown(i2, keyEvent);
+
+    DrawerLayout drawerLayout = this.leftMenuLayout;
+    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+      drawerLayout.close();
+    } else {
+      long jCurrentTimeMillis = System.currentTimeMillis();
+      if (jCurrentTimeMillis - aLong <= 2000) {
+        stopService(new Intent(getApplicationContext(), mediaPlayer.getClass()));
+        finish();
+        Process.killProcess(Process.myPid());
+      } else {
+        showMessage("再按一次退出程序");
+        aLong = jCurrentTimeMillis;
+      }
+    }
   }
 
   @Override
@@ -1435,10 +1428,6 @@ public class MainActivity extends Activity {
     }
   }
 
-  public void z0() {
-    o0(2);
-  }
-
   static class p0 {
 
     static final int[] f2299a;
@@ -1503,8 +1492,8 @@ public class MainActivity extends Activity {
       }
       MainActivity music = this.f2295b;
       music.searchEditText.setText(music.searchText);
-      this.f2295b.z0();
-      this.f2295b.m0();
+      music.sendMessage(2);
+      this.f2295b.sendSearchStart();
     }
   }
 
@@ -1691,7 +1680,7 @@ public class MainActivity extends Activity {
             MainActivity music = this.f2224a.mainActivity;
             music.searchSuggestions.add(music.searchSuggestionMap);
           }
-          this.f2224a.mainActivity.o0(7);
+          this.f2224a.mainActivity.sendMessage(7);
         } catch (Exception ignored) {
         }
       }
@@ -1908,7 +1897,7 @@ public class MainActivity extends Activity {
       } else {
         mainActivity.startService(intent);
       }
-      mainActivity.o0(19);
+      mainActivity.sendMessage(19);
     }
 
     private void handleDownloadOperation() {
@@ -1919,11 +1908,7 @@ public class MainActivity extends Activity {
         return;
       }
 
-      mainActivity.z0();
-      try {
-        Thread.sleep(50L);
-      } catch (InterruptedException ignored) {
-      }
+      mainActivity.sendMessage(2);
 
       MusicPlatform platform = mainActivity.currentMusicPlatform;
       String musicUrl = null;
@@ -2006,7 +1991,7 @@ public class MainActivity extends Activity {
       }
 
       if (hash != null) {
-        mainActivity.searchEditText();
+        mainActivity.dismissLoadDialog();
         String url = mainActivity.musicUrlHelper.getMusicUrl("kugou", hash, this.f2236c);
         if (url != null && !url.isEmpty()) {
           mainActivity.coverImageId = hash;
@@ -2028,7 +2013,7 @@ public class MainActivity extends Activity {
       String quality = this.f2236c;
       String extension = (quality.equals("sq") || quality.equals("hr")) ? ".flac" : ".mp3";
 
-      mainActivity.searchEditText();
+      mainActivity.dismissLoadDialog();
       String url = mainActivity.musicUrlHelper.getMusicUrl("wyy", songId, quality);
 
       if (url != null && !url.isEmpty() && !url.equals("null")) {
@@ -2051,7 +2036,7 @@ public class MainActivity extends Activity {
       String quality = this.f2236c;
       String extension = (quality.equals("sq") || quality.equals("hr")) ? ".flac" : ".mp3";
 
-      mainActivity.searchEditText();
+      mainActivity.dismissLoadDialog();
       String url = mainActivity.musicUrlHelper.getMusicUrl("migu", songId, quality);
 
       if (url != null && !url.isEmpty()) {
@@ -2073,7 +2058,7 @@ public class MainActivity extends Activity {
       String quality = this.f2236c;
       String extension = (quality.equals("sq") || quality.equals("hr")) ? ".flac" : ".mp3";
 
-      mainActivity.searchEditText();
+      mainActivity.dismissLoadDialog();
       String url = mainActivity.musicUrlHelper.getMusicUrl("kuwo", songId, quality);
 
       if (url != null && !url.isEmpty()) {
@@ -2096,7 +2081,7 @@ public class MainActivity extends Activity {
       String quality = this.f2236c;
       String extension = (quality.equals("sq") || quality.equals("hr")) ? ".flac" : ".mp3";
 
-      mainActivity.searchEditText();
+      mainActivity.dismissLoadDialog();
       String url = mainActivity.musicUrlHelper.getMusicUrl("qq", songId, quality);
 
       if (url != null && !url.isEmpty()) {
@@ -2244,19 +2229,20 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onEditorAction(TextView textView, int i2, KeyEvent keyEvent) {
-      if (i2 != 3) {
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+      if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+        if (this.mainActivity.suggestionPopup != null) {
+          this.mainActivity.suggestionPopup.dismiss();
+        }
+        mainActivity.searchText = mainActivity.searchEditText.getText().toString();
+        if (this.mainActivity.searchText.isEmpty()) {
+          return false;
+        }
+        this.mainActivity.saveSearchHistory(mainActivity.searchText);
+        this.mainActivity.sendMessage(2);
+        this.mainActivity.sendSearchStart();
         return false;
       }
-      if (this.mainActivity.suggestionPopup != null) {
-        this.mainActivity.suggestionPopup.dismiss();
-      }
-      mainActivity.searchText = mainActivity.searchEditText.getText().toString();
-      if (this.mainActivity.searchText.isEmpty()) {
-        return false;
-      }
-      this.mainActivity.z0();
-      this.mainActivity.m0();
       return false;
     }
   }
@@ -2274,14 +2260,10 @@ public class MainActivity extends Activity {
       int i2 = 0;
       MusicPlatform pVar;
       String str;
-      try {
-        Thread.sleep(10L);
-        i2 = p0.f2299a[this.mainActivity.currentSearchEngine.ordinal()];
-      } catch (Exception e2) {
-      }
+      i2 = p0.f2299a[this.mainActivity.currentSearchEngine.ordinal()];
 
       if (this.mainActivity.isSearchCancelled) {
-        this.mainActivity.searchEditText();
+        this.mainActivity.dismissLoadDialog();
         return;
       }
 
@@ -2294,7 +2276,7 @@ public class MainActivity extends Activity {
         }
 
         if (this.mainActivity.isSearchCancelled) {
-          this.mainActivity.searchEditText();
+          this.mainActivity.dismissLoadDialog();
           return;
         }
 
@@ -2312,15 +2294,15 @@ public class MainActivity extends Activity {
           }
 
           if (this.mainActivity.isSearchCancelled) {
-            this.mainActivity.searchEditText();
+            this.mainActivity.dismissLoadDialog();
             return;
           }
 
           Message message = new Message();
           message.what = 0;
           this.mainActivity.mainHandler.sendMessage(message);
-          this.mainActivity.searchEditText();
-          this.mainActivity.o0(12);
+          this.mainActivity.dismissLoadDialog();
+          this.mainActivity.sendMessage(12);
           return;
         }
         try {
@@ -2331,7 +2313,7 @@ public class MainActivity extends Activity {
         }
 
         if (this.mainActivity.isSearchCancelled) {
-          this.mainActivity.searchEditText();
+          this.mainActivity.dismissLoadDialog();
           return;
         }
 
@@ -2346,15 +2328,15 @@ public class MainActivity extends Activity {
       }
 
       if (this.mainActivity.isSearchCancelled) {
-        this.mainActivity.searchEditText();
+        this.mainActivity.dismissLoadDialog();
         return;
       }
 
       Message message2 = new Message();
       message2.what = 0;
       this.mainActivity.mainHandler.sendMessage(message2);
-      this.mainActivity.searchEditText();
-      this.mainActivity.o0(12);
+      this.mainActivity.dismissLoadDialog();
+      this.mainActivity.sendMessage(12);
     }
   }
 
@@ -2405,56 +2387,50 @@ public class MainActivity extends Activity {
 
   public static class y0 implements OnClickListener {
 
-    final MainActivity f2334a;
+    final MainActivity mainActivity;
 
     public y0(MainActivity music) {
-      this.f2334a = music;
+      this.mainActivity = music;
     }
 
     @Override
     public void onClick(View view) {
-      MainActivity music;
       int viewId = view.getId();
       if (viewId == R.id.eImageView1) {
-        this.f2334a.startActivity(
-            new Intent(this.f2334a.getApplicationContext(), PlayerActivity.class));
+        this.mainActivity.startActivity(
+            new Intent(this.mainActivity.getApplicationContext(), PlayerActivity.class));
       } else if (viewId == R.id.eImageView3) {
-        this.f2334a.noselectsongsDialog();
+        this.mainActivity.noselectsongsDialog();
       } else if (viewId == R.id.eImageView4) {
-        music = this.f2334a;
-        if (!music.isLeftMultiSelectMode && !music.isRightMultiSelectMode) {
-          music.switchyqListener();
+        if (!mainActivity.isLeftMultiSelectMode && !mainActivity.isRightMultiSelectMode) {
+          mainActivity.switchyqListener();
         } else {
-          music.showMessage("请先再次长按列表取消多选状态再试");
+          mainActivity.showMessage("请先再次长按列表取消多选状态再试");
         }
       } else if (viewId == R.id.eImageView5) {
-        this.f2334a.leftMenuLayout.openDrawer(Gravity.LEFT);
+        this.mainActivity.leftMenuLayout.openDrawer(Gravity.LEFT);
       } else if (viewId == R.id.eImageView6) {
-        this.f2334a.n0();
+        this.mainActivity.n0();
       } else if (viewId == R.id.eLinearLayout1) {
-        this.f2334a.searchEditText.setText(FrameBodyCOMM.DEFAULT);
+        this.mainActivity.searchEditText.setText(FrameBodyCOMM.DEFAULT);
       } else if (viewId == R.id.eLinearLayout2) {
-        music = this.f2334a;
-        if (!music.isLeftMultiSelectMode && !music.isRightMultiSelectMode) {
-          music.v0();
+        if (!mainActivity.isLeftMultiSelectMode && !mainActivity.isRightMultiSelectMode) {
+          mainActivity.v0();
         } else {
-          music.showMessage("请先再次长按列表取消多选状态再试");
+          mainActivity.showMessage("请先再次长按列表取消多选状态再试");
         }
       } else if (viewId == R.id.searchTextView) {
-        MainActivity mainActivity = this.f2334a;
         mainActivity.searchText = mainActivity.searchEditText.getText().toString();
-        if (!this.f2334a.searchText.equals(FrameBodyCOMM.DEFAULT)) {
-          music = this.f2334a;
-          if (!music.isLeftMultiSelectMode && !music.isRightMultiSelectMode) {
-            music.l0(music.searchText);
-            this.f2334a.z0();
-            this.f2334a.m0();
+        if (!this.mainActivity.searchText.equals(FrameBodyCOMM.DEFAULT)) {
+          if (!mainActivity.isLeftMultiSelectMode && !mainActivity.isRightMultiSelectMode) {
+            mainActivity.saveSearchHistory(mainActivity.searchText);
+            this.mainActivity.sendMessage(2);
+            this.mainActivity.sendSearchStart();
           } else {
-            music.showMessage("请先再次长按列表取消多选状态再试");
+            mainActivity.showMessage("请先再次长按列表取消多选状态再试");
           }
         }
       } else if (viewId == R.id.gklayout) {
-        MainActivity mainActivity = this.f2334a;
         if (mainActivity.noticeContent != null) {
           mainActivity.showNotice2();
         }
@@ -2723,8 +2699,8 @@ public class MainActivity extends Activity {
       music.searchText = music.searchEditText.getText().toString();
       if (!this.f2245c.searchText.equals(FrameBodyCOMM.DEFAULT)) {
         this.f2245c.searchLoadingImageView.startAnimation(this.f2243a);
-        this.f2245c.z0();
-        this.f2245c.m0();
+        this.f2245c.sendMessage(2);
+        this.f2245c.sendSearchStart();
       }
       this.f2245c.showMessage("切换引擎一");
       this.f2244b.dismiss();
@@ -3134,6 +3110,7 @@ public class MainActivity extends Activity {
 
             String keyword = this$1.mainActivity.searchSuggestions.get(position).get("key")
                 .toString();
+            this$1.mainActivity.saveSearchHistory(keyword);
             this$1.mainActivity.searchEditText.setText(keyword);
             this$1.mainActivity.searchText = keyword;
 
@@ -3148,8 +3125,8 @@ public class MainActivity extends Activity {
 
         @Override
         public void run() {
-          this$1.mainActivity.l0(mainActivity.searchText);
-          this$1.mainActivity.z0();
+          this$1.mainActivity.saveSearchHistory(mainActivity.searchText);
+          this$1.mainActivity.sendMessage(2);
         }
       }
     }
@@ -3318,8 +3295,8 @@ public class MainActivity extends Activity {
       music.searchText = music.searchEditText.getText().toString();
       if (!this.f2278c.searchText.equals(FrameBodyCOMM.DEFAULT)) {
         this.f2278c.searchLoadingImageView.startAnimation(this.f2276a);
-        this.f2278c.z0();
-        this.f2278c.m0();
+        this.f2278c.sendMessage(2);
+        this.f2278c.sendSearchStart();
       }
       this.f2278c.showMessage("切换引擎二");
       this.f2277b.dismiss();
@@ -3402,8 +3379,8 @@ public class MainActivity extends Activity {
       music.searchText = music.searchEditText.getText().toString();
       if (!this.mainActivity.searchText.equals(FrameBodyCOMM.DEFAULT)) {
         this.mainActivity.searchLoadingImageView.startAnimation(this.rotateAnimation);
-        this.mainActivity.z0();
-        this.mainActivity.m0();
+        this.mainActivity.sendMessage(2);
+        this.mainActivity.sendSearchStart();
       }
       this.mainActivity.showMessage("切换引擎三");
       this.dialog.dismiss();
@@ -3855,13 +3832,9 @@ public class MainActivity extends Activity {
     @Override
     public void run() {
       for (int i2 = this.f2321b.noticeCountdownSeconds; i2 > 0; i2--) {
-        try {
-          Thread.sleep(1000L);
           MainActivity music = this.f2321b;
           music.noticeCountdownSeconds = i2;
           music.mainHandler.post(new a(this));
-        } catch (InterruptedException e2) {
-        }
       }
       this.f2321b.isNoticeRead = true;
     }

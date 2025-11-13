@@ -294,7 +294,7 @@
                         android:layout_width="18.0dip"
                         android:layout_height="18.0dip"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/stop"
+                        android:background="@drawable/stop2"
                         android:text="Text" />
                 </RelativeLayout>
             </RelativeLayout>

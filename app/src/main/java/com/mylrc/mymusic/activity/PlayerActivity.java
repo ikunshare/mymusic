@@ -34,7 +34,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -52,7 +51,6 @@ import com.mylrc.mymusic.utils.FileUtils;
 import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -186,6 +184,9 @@ public class PlayerActivity extends Activity {
     configureUI();
     setupListeners();
     registerBroadcastReceiver();
+
+    this.mediaPlayer = PlayerService.mediaPlayer;
+
     loadAlbumArt();
     initUIAndListeners();
   }
@@ -196,10 +197,10 @@ public class PlayerActivity extends Activity {
     currentTimeTextView = findViewById(R.id.time1);
     totalTimeTextView = findViewById(R.id.time2);
     seekBar = findViewById(R.id.playerSeekBar1);
-    prevButton = findViewById(R.id.next);
+    prevButton = findViewById(R.id.up);
     backButton = findViewById(R.id.playerRelativeLayout2);
     playModeButton = findViewById(R.id.mode);
-    nextButton = findViewById(R.id.up);
+    nextButton = findViewById(R.id.next);
     playPauseButton = findViewById(R.id.playerRelativeLayout3);
     albumArtToggleLayout = findViewById(R.id.playerRelativeLayout4);
     playPauseIcon = findViewById(R.id.play);
@@ -250,21 +251,19 @@ public class PlayerActivity extends Activity {
     playPauseButton.setOnClickListener(new PlayPauseButtonListener());
   }
 
-  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void registerBroadcastReceiver() {
     musicBroadcastReceiver = new MusicBroadcastReceiver();
     IntentFilter filter = new IntentFilter();
     filter.addAction(ACTION_UPDATE_VIEW);
     filter.addAction(ACTION_UPDATE_VIEW2);
     filter.addAction(ACTION_EXIT);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      registerReceiver(musicBroadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-    } else {
-      registerReceiver(musicBroadcastReceiver, filter);
-    }
+    registerReceiver(musicBroadcastReceiver, filter);
   }
 
   private void initUIAndListeners() {
+    seekBar.setOnSeekBarChangeListener(new SeekBarChangeListener());
+    playPauseButton.setOnClickListener(new PlayPauseButtonListener());
+
     titleTextView.setText(GlobalData.currentMusicName != null ?
         GlobalData.currentMusicName : "");
     artistTextView.setText(GlobalData.currentArtist != null ?
@@ -315,7 +314,6 @@ public class PlayerActivity extends Activity {
 
   protected void sendPlayerControlBroadcast(int controlCode) {
     Intent intent = new Intent(ACTION_PLAYER_CONTROL);
-    intent.setPackage(getPackageName());
     intent.putExtra("control", controlCode);
     sendBroadcast(intent);
   }
@@ -732,17 +730,31 @@ public class PlayerActivity extends Activity {
 
     private void loadLyrics() {
       try {
+        File lrcFile = new File(lyricFilePath);
+        Log.d(TAG, "Loading lyrics from: " + lyricFilePath);
+        Log.d(TAG, "Lyrics file exists: " + lrcFile.exists());
+
+        if (!lrcFile.exists()) {
+          Log.w(TAG, "Lyrics file does not exist, skipping load");
+          lrcView.setDraggable(true, new LrcSeekListener());
+          uiHandler.post(uiUpdateRunnable);
+          return;
+        }
+
         String lrcContent = FileUtils.readFileUTF8(lyricFilePath);
+        Log.d(TAG, "Lyrics content length: " + (lrcContent != null ? lrcContent.length() : 0));
 
         if (lrcContent != null && lrcContent.contains(DUAL_LYRICS_SEPARATOR)) {
+          Log.d(TAG, "Loading dual lyrics");
           String[] parts = lrcContent.split(DUAL_LYRICS_SEPARATOR);
           if (parts.length == 2) {
             lrcView.loadLrc(parts[0], parts[1]);
           } else {
-            lrcView.loadLrc(new File(lyricFilePath));
+            lrcView.loadLrc(lrcFile);
           }
         } else {
-          lrcView.loadLrc(new File(lyricFilePath));
+          Log.d(TAG, "Loading single lyric file");
+          lrcView.loadLrc(lrcFile);
         }
 
         lrcView.setDraggable(true, new LrcSeekListener());
@@ -751,6 +763,7 @@ public class PlayerActivity extends Activity {
 
       } catch (IOException e) {
         Log.e(TAG, "Failed to load lyrics", e);
+        lrcView.setDraggable(true, new LrcSeekListener());
         uiHandler.post(uiUpdateRunnable);
       }
     }
@@ -784,6 +797,7 @@ public class PlayerActivity extends Activity {
 
       switch (action) {
         case ACTION_UPDATE_VIEW:
+          mediaPlayer = PlayerService.mediaPlayer;
           initUIAndListeners();
           break;
         case ACTION_UPDATE_VIEW2:

@@ -112,7 +112,6 @@ public class SongListActivity extends Activity {
     this.selectModeButton.setVisibility(View.INVISIBLE);
   }
 
-  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void initialize() {
     this.sharedPreferences = getSharedPreferences("pms", 0);
     this.progressDialog = new ProgressDialog(this);
@@ -129,11 +128,8 @@ public class SongListActivity extends Activity {
     this.broadcastReceiver = new ExitBroadcastReceiver(this);
     IntentFilter intentFilter = new IntentFilter();
     intentFilter.addAction("com.music.exit");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      registerReceiver(this.broadcastReceiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
-    } else {
-      registerReceiver(this.broadcastReceiver, intentFilter);
-    }
+    registerReceiver(this.broadcastReceiver, intentFilter);
+
 
     MediaPlayer mediaPlayer = PlayerService.mediaPlayer;
     if (mediaPlayer != null && mediaPlayer.isPlaying()) {
@@ -412,12 +408,6 @@ public class SongListActivity extends Activity {
           this.activity.startForegroundService(serviceIntent);
         } else {
           this.activity.startService(serviceIntent);
-        }
-
-        try {
-          Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
         }
       }
 
