@@ -1,6 +1,5 @@
 package com.mylrc.mymusic.service;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,7 +15,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -38,7 +36,6 @@ import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import org.jaudiotagger.tag.mp4.atom.Mp4NameBox;
 import org.json.JSONException;
@@ -127,15 +124,11 @@ public class PlayerService extends Service {
     }
   }
 
-  @SuppressLint("UnspecifiedRegisterReceiverFlag")
+
   private void registerReceivers() {
     IntentFilter controlFilter = new IntentFilter();
     controlFilter.addAction("com.mylrc.mymusic.ac");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      registerReceiver(new PlayControlReceiver(), controlFilter, RECEIVER_NOT_EXPORTED);
-    } else {
-      registerReceiver(new PlayControlReceiver(), controlFilter);
-    }
+    registerReceiver(new PlayControlReceiver(), controlFilter);
 
     ComponentName component = new ComponentName(getPackageName(),
         HeadsetButtonReceiver.class.getName());

@@ -71,7 +71,6 @@ dependencies {
     implementation(libs.okhttp3)
     implementation(libs.jaudiotagger)
     implementation(libs.imageloader)
-    implementation(libs.ads.mobile.sdk)
     testImplementation(libs.junit)
     debugImplementation(libs.userCertificateTrust)
     androidTestImplementation(libs.ext.junit)

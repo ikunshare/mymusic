@@ -250,18 +250,13 @@ public class PlayerActivity extends Activity {
     playPauseButton.setOnClickListener(new PlayPauseButtonListener());
   }
 
-  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void registerBroadcastReceiver() {
     musicBroadcastReceiver = new MusicBroadcastReceiver();
     IntentFilter filter = new IntentFilter();
     filter.addAction(ACTION_UPDATE_VIEW);
     filter.addAction(ACTION_UPDATE_VIEW2);
     filter.addAction(ACTION_EXIT);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      registerReceiver(musicBroadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
-    } else {
-      registerReceiver(musicBroadcastReceiver, filter);
-    }
+    registerReceiver(musicBroadcastReceiver, filter);
   }
 
   private void initUIAndListeners() {
@@ -408,7 +403,7 @@ public class PlayerActivity extends Activity {
           }
 
           if (mediaPlayer.isPlaying()) {
-            playPauseIcon.setBackgroundResource(R.drawable.stop);
+            playPauseIcon.setBackgroundResource(R.drawable.stop2);
           } else {
             playPauseIcon.setBackgroundResource(R.drawable.play);
           }
@@ -706,7 +701,7 @@ public class PlayerActivity extends Activity {
         playPauseIcon.setBackgroundResource(R.drawable.play);
         sendPlayerControlBroadcast(CONTROL_PAUSE);
       } else {
-        playPauseIcon.setBackgroundResource(R.drawable.stop);
+        playPauseIcon.setBackgroundResource(R.drawable.stop2);
         sendPlayerControlBroadcast(CONTROL_PLAY);
       }
     }
