@@ -34,7 +34,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -52,7 +51,6 @@ import com.mylrc.mymusic.utils.FileUtils;
 import com.mylrc.mymusic.utils.ToastUtils;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -403,7 +401,7 @@ public class PlayerActivity extends Activity {
           }
 
           if (mediaPlayer.isPlaying()) {
-            playPauseIcon.setBackgroundResource(R.drawable.stop2);
+            playPauseIcon.setBackgroundResource(R.drawable.stop);
           } else {
             playPauseIcon.setBackgroundResource(R.drawable.play);
           }
@@ -701,7 +699,7 @@ public class PlayerActivity extends Activity {
         playPauseIcon.setBackgroundResource(R.drawable.play);
         sendPlayerControlBroadcast(CONTROL_PAUSE);
       } else {
-        playPauseIcon.setBackgroundResource(R.drawable.stop2);
+        playPauseIcon.setBackgroundResource(R.drawable.stop);
         sendPlayerControlBroadcast(CONTROL_PLAY);
       }
     }

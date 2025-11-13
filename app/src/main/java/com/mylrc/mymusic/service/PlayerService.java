@@ -125,7 +125,6 @@ public class PlayerService extends Service {
   }
 
 
-  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void registerReceivers() {
     IntentFilter controlFilter = new IntentFilter();
     controlFilter.addAction("com.mylrc.mymusic.ac");
